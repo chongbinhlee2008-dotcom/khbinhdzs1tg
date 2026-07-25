@@ -1,0 +1,104 @@
+ <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluorite Pro</title>
+    <style>
+        body { background: #0a0a0a; color: #00ff88; font-family: monospace; display: flex; justify-content: center; padding: 20px; }
+        .box { max-width: 500px; width: 100%; background: #111; border: 2px solid #00ff88; padding: 20px; }
+        h1 { font-size: 22px; border-bottom: 1px solid #00ff88; padding-bottom: 10px; }
+        .row { display: flex; justify-content: space-between; padding: 4px 0; }
+        .sys-file { display: flex; gap: 10px; margin: 10px 0; }
+        .sys-file button { background: #222; color: #00ff88; border: 1px solid #00ff88; padding: 4px 12px; cursor: pointer; }
+        .bar { background: #222; height: 20px; margin: 8px 0; }
+        .fill { height: 100%; width: 0%; background: #00ff88; }
+        .key-area { margin: 15px 0; padding: 10px 0; border-top: 1px solid #333; border-bottom: 1px solid #333; }
+        .key-area input { background: #1a1a1a; border: 1px solid #00ff88; color: #00ff88; padding: 8px; width: 60%; }
+        .key-area button { background: #222; color: #00ff88; border: 1px solid #00ff88; padding: 8px 14px; cursor: pointer; margin: 4px; }
+        .core { margin: 15px 0; background: #0d0d0d; padding: 10px; border: 1px solid #2a2a2a; }
+        .core h3 { color: #ffaa00; }
+        .item { display: flex; gap: 10px; padding: 4px 0; }
+        .item input { accent-color: #00ff88; width: 16px; height: 16px; }
+        .msg { background: #1a2a1a; border: 1px solid #00ff88; padding: 6px; text-align: center; display: none; margin: 8px 0; }
+        .error { background: #2a1a1a; border-color: #ff4444; color: #ff4444; }
+        .footer { text-align: center; font-size: 11px; color: #444; border-top: 1px solid #222; padding-top: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h1>⚡ FLUORITE PRO v3.6 OFFLINE</h1>
+    <div class="row"><span>STATUS: <span id="status">OFFLINE</span></span> <span>SYSTEM: LOCKED</span></div>
+    <div class="row"><span>USER: Guest</span> <span>BUILD: 3.6.0</span> <span>DEVICE: Mobile</span></div>
+    <div class="sys-file"><span>SYSTEM FILE: <span id="sysfile">Chua chon</span></span> <button id="btnChon">CHON</button></div>
+    <div>System integrity: <span id="integ">0</span>%</div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="key-area">
+        <div style="margin-bottom:6px;">NHAP KEY KICH HOAT</div>
+        <input type="text" id="key" placeholder="Nhap key..." value="">
+        <button id="btnXac">XAC THUC</button>
+        <button id="btnFree">LAY KEY FREE</button>
+        <div id="msg" class="msg"></div>
+    </div>
+    <div class="core">
+        <h3>KHOI CHAY CORE</h3>
+        <div style="color:#ffaa00;">COMBAT ASSIST</div>
+        <div class="item"><input type="checkbox" id="c1" disabled> <label>Aimlock</label> <span style="color:#666;font-size:12px;">Toi uu hoa bam muc tieu</span></div>
+        <div class="item"><input type="checkbox" id="c2" disabled> <label>Aimbot lite</label> <span style="color:#666;font-size:12px;">Bam tam manh</span></div>
+        <div class="item"><input type="checkbox" id="c3" disabled> <label>Fix Vibration</label> <span style="color:#666;font-size:12px;">Giam do rung tam</span></div>
+    </div>
+    <div class="footer">[ SYSTEM LOCKED ]</div>
+</div>
+<script>
+const CORRECT = "123";
+let active = false;
+const statusEl = document.getElementById('status');
+const integEl = document.getElementById('integ');
+const fillEl = document.getElementById('fill');
+const keyInput = document.getElementById('key');
+const msgEl = document.getElementById('msg');
+const c1 = document.getElementById('c1'), c2 = document.getElementById('c2'), c3 = document.getElementById('c3');
+
+function showMsg(t, err=false) { msgEl.style.display='block'; msgEl.textContent=t; msgEl.className='msg'+(err?' error':''); }
+function hideMsg() { msgEl.style.display='none'; }
+
+function activate() {
+    active = true;
+    statusEl.textContent = 'ONLINE';
+    integEl.textContent = '100';
+    fillEl.style.width = '100%';
+    [c1,c2,c3].forEach(c => { c.disabled = false; });
+    showMsg('KICH HOAT THANH CONG!');
+    document.querySelector('.footer').textContent = '[ SYSTEM ACTIVE ]';
+}
+
+function resetSys() {
+    active = false;
+    statusEl.textContent = 'OFFLINE';
+    integEl.textContent = '0';
+    fillEl.style.width = '0%';
+    [c1,c2,c3].forEach(c => { c.checked = false; c.disabled = true; });
+    document.querySelector('.footer').textContent = '[ SYSTEM LOCKED ]';
+    hideMsg();
+}
+
+document.getElementById('btnXac').onclick = function() {
+    if (keyInput.value.trim() === CORRECT) activate();
+    else showMsg('KEY SAI!', true);
+};
+document.getElementById('btnFree').onclick = function() {
+    keyInput.value = CORRECT;
+    document.getElementById('btnXac').click();
+};
+document.getElementById('btnChon').onclick = function() {
+    const files = ['system.dat', 'core.bin', 'license.key'];
+    document.getElementById('sysfile').textContent = files[Math.floor(Math.random()*files.length)];
+};
+keyInput.onkeydown = function(e) { if (e.key === 'Enter') document.getElementById('btnXac').click(); };
+keyInput.oninput = function() {
+    if (active && this.value.trim() !== CORRECT) resetSys();
+};
+resetSys();
+</script>
+</body>
+</html>
