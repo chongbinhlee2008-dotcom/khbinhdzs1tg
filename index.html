@@ -30,7 +30,7 @@
             position: fixed;
         }
 
-        /* Hiệu ứng hạt rơi */
+        /* KIM TUYẾN LẤP LÁNH RƠT TỪ TRÊN XUỐNG */
         .sparkle {
             position: absolute;
             top: -15px;
@@ -39,13 +39,13 @@
             pointer-events: none;
             animation: fallAnimation linear infinite;
             box-shadow: 0 0 8px #ffffff, 0 0 12px #00e676;
-            z-index: 1;
+            z-index: 100;
         }
 
         @keyframes fallAnimation {
             0% { transform: translateY(-10px) translateX(0) scale(0.6); opacity: 0; }
             20% { opacity: 1; }
-            100% { transform: translateY(105vh) translateX(20px) scale(1.2); opacity: 0; }
+            100% { transform: translateY(105vh) translateX(25px) scale(1.2); opacity: 0; }
         }
 
         .phone-frame {
@@ -227,7 +227,7 @@
             display: none;
         }
 
-        /* TRANG 2: Quản lý / Chọn ứng dụng */
+        /* TRANG 2: Chọn ứng dụng */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
@@ -479,14 +479,14 @@
 <body>
 
 <script>
-    for(let i=0; i<12; i++) {
+    for(let i=0; i<18; i++) {
         let sparkle = document.createElement('div');
         sparkle.className = 'sparkle';
-        let size = Math.random() * 4 + 2;
+        let size = Math.random() * 5 + 2;
         sparkle.style.width = size + 'px';
         sparkle.style.height = size + 'px';
         sparkle.style.left = Math.random() * 100 + 'vw';
-        sparkle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        sparkle.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
         sparkle.style.animationDelay = (Math.random() * 3) + 's';
         document.body.appendChild(sparkle);
     }
@@ -647,7 +647,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         const savedKey = localStorage.getItem('pro_saved_key');
         
-        // Nếu đã có key được lưu từ trước, tự động nhảy vào trang 2 (Chọn ứng dụng) luôn
+        // Nếu đã có key thì tự động vào trang 2 (Chọn ứng dụng)
         if (savedKey && savedKey.trim() !== '') {
             document.getElementById('key-input').value = savedKey;
             switchScreen('dashboard-screen');
@@ -710,12 +710,12 @@
         document.getElementById('topbar-app-name').innerText = appName;
         document.getElementById('display-game-name').innerText = appName;
         document.getElementById('selected-game-icon').src = iconUrl;
-        // Bấm vào app sẽ chuyển sang TRANG 3 (Tiêm file)
+        // Chuyển sang TRANG 3 (Tiêm file) khi bấm chọn app ở trang 2
         switchScreen('injector-screen');
     }
 
     function goToDashboard() {
-        // Nút trở lại trang 2 (Chọn ứng dụng)
+        // Trở về trang 2 (Chọn ứng dụng)
         switchScreen('dashboard-screen');
     }
 
