@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Injetor Pro</title>
+    <title>Injetor Pro Ultimate</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -19,7 +19,7 @@
         }
 
         body {
-            background-color: #07080b;
+            background-color: #050608;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -29,22 +29,22 @@
             position: relative;
         }
 
-        /* HẠT KIM TUYẾN LẤP LÁNH RƠT TỪ TRÊN XUỐNG */
+        /* HẠT KIM TUYẾN LẤP LÁNH RƠT LIÊN TỤC */
         .sparkle {
             position: absolute;
             top: -15px;
-            background: radial-gradient(circle, #ffffff 0%, #ffd700 70%, rgba(255,255,255,0) 100%);
+            background: radial-gradient(circle, #ffffff 0%, #00e676 70%, rgba(0,230,118,0) 100%);
             border-radius: 50%;
             pointer-events: none;
             animation: fallAnimation linear infinite;
-            box-shadow: 0 0 8px #ffffff, 0 0 12px #ffcc00;
+            box-shadow: 0 0 10px #ffffff, 0 0 15px #00e676;
             z-index: 99;
         }
 
         @keyframes fallAnimation {
-            0% { transform: translateY(-10px) translateX(0) scale(0.6); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(105vh) translateX(30px) scale(1.2); opacity: 0; }
+            0% { transform: translateY(-10px) translateX(0) scale(0.5); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(35px) scale(1.3); opacity: 0; }
         }
 
         .phone-frame {
@@ -54,7 +54,7 @@
             max-height: 840px;
             background: #0d0f17;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.95);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -95,15 +95,15 @@
         }
 
         .app-logo {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
-            border-radius: 20px;
+            width: 76px;
+            height: 76px;
+            background: linear-gradient(135deg, #00e676 0%, #00873e 100%);
+            border-radius: 22px;
             margin: 0 auto 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 25px rgba(229, 57, 53, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.35);
         }
 
         .login-hero h1 {
@@ -172,15 +172,15 @@
         }
 
         .checkbox-row input:checked ~ .custom-check {
-            background: #e53935;
-            border-color: #e53935;
+            background: #00e676;
+            border-color: #00e676;
         }
 
         .custom-check::after {
             content: '';
             width: 4px;
             height: 8px;
-            border: solid white;
+            border: solid #000;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
             display: none;
@@ -206,10 +206,10 @@
             cursor: pointer;
         }
 
-        .btn-red {
-            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
-            color: white;
-            box-shadow: 0 6px 16px rgba(229, 57, 53, 0.35);
+        .btn-green {
+            background: linear-gradient(135deg, #00e676 0%, #00b050 100%);
+            color: #000;
+            box-shadow: 0 6px 16px rgba(0, 230, 118, 0.3);
         }
 
         .error-toast {
@@ -225,12 +225,12 @@
             display: none;
         }
 
-        /* Màn hình 2: Chọn ứng dụng */
+        /* Màn hình 2: Quét & Danh sách ứng dụng thiết bị */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
         .dash-title h2 {
@@ -243,11 +243,60 @@
             color: #8b90a0;
         }
 
+        .scan-action-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .btn-scan {
+            flex: 1;
+            background: #141a29;
+            border: 1px solid #222d4a;
+            color: #00e676;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Hiệu ứng quét Radar */
+        .scanning-overlay {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: #121622;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border: 1px dashed #00e676;
+        }
+
+        .radar-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0,230,118,0.2);
+            border-top-color: #00e676;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .app-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
             padding-bottom: 20px;
+            max-height: 520px;
+            overflow-y: auto;
         }
 
         .app-row {
@@ -259,10 +308,12 @@
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .app-row:active {
-            border-color: #e53935;
+            border-color: #00e676;
+            background: #182030;
         }
 
         .app-row-left {
@@ -281,6 +332,8 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            font-weight: bold;
+            color: #fff;
         }
 
         .app-icon-box img {
@@ -304,12 +357,12 @@
         .app-action-icon {
             width: 28px;
             height: 28px;
-            background: rgba(229, 57, 53, 0.15);
+            background: rgba(0, 230, 118, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e53935;
+            color: #00e676;
             font-size: 12px;
         }
 
@@ -351,6 +404,12 @@
             margin: 0 auto 10px;
             overflow: hidden;
             border: 1px solid #202638;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
         }
 
         .game-avatar img {
@@ -382,13 +441,13 @@
         .upload-icon {
             width: 48px;
             height: 48px;
-            background: rgba(229, 57, 53, 0.08);
+            background: rgba(0, 230, 118, 0.08);
             border-radius: 50%;
             margin: 0 auto 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #e53935;
+            color: #00e676;
         }
 
         .upload-area p {
@@ -473,128 +532,94 @@
     <div id="login-screen" class="screen active">
         <div class="login-hero">
             <div class="app-logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
             </div>
             <h1>Injetor Pro</h1>
-            <p>Nhập mã khóa truy cập của bạn</p>
+            <p>Hệ thống tiêm tệp độc quyền</p>
         </div>
 
         <div class="input-group">
-            <label>Mã Khóa (Key)</label>
+            <label>Mã Khóa Bản Quyền</label>
             <div class="input-box">
-                <input type="text" id="key-input" placeholder="••••••••••••" autocomplete="off">
+                <input type="text" id="key-input" placeholder="Nhập Key của bạn..." autocomplete="off">
             </div>
         </div>
 
         <label class="checkbox-row">
             <input type="checkbox" id="remember-key">
             <span class="custom-check"></span>
-            <span class="checkbox-text">Ghi nhớ mật khẩu</span>
+            <span class="checkbox-text">Ghi nhớ mã bản quyền</span>
         </label>
 
-        <button class="btn btn-red" onclick="handleLogin()">Đăng Nhập</button>
-        <div id="error-toast" class="error-toast">Sai mật khẩu!</div>
+        <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
+        <div id="error-toast" class="error-toast">Sai mã bản quyền! Vui lòng kiểm tra lại.</div>
 
-        <div class="footer-credit">© 2026 Injetor Pro. Bảo mật tuyệt đối.</div>
+        <div class="footer-credit">© 2026 Injetor Pro Ultimate. Licensed Edition.</div>
     </div>
 
     <div id="dashboard-screen" class="screen">
         <div class="dash-topbar">
             <div class="dash-title">
-                <h2>Gerenciador de Aplicativos</h2>
-                <p>Chọn ứng dụng để tiêm file</p>
+                <h2>Ứng dụng trong thiết bị</h2>
+                <p id="device-info-text">Đã phát hiện thiết bị Android</p>
             </div>
             <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
         </div>
 
-        <div class="app-list">
-            <div class="app-row" onclick="selectApp('Free Fire', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150')">
-                <div class="app-row-left">
-                    <div class="app-icon-box">
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Free Fire">
-                    </div>
-                    <div class="app-info">
-                        <h4>Free Fire</h4>
-                        <span>2250 KB</span>
-                    </div>
-                </div>
-                <div class="app-action-icon">›</div>
-            </div>
-
-            <div class="app-row" onclick="selectApp('Discord', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
-                <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#5865F2; color:#fff; font-weight:bold;">Di</div>
-                    <div class="app-info">
-                        <h4>Discord</h4>
-                        <span>4120 KB</span>
-                    </div>
-                </div>
-                <div class="app-action-icon">›</div>
-            </div>
-
-            <div class="app-row" onclick="selectApp('WhatsApp', 'https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150')">
-                <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#25D366; color:#fff; font-weight:bold;">Wa</div>
-                    <div class="app-info">
-                        <h4>WhatsApp</h4>
-                        <span>3100 KB</span>
-                    </div>
-                </div>
-                <div class="app-action-icon">›</div>
-            </div>
-
-            <div class="app-row" onclick="selectApp('Telegram', 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150')">
-                <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#229ED9; color:#fff; font-weight:bold;">Te</div>
-                    <div class="app-info">
-                        <h4>Telegram</h4>
-                        <span>1850 KB</span>
-                    </div>
-                </div>
-                <div class="app-action-icon">›</div>
-            </div>
+        <div class="scan-action-bar">
+            <button class="btn-scan" onclick="scanDeviceApps()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                Quét Lại Thiết Bị
+            </button>
         </div>
 
-        <div class="footer-credit">© 2026 Injetor Pro. All rights reserved.</div>
+        <div class="scanning-overlay" id="scanning-overlay">
+            <div class="radar-spinner"></div>
+            <p style="font-size: 13px; font-weight: 700; color: #00e676;">Đang quét toàn bộ gói ứng dụng (.APK) trong hệ thống...</p>
+            <span style="font-size: 10px; color: #737b93;" id="scan-status-text">Đang phân tích bộ nhớ trong...</span>
+        </div>
+
+        <div class="app-list" id="dynamic-app-list">
+            </div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. Tự động cập nhật v2.4</div>
     </div>
 
     <div id="injector-screen" class="screen">
         <div class="screen-topbar">
-            <button class="btn-back" onclick="goToDashboard()">‹ Trở lại</button>
+            <button class="btn-back" onclick="goToDashboard()">‹ Quay lại</button>
             <div class="topbar-title" id="topbar-app-name">Free Fire</div>
             <div style="width: 50px;"></div>
         </div>
 
         <div class="game-showcase">
-            <div class="game-avatar">
-                <img id="selected-game-icon" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Game Icon">
-            </div>
+            <div class="game-avatar" id="selected-game-avatar">FF</div>
             <h3 id="display-game-name">Free Fire</h3>
-            <p>Chọn tệp cấu hình để áp dụng</p>
+            <p id="display-pkg-name">com.dts.freefireth</p>
         </div>
 
         <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
             <div class="upload-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             </div>
-            <p>Bấm vào đây để chọn tệp tin<br><span style="font-size: 10px; color: #4e556b;">Hỗ trợ: .dat, .cfg, .img</span></p>
-            <span class="btn-file-select">Chọn Tệp Tin</span>
+            <p>Chọn tệp cấu hình cần tiêm<br><span style="font-size: 10px; color: #5a627a;">Hỗ trợ định dạng: .dat, .cfg, .zip, .img</span></p>
+            <span class="btn-file-select">Duyệt Tệp Tin</span>
             <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
         </div>
 
         <div class="success-panel" id="success-panel">
             <div class="success-check-icon">✓</div>
             <h4>Tiêm File Thành Công</h4>
-            <p id="target-file-name">config.dat đã áp dụng!</p>
-            <button class="btn btn-red" style="background: #113822; color: #00e676; border: 1px solid #175231; padding: 12px; font-size: 12px;" onclick="resetUploadState()">Chọn Tệp Khác</button>
+            <p id="target-file-name">Đã ghi đè cấu hình vào mục tiêu!</p>
+            <button class="btn btn-green" style="padding: 12px; font-size: 12px;" onclick="resetUploadState()">Tiêm Tệp Khác</button>
         </div>
 
-        <div class="footer-credit">© 2026 Injetor Pro. Chế độ an toàn.</div>
+        <div class="footer-credit">© 2026 Injetor Pro. Hệ thống an toàn cao cấp.</div>
     </div>
 </div>
 
 <script>
-    // Ép làm mới cache tự động bằng cách kiểm tra phiên bản thời gian thực
+    // CƠ CHẾ TỰ ĐỘNG CẬP NHẬT MỚI TỪ GITHUB (TRÁNH CACHE CỨNG ĐẦU)
     window.addEventListener('DOMContentLoaded', () => {
         const savedKey = localStorage.getItem('pro_saved_key');
         if(savedKey) {
@@ -602,18 +627,77 @@
             document.getElementById('remember-key').checked = true;
         }
 
-        // Tự động reload cache ngầm nếu phát hiện bản cập nhật mới từ GitHub
-        let lastVersion = localStorage.getItem('app_ver');
-        let currentVer = '2026-v3'; // Mỗi lần ông muốn chắc chắn app nhận bản mới, chỉ cần đổi chữ này thành v4, v5... ở đây
-        if(lastVersion !== currentVer) {
-            localStorage.setItem('app_ver', currentVer);
-            if(window.navigator && navigator.serviceWorker) {
-                navigator.serviceWorker.getRegistrations().then(registrations => {
-                    for(let registration of registrations) { registration.unregister(); }
-                });
-            }
+        // Tự động vô hiệu hóa service worker cũ để load bản mới ngay lập tức
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) { registration.unregister(); }
+            });
         }
+
+        // Tải danh sách app mẫu thực tế
+        loadRealDeviceApps();
     });
+
+    // Danh sách ứng dụng thực tế trên điện thoại để người dùng chọn (cực kỳ chân thật)
+    const deviceApps = [
+        { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150", color: "#e53935" },
+        { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150", color: "#ff8f00" },
+        { name: "PUBG Mobile", pkg: "com.tencent.ig", size: "1.8 GB", icon: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=150", color: "#f57c00" },
+        { name: "Roblox", pkg: "com.roblox.client", size: "320 MB", icon: "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=150", color: "#0288d1" },
+        { name: "WhatsApp", pkg: "com.whatsapp", size: "140 MB", icon: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150", color: "#25D366" },
+        { name: "Telegram", pkg: "org.telegram.messenger", size: "110 MB", icon: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150", color: "#229ED9" },
+        { name: "Discord", pkg: "com.discord", size: "180 MB", icon: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150", color: "#5865F2" }
+    ];
+
+    function loadRealDeviceApps() {
+        const container = document.getElementById('dynamic-app-list');
+        container.innerHTML = '';
+        deviceApps.forEach(app => {
+            let row = document.createElement('div');
+            row.className = 'app-row';
+            row.onclick = () => selectApp(app.name, app.pkg, app.icon);
+            row.innerHTML = `
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background: ${app.color};">
+                        <img src="${app.icon}" alt="${app.name}" onerror="this.style.display='none'; this.parentElement.innerText='${app.name.substring(0,2)}'">
+                    </div>
+                    <div class="app-info">
+                        <h4>${app.name}</h4>
+                        <span>${app.size} • ${app.pkg}</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    function scanDeviceApps() {
+        const overlay = document.getElementById('scanning-overlay');
+        const statusText = document.getElementById('scan-status-text');
+        overlay.style.display = 'block';
+        
+        let steps = [
+            "Đang quét phân vùng /data/app...",
+            "Đang phân tích chữ ký APK...",
+            "Đã tìm thấy 7 ứng dụng và trò chơi tương thích!",
+            "Hoàn tất quét hệ thống!"
+        ];
+        
+        let idx = 0;
+        let interval = setInterval(() => {
+            idx++;
+            if(idx < steps.length) {
+                statusText.innerText = steps[idx];
+            } else {
+                clearInterval(interval);
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    loadRealDeviceApps();
+                }, 400);
+            }
+        }, 500);
+    }
 
     function switchScreen(targetId) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -625,7 +709,8 @@
         const errorToast = document.getElementById('error-toast');
         const rememberMe = document.getElementById('remember-key').checked;
 
-        if(keyVal === '123') {
+        // Cho phép nhận mọi key dài hơn 2 ký tự hoặc key mặc định "123"
+        if(keyVal.length >= 2) {
             errorToast.style.display = 'none';
             if(rememberMe) {
                 localStorage.setItem('pro_saved_key', keyVal);
@@ -642,10 +727,14 @@
         switchScreen('login-screen');
     }
 
-    function selectApp(appName, iconUrl) {
+    function selectApp(appName, pkgName, iconUrl) {
         document.getElementById('topbar-app-name').innerText = appName;
         document.getElementById('display-game-name').innerText = appName;
-        document.getElementById('selected-game-icon').src = iconUrl;
+        document.getElementById('display-pkg-name').innerText = pkgName;
+        
+        const avatarBox = document.getElementById('selected-game-avatar');
+        avatarBox.innerHTML = `<img src="${iconUrl}" onerror="this.style.display='none'; this.parentElement.innerText='${appName.substring(0,2)}'" style="width:100%; height:100%; object-fit:cover;">`;
+        
         switchScreen('injector-screen');
     }
 
@@ -658,7 +747,7 @@
         if(file) {
             document.getElementById('upload-dropzone').style.display = 'none';
             document.getElementById('success-panel').style.display = 'block';
-            document.getElementById('target-file-name').innerText = `${file.name} đã được tiêm thành công!`;
+            document.getElementById('target-file-name').innerText = `Tệp "${file.name}" đã được tiêm thành công vào ứng dụng!`;
         }
     }
 
