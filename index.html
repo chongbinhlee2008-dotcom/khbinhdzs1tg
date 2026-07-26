@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Injetor Pro</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -26,7 +29,7 @@
             position: relative;
         }
 
-        /* Hiệu ứng hạt kim tuyến rơi */
+        /* 10 hạt kim tuyến rớt từ trên xuống */
         .snowflake {
             position: absolute;
             top: -10px;
@@ -34,12 +37,13 @@
             border-radius: 50%;
             pointer-events: none;
             animation: fall linear infinite;
+            z-index: 1;
         }
 
         @keyframes fall {
             0% { transform: translateY(-10px) translateX(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(102vh) translateX(20px); opacity: 0; }
+            50% { opacity: 0.9; }
+            100% { transform: translateY(102vh) translateX(15px); opacity: 0; }
         }
 
         .phone-frame {
@@ -72,11 +76,11 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 32px 24px;
+            padding: 24px 20px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(15px) scale(0.98);
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             background: #0d0f17;
             z-index: 1;
             overflow-y: auto;
@@ -89,85 +93,71 @@
             z-index: 2;
         }
 
+        /* Màn hình Đăng Nhập */
         .login-hero {
             text-align: center;
-            margin-top: 50px;
-            margin-bottom: 35px;
+            margin-top: 40px;
+            margin-bottom: 30px;
         }
 
         .app-logo {
-            width: 76px;
-            height: 76px;
+            width: 72px;
+            height: 72px;
             background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
-            border-radius: 22px;
-            margin: 0 auto 20px;
+            border-radius: 20px;
+            margin: 0 auto 16px;
             display: flex;
             justify-content: center;
             align-items: center;
             box-shadow: 0 10px 25px rgba(229, 57, 53, 0.4);
-            animation: floatLogo 3s ease-in-out infinite;
-        }
-
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
         }
 
         .login-hero h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            letter-spacing: -0.5px;
             color: #fff;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .login-hero p {
-            font-size: 13px;
+            font-size: 12px;
             color: #8b90a0;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .input-group label {
             display: block;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             color: #8b90a0;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .input-box {
-            position: relative;
             background: #141824;
             border: 1.5px solid #202638;
-            border-radius: 14px;
-            transition: all 0.3s;
-        }
-
-        .input-box:focus-within {
-            border-color: #e53935;
-            box-shadow: 0 0 0 4px rgba(229,57,53,0.15);
+            border-radius: 12px;
         }
 
         .input-box input {
             width: 100%;
             background: transparent;
             border: none;
-            padding: 16px;
+            padding: 14px;
             color: #fff;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 14px;
             outline: none;
         }
 
         .checkbox-row {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             cursor: pointer;
             user-select: none;
         }
@@ -177,16 +167,15 @@
         }
 
         .custom-check {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             background: #141824;
             border: 1.5px solid #202638;
-            border-radius: 6px;
-            margin-right: 12px;
+            border-radius: 5px;
+            margin-right: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all 0.2s;
         }
 
         .checkbox-row input:checked ~ .custom-check {
@@ -197,7 +186,7 @@
         .custom-check::after {
             content: '';
             width: 4px;
-            height: 9px;
+            height: 8px;
             border: solid white;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
@@ -210,177 +199,167 @@
 
         .checkbox-text {
             font-size: 13px;
-            font-weight: 500;
             color: #b0b5c5;
+            font-weight: 500;
         }
 
         .btn {
             width: 100%;
-            padding: 16px;
-            border-radius: 14px;
+            padding: 15px;
+            border-radius: 12px;
             border: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-red {
             background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
             color: white;
-            box-shadow: 0 8px 20px rgba(229, 57, 53, 0.35);
-        }
-
-        .btn-red:active {
-            transform: scale(0.97);
-            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.2);
+            box-shadow: 0 6px 16px rgba(229, 57, 53, 0.35);
         }
 
         .error-toast {
             background: rgba(229, 57, 53, 0.1);
             border: 1px solid rgba(229, 57, 53, 0.3);
             color: #ff5252;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            margin-top: 16px;
-            display: none;
-        }
-
-        /* Màn hình 2: Chọn ứng dụng */
-        .dash-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .user-greeting h2 {
-            font-size: 22px;
-            font-weight: 800;
-            color: #fff;
-        }
-
-        .user-greeting p {
-            font-size: 12px;
-            color: #8b90a0;
-            margin-top: 2px;
-        }
-
-        .btn-logout {
-            background: #191e2e;
-            color: #ff5252;
-            border: 1px solid #282f45;
-            padding: 8px 14px;
+            padding: 10px;
             border-radius: 10px;
             font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
+            text-align: center;
+            margin-top: 14px;
+            display: none;
         }
 
-        .section-title {
-            font-size: 13px;
-            font-weight: 700;
+        /* Màn hình 2: Danh sách ứng dụng giống video */
+        .dash-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .dash-title h2 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .dash-title p {
+            font-size: 11px;
             color: #8b90a0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 14px;
         }
 
-        .app-item-card {
-            background: linear-gradient(145deg, #131722 0%, #0f121a 100%);
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 20px;
+        }
+
+        .app-row {
+            background: #131722;
             border: 1px solid #1f2638;
-            border-radius: 16px;
-            padding: 16px;
+            border-radius: 14px;
+            padding: 12px 14px;
             display: flex;
             align-items: center;
-            gap: 16px;
+            justify-content: space-between;
             cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 12px;
+            transition: 0.2s;
         }
 
-        .app-item-card:hover {
+        .app-row:hover {
             border-color: #e53935;
-            transform: translateY(-2px);
         }
 
-        .app-item-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            object-fit: cover;
+        .app-row-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .app-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            overflow: hidden;
             background: #1c2336;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            color: #e53935;
-            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .app-item-icon img {
+        .app-icon-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .app-item-info h3 {
-            font-size: 16px;
+        .app-info h4 {
+            font-size: 14px;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
-        .app-item-info p {
-            font-size: 12px;
+        .app-info span {
+            font-size: 11px;
             color: #8b90a0;
+        }
+
+        .app-action-icon {
+            width: 28px;
+            height: 28px;
+            background: rgba(229, 57, 53, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e53935;
+            font-size: 12px;
         }
 
         /* Màn hình 3: Tiêm file */
         .screen-topbar {
             display: flex;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .btn-back {
             background: #141824;
             border: 1px solid #202638;
             color: #fff;
-            padding: 10px 16px;
-            border-radius: 12px;
+            padding: 8px 14px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 600;
             font-size: 12px;
+            font-weight: 600;
         }
 
         .topbar-title {
             flex: 1;
             text-align: center;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .game-showcase {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .game-avatar {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             background: #141824;
-            border-radius: 20px;
-            margin: 0 auto 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #202638;
+            border-radius: 18px;
+            margin: 0 auto 10px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: 1px solid #202638;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .game-avatar img {
@@ -390,38 +369,31 @@
         }
 
         .game-showcase h3 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
         }
 
         .game-showcase p {
-            font-size: 12px;
+            font-size: 11px;
             color: #8b90a0;
-            margin-top: 3px;
+            margin-top: 2px;
         }
 
         .upload-area {
             border: 2px dashed #222b3f;
             background: #121622;
-            border-radius: 20px;
-            padding: 35px 20px;
+            border-radius: 16px;
+            padding: 28px 16px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .upload-area:hover {
-            border-color: #e53935;
-            background: #161b2a;
         }
 
         .upload-icon {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             background: rgba(229, 57, 53, 0.08);
             border-radius: 50%;
-            margin: 0 auto 16px;
+            margin: 0 auto 12px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -429,81 +401,75 @@
         }
 
         .upload-area p {
-            font-size: 13px;
+            font-size: 12px;
             color: #8b90a0;
-            margin-bottom: 18px;
-            line-height: 1.5;
+            margin-bottom: 14px;
+            line-height: 1.4;
         }
 
         .btn-file-select {
             background: #1c2336;
             color: #fff;
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
             border: 1px solid #2d3752;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             display: inline-block;
-        }
-
-        .hidden-input {
-            display: none;
         }
 
         .success-panel {
             display: none;
             background: linear-gradient(145deg, #0d261a 0%, #081a11 100%);
             border: 1px solid #17422b;
-            border-radius: 20px;
-            padding: 30px 20px;
+            border-radius: 16px;
+            padding: 24px 16px;
             text-align: center;
         }
 
         .success-check-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: #133824;
             border-radius: 50%;
-            margin: 0 auto 16px;
+            margin: 0 auto 12px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #00e676;
-            font-size: 26px;
-            box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+            font-size: 22px;
         }
 
         .success-panel h4 {
             color: #00e676;
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .success-panel p {
             color: #7fa893;
-            font-size: 12px;
-            margin-bottom: 20px;
+            font-size: 11px;
+            margin-bottom: 16px;
             word-break: break-all;
         }
 
         .footer-credit {
             margin-top: auto;
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             color: #43495e;
-            padding-top: 15px;
+            padding-top: 10px;
         }
     </style>
 </head>
 <body>
 
-<!-- Tạo 10 hạt kim tuyến rơi -->
 <script>
     for(let i=0; i<10; i++) {
         let flake = document.createElement('div');
         flake.className = 'snowflake';
-        let size = Math.random() * 4 + 2;
+        let size = Math.random() * 3 + 2;
         flake.style.width = size + 'px';
         flake.style.height = size + 'px';
         flake.style.left = Math.random() * 100 + 'vw';
@@ -514,11 +480,10 @@
 </script>
 
 <div class="phone-frame">
-    <!-- MÀN HÌNH 1: ĐĂNG NHẬP -->
     <div id="login-screen" class="screen active">
         <div class="login-hero">
             <div class="app-logo">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
             </div>
             <h1>Injetor Pro</h1>
             <p>Nhập mã khóa truy cập của bạn</p>
@@ -543,47 +508,80 @@
         <div class="footer-credit">© 2026 Injetor Pro. Bảo mật tuyệt đối.</div>
     </div>
 
-    <!-- MÀN HÌNH 2: CHỌN ỨNG DỤNG ĐỂ TIÊM -->
     <div id="dashboard-screen" class="screen">
-        <div class="dash-header">
-            <div class="user-greeting">
-                <h2>Xin chào!</h2>
+        <div class="dash-topbar">
+            <div class="dash-title">
+                <h2>Gerenciador de Aplicativos</h2>
                 <p>Chọn ứng dụng để tiêm file</p>
             </div>
-            <button class="btn-logout" onclick="handleLogout()">Đăng Xuất</button>
+            <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
         </div>
 
-        <div class="section-title">Danh sách trò chơi</div>
+        <div class="app-list">
+            <div class="app-row" onclick="selectApp('Free Fire', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Free Fire">
+                    </div>
+                    <div class="app-info">
+                        <h4>Free Fire</h4>
+                        <span>2250 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
 
-        <!-- Chọn Free Fire -->
-        <div class="app-item-card" onclick="selectApp('Free Fire', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150')">
-            <div class="app-item-icon">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Free Fire">
+            <div class="app-row" onclick="selectApp('Discord', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#5865F2; color:#fff; font-weight:bold; font-size:14px;">Di</div>
+                    <div class="app-info">
+                        <h4>Discord</h4>
+                        <span>4120 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
             </div>
-            <div class="app-item-info">
-                <h3>Free Fire</h3>
-                <p>Tiêm file cấu hình .dat / .cfg</p>
-            </div>
-        </div>
 
-        <!-- Chọn ứng dụng khác mẫu -->
-        <div class="app-item-card" onclick="selectApp('PUBG Mobile', 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150')">
-            <div class="app-item-icon">
-                <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150" alt="PUBG">
+            <div class="app-row" onclick="selectApp('WhatsApp', 'https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#25D366; color:#fff; font-weight:bold; font-size:14px;">Wa</div>
+                    <div class="app-info">
+                        <h4>WhatsApp</h4>
+                        <span>3100 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
             </div>
-            <div class="app-item-info">
-                <h3>PUBG Mobile</h3>
-                <p>Tiêm file cấu hình .sav</p>
+
+            <div class="app-row" onclick="selectApp('Telegram', 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#229ED9; color:#fff; font-weight:bold; font-size:14px;">Te</div>
+                    <div class="app-info">
+                        <h4>Telegram</h4>
+                        <span>1850 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('YouTube', 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#FF0000; color:#fff; font-weight:bold; font-size:14px;">Yt</div>
+                    <div class="app-info">
+                        <h4>YouTube</h4>
+                        <span>5400 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
             </div>
         </div>
 
         <div class="footer-credit">© 2026 Injetor Pro. All rights reserved.</div>
     </div>
 
-    <!-- MÀN HÌNH 3: TIÊM FILE VÀO ỨNG DỤNG ĐÃ CHỌN -->
     <div id="injector-screen" class="screen">
         <div class="screen-topbar">
-            <button class="btn-back" onclick="goToDashboard()">← Quay lại</button>
+            <button class="btn-back" onclick="goToDashboard()">‹ Trở lại</button>
             <div class="topbar-title" id="topbar-app-name">Free Fire</div>
             <div style="width: 50px;"></div>
         </div>
@@ -593,23 +591,23 @@
                 <img id="selected-game-icon" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Game Icon">
             </div>
             <h3 id="display-game-name">Free Fire</h3>
-            <p>Chọn file cấu hình đã sửa đổi</p>
+            <p>Chọn tệp cấu hình để áp dụng</p>
         </div>
 
         <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
             <div class="upload-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             </div>
-            <p>Chạm để chọn file cấu hình<br><span style="font-size: 11px; color: #4e556b;">Định dạng: .dat, .cfg, .img</span></p>
-            <span class="btn-file-select">Chọn File</span>
-            <input type="file" id="real-file-input" class="hidden-input" onchange="onFileChosen(event)">
+            <p>Kéo thả tệp hoặc bấm vào đây<br><span style="font-size: 10px; color: #4e556b;">Hỗ trợ: .dat, .cfg, .img</span></p>
+            <span class="btn-file-select">Chọn Tệp Tin</span>
+            <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
         </div>
 
         <div class="success-panel" id="success-panel">
             <div class="success-check-icon">✓</div>
             <h4>Tiêm File Thành Công</h4>
-            <p id="target-file-name">config.dat đã được áp dụng!</p>
-            <button class="btn btn-red" style="background: #113822; color: #00e676; border: 1px solid #175231;" onclick="resetUploadState()">Chọn File Khác</button>
+            <p id="target-file-name">config.dat đã áp dụng!</p>
+            <button class="btn btn-red" style="background: #113822; color: #00e676; border: 1px solid #175231; padding: 12px; font-size: 12px;" onclick="resetUploadState()">Chọn Tệp Khác</button>
         </div>
 
         <div class="footer-credit">© 2026 Injetor Pro. Chế độ an toàn.</div>
@@ -666,13 +664,9 @@
     function onFileChosen(event) {
         const file = event.target.files[0];
         if(file) {
-            const dropzone = document.getElementById('upload-dropzone');
-            const successPanel = document.getElementById('success-panel');
-            const fileNameText = document.getElementById('target-file-name');
-
-            dropzone.style.display = 'none';
-            successPanel.style.display = 'block';
-            fileNameText.innerText = `${file.name} đã được tiêm thành công!`;
+            document.getElementById('upload-dropzone').style.display = 'none';
+            document.getElementById('success-panel').style.display = 'block';
+            document.getElementById('target-file-name').innerText = `${file.name} đã được tiêm vào ứng dụng thành công!`;
         }
     }
 
