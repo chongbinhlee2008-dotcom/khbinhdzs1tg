@@ -45,6 +45,22 @@
             100% { transform: translateY(105vh) translateX(20px) scale(1.2); opacity: 0; }
         }
 
+        /* HIỆU ỨNG THẬT MƯỢT: NỞ RA RỒI THU NHỎ LẠI (PULSE / ZOOM) */
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+            }
+            50% {
+                transform: scale(1.08);
+                text-shadow: 0 0 22px rgba(0, 230, 118, 0.9), 0 0 35px rgba(0, 230, 118, 0.5);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+            }
+        }
+
         .phone-frame {
             width: 100%;
             max-width: 410px;
@@ -174,13 +190,15 @@
             padding-bottom: 20px;
         }
 
+        /* Áp dụng hiệu ứng nở ra thu nhỏ lại cho chữ KHBINHDZS1TG ở màn hình đăng nhập */
         .welcome-title {
             font-size: 26px;
             font-weight: 800;
             color: #00e676;
             margin-bottom: 6px;
-            text-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
             letter-spacing: 0.5px;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+            display: inline-block;
         }
 
         .welcome-sub {
@@ -279,14 +297,14 @@
             padding-bottom: 10px;
         }
 
-        /* Đưa phần chọn app ra giữa màn hình chính */
+        /* Đưa phần chọn app ra giữa màn hình chính nhưng chừa chỗ cho tiêu đề bên trên */
         .hub-center {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding-bottom: 30px;
+            padding-bottom: 50px;
         }
 
         .folder-box-btn {
@@ -349,15 +367,17 @@
             padding: 4px 8px;
         }
 
-        /* TIÊU ĐỀ LỚN NẰM ĐÚNG VỊ TRÍ YÊU CẦU, TO VÀ ĐẸP */
+        /* TIÊU ĐỀ LỚN INJECTION FILES: ĐÃ ĐƯỢC CHỈNH XUỐNG DƯỚI VÀ CÓ HIỆU ỨNG NỞ RA THU NHỎ LẠI */
         .topbar-center-title-big {
             font-size: 25px;
             font-weight: 800;
             color: #00e676;
             text-align: center;
-            margin: 25px 0 10px 0;
-            text-shadow: 0 0 18px rgba(0, 230, 118, 0.6);
+            margin: 65px 0 5px 0; /* Đẩy xuống thấp hơn nữa sát phía trên khung chọn ứng dụng */
             letter-spacing: 0.8px;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+            display: inline-block;
+            width: 100%;
         }
 
         .topbar-center-title {
@@ -519,6 +539,7 @@
     <!-- TRANG 1: NHẬP KEY -->
     <div id="screen-1" class="screen">
         <div class="login-container">
+            <!-- Đã có hiệu ứng nở ra thu nhỏ lại cho KHBINHDZS1TG -->
             <h1 class="welcome-title">KHBINHDZS1TG</h1>
             <p class="welcome-sub">Digite sua chave de acesso para continuar</p>
 
@@ -546,7 +567,7 @@
                 <div style="width: 40px;"></div>
             </div>
             
-            <!-- TIÊU ĐỀ LỚN INJECTION FILES ĐÃ ĐƯỢC CHỈNH XUỐNG VÀ TO HƠN -->
+            <!-- ĐÃ ĐƯA XUỐNG DƯỚI HƠN VÀ THÊM HIỆU ỨNG NỞ RA THU NHỎ LẠI CHO INJECTION FILES -->
             <div class="topbar-center-title-big">INJECTION FILES</div>
 
             <div class="hub-center">
