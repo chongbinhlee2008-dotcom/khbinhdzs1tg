@@ -422,7 +422,7 @@
     </div>
 
     <!-- TRANG 1: NHẬP KEY -->
-    <div id="screen-1" class="screen active">
+    <div id="screen-1" class="screen">
         <div class="login-container">
             <h1 class="welcome-title">Migul Pro V2</h1>
             <p class="welcome-sub">Digite sua chave de acesso para continuar</p>
@@ -465,7 +465,7 @@
         <div class="footer-text" style="text-align:center;">© 2026 Migul Pro V2</div>
     </div>
 
-    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG (SỬ DỤNG FILE ff.jpg VÀ ffmax.jpg) -->
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
     <div id="screen-3" class="screen">
         <div class="topbar-nav" style="margin-top: 5px;">
             <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
@@ -541,6 +541,17 @@
 </div>
 
 <script>
+    // Kiểm tra xem đã lưu key trước đó chưa khi vừa mở web
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedKey = localStorage.getItem('migul_saved_key');
+        if (savedKey === "123") {
+            setAppStatus('online');
+            goToScreen(2); // Đã có key -> Đẩy thẳng vào Trang Chủ
+        } else {
+            goToScreen(1); // Chưa có key -> Hiện trang nhập key
+        }
+    });
+
     function goToScreen(screenNum) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('screen-' + screenNum).classList.add('active');
@@ -565,6 +576,7 @@
 
         if (keyInput === "123") {
             errorBox.style.display = 'none';
+            localStorage.setItem('migul_saved_key', keyInput); // Lưu key vào máy
             setAppStatus('online');
             goToScreen(2);
         } else {
@@ -573,6 +585,7 @@
     }
 
     function handleLogout() {
+        localStorage.removeItem('migul_saved_key'); // Xóa key đã lưu khi đăng xuất
         document.getElementById('key-input').value = '';
         setAppStatus('offline');
         goToScreen(1);
