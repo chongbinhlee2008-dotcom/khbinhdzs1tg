@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Migul Pro V2</title>
+    <title>KHBINHDZS1TG Pro V2</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -177,8 +177,10 @@
         .welcome-title {
             font-size: 26px;
             font-weight: 800;
-            color: #ffffff;
+            color: #00e676;
             margin-bottom: 6px;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
+            letter-spacing: 0.5px;
         }
 
         .welcome-sub {
@@ -347,6 +349,17 @@
             padding: 4px 8px;
         }
 
+        /* TIÊU ĐỀ LỚN GIỐNG HÌNH THỨ HAI (INJECTION FILES) */
+        .topbar-center-title-big {
+            font-size: 22px;
+            font-weight: 800;
+            color: #00e676;
+            text-align: center;
+            margin: 6px 0 14px 0;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
+            letter-spacing: 0.5px;
+        }
+
         .topbar-center-title {
             font-size: 13px;
             font-weight: 700;
@@ -408,7 +421,7 @@
             font-size: 11px;
         }
 
-        /* TRANG 4: TIÊM FILE - ĐƯA RA GIỮA MÀN HÌNH */
+        /* TRANG 4: TIÊM FILE */
         .inject-screen-layout {
             flex: 1;
             display: flex;
@@ -506,7 +519,7 @@
     <!-- TRANG 1: NHẬP KEY -->
     <div id="screen-1" class="screen">
         <div class="login-container">
-            <h1 class="welcome-title">Migul Pro V2</h1>
+            <h1 class="welcome-title">KHBINHDZS1TG PRO V2</h1>
             <p class="welcome-sub">Digite sua chave de acesso para continuar</p>
 
             <div class="card-box">
@@ -522,7 +535,7 @@
                 <div id="error-box" class="error-msg">Sai Key! Vui lòng kiểm tra lại.</div>
             </div>
         </div>
-        <div class="footer-text">Migul Pro V2 © 2026 - Developed by DongAnVip</div>
+        <div class="footer-text">KHBINHDZS1TG Pro V2 © 2026</div>
     </div>
 
     <!-- TRANG 2: TRANG CHỦ -->
@@ -530,9 +543,11 @@
         <div class="screen-content-wrapper">
             <div class="topbar-nav">
                 <div style="width: 40px;"></div>
-                <div class="topbar-center-title">Trang Chủ Migul Pro</div>
                 <div style="width: 40px;"></div>
             </div>
+            
+            <!-- TIÊU ĐỀ LỚN INJECTION FILES -->
+            <div class="topbar-center-title-big">INJECTION FILES</div>
 
             <div class="hub-center">
                 <div class="folder-box-btn" onclick="goToScreen(3)">
@@ -550,7 +565,7 @@
                 ĐĂNG XUẤT TÀI KHOẢN
             </button>
         </div>
-        <div class="footer-text">Migul Pro V2 © 2026 - Developed by DongAnVip</div>
+        <div class="footer-text">KHBINHDZS1TG Pro V2 © 2026</div>
     </div>
 
     <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
@@ -597,7 +612,7 @@
                 ĐĂNG XUẤT TÀI KHOẢN
             </button>
         </div>
-        <div class="footer-text">Migul Pro V2 © 2026 - Developed by DongAnVip</div>
+        <div class="footer-text">KHBINHDZS1TG Pro V2 © 2026</div>
     </div>
 
     <!-- TRANG 4: TIÊM FILE -->
@@ -637,7 +652,7 @@
                 ĐĂNG XUẤT TÀI KHOẢN
             </button>
         </div>
-        <div class="footer-text">Migul Pro V2 © 2026 - Developed by DongAnVip</div>
+        <div class="footer-text">KHBINHDZS1TG Pro V2 © 2026</div>
     </div>
 
 </div>
@@ -646,7 +661,7 @@
     let noticeTimer = null;
 
     window.addEventListener('DOMContentLoaded', () => {
-        const savedKey = localStorage.getItem('migul_saved_key');
+        const savedKey = localStorage.getItem('khbinh_saved_key');
         if (savedKey === "123") {
             setAppStatus('online');
             goToScreen(2);
@@ -692,7 +707,7 @@
 
         if (keyInput === "123") {
             errorBox.style.display = 'none';
-            localStorage.setItem('migul_saved_key', keyInput);
+            localStorage.setItem('khbinh_saved_key', keyInput);
             setAppStatus('online');
             goToScreen(2);
             triggerAnimatedNotice("Đăng nhập thành công!", "login-color");
@@ -702,7 +717,7 @@
     }
 
     function handleLogout() {
-        localStorage.removeItem('migul_saved_key');
+        localStorage.removeItem('khbinh_saved_key');
         document.getElementById('key-input').value = '';
         setAppStatus('offline');
         goToScreen(1);
