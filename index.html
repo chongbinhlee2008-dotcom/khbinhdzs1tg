@@ -19,7 +19,6 @@
             user-select: none;
         }
 
-        /* Khóa scroll body để chống kéo trang gây văng app */
         body {
             background-color: #050608;
             color: #ffffff;
@@ -238,7 +237,7 @@
             display: none;
         }
 
-        /* Màn hình Menu chính (Sau khi nhập Key xong) */
+        /* Màn hình Menu chính */
         .menu-hero {
             text-align: center;
             margin: 40px 0 30px;
@@ -601,6 +600,11 @@
 <body>
 
 <script>
+    // Chống lỗi điều hướng đường dẫn gây ra lỗi 404
+    if (window.location.search.includes('error') || window.location.pathname.length > 1) {
+        window.history.replaceState({}, document.title, window.location.origin + window.location.pathname.split('/')[0]);
+    }
+
     for(let i=0; i<15; i++) {
         let sparkle = document.createElement('div');
         sparkle.className = 'sparkle';
@@ -646,7 +650,7 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH 2: MENU CHÍNH (GIỐNG VIDEO TIKTOK) -->
+    <!-- MÀN HÌNH 2: MENU CHÍNH -->
     <div id="main-menu-screen" class="screen">
         <div class="inner-scroll">
             <div style="display: flex; justify-content: flex-end; padding-top: 5px;">
@@ -678,7 +682,7 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH 3: DANH SÁCH ỨNG DỤNG -->
+    <!-- MÀN HÌNH 3: DANH SÁCH ỨNG DỤNG (CHỈ CÓ FF VÀ FF MAX) -->
     <div id="dashboard-screen" class="screen">
         <div style="display: flex; flex-direction: column; height: 100%;">
             <div class="dash-topbar">
@@ -754,19 +758,10 @@
 <script>
     const VALID_KEY = "PRO2026"; // Mã key chính thức
 
+    // Chỉ giữ lại Free Fire và Free Fire MAX theo yêu cầu
     const deviceApps = [
         { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://play-lh.googleusercontent.com/CH38cT5w88_6jQ6q6bW1w5c1e1_3Z6zQv9m1x2y3z4_5A=w240-h480-rw", color: "#e53935" },
-        { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://play-lh.googleusercontent.com/9lS8o3A8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff8f00" },
-        { name: "PUBG Mobile", pkg: "com.tencent.ig", size: "1.8 GB", icon: "https://play-lh.googleusercontent.com/JR0qa3_8b6u6l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#f57c00" },
-        { name: "Roblox", pkg: "com.roblox.client", size: "320 MB", icon: "https://play-lh.googleusercontent.com/Wp2uU0k1s5g5l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#0288d1" },
-        { name: "TikTok", pkg: "com.zhiliaoapp.musically", size: "290 MB", icon: "https://play-lh.googleusercontent.com/BmPyuBCuMrcKjzeL1L5fL1_8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#000000" },
-        { name: "YouTube", pkg: "com.google.android.youtube", size: "180 MB", icon: "https://play-lh.googleusercontent.com/lMoItBgdwaVAHMG1N3jSq7uK71l1l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff0000" },
-        { name: "WhatsApp", pkg: "com.whatsapp", size: "140 MB", icon: "https://play-lh.googleusercontent.com/b_So_T13W0a0_4x3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#25D366" },
-        { name: "Telegram", pkg: "org.telegram.messenger", size: "110 MB", icon: "https://play-lh.googleusercontent.com/ZUu3V3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#229ED9" },
-        { name: "Discord", pkg: "com.discord", size: "180 MB", icon: "https://play-lh.googleusercontent.com/s6_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#5865F2" },
-        { name: "Instagram", pkg: "com.instagram.android", size: "210 MB", icon: "https://play-lh.googleusercontent.com/VRMWkE5p3C_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#E1306C" },
-        { name: "Call of Duty: Mobile", pkg: "com.activision.callofduty.shooter", size: "2.1 GB", icon: "https://play-lh.googleusercontent.com/3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#388e3c" },
-        { name: "Brawl Stars", pkg: "com.supercell.brawlstars", size: "450 MB", icon: "https://play-lh.googleusercontent.com/3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#fbc02d" }
+        { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://play-lh.googleusercontent.com/9lS8o3A8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff8f00" }
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -780,9 +775,9 @@
 
         const savedKey = localStorage.getItem('migul_saved_key');
         if(savedKey === VALID_KEY) {
-            switchScreen('main-menu-screen'); // Đã kích hoạt -> Vào menu chính trực tiếp
+            switchScreen('main-menu-screen');
         } else {
-            switchScreen('login-screen'); // Chưa có key -> Hiện màn hình nhập key
+            switchScreen('login-screen');
         }
     });
 
@@ -831,7 +826,6 @@
                 setTimeout(() => {
                     overlay.style.display = 'none';
                     loadRealDeviceApps();
-                    // Đưa cuộn về đầu danh sách, tuyệt đối không văng màn hình
                     document.getElementById('dash-scroll-container').scrollTop = 0;
                 }, 400);
             }
