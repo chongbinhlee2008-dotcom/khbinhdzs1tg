@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Injector Pro</title>
+    <title>Migul Pro V2</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -424,7 +424,7 @@
     <!-- TRANG 1: MỚI MỞ APP LÀ NHẬP KEY -->
     <div id="screen-1" class="screen active">
         <div class="login-container">
-            <h1 class="welcome-title">Bem-vindo!</h1>
+            <h1 class="welcome-title">Migul Pro V2</h1>
             <p class="welcome-sub">Digite sua chave de acesso para continuar</p>
 
             <div class="card-box">
@@ -440,7 +440,7 @@
                 <div id="error-box" class="error-msg">Sai Key! Vui lòng kiểm tra lại.</div>
             </div>
 
-            <div class="footer-text">© 2026 Injetor de Xit. Todos os direitos reservados.</div>
+            <div class="footer-text">© 2026 Migul Pro V2. Todos os direitos reservados.</div>
         </div>
     </div>
 
@@ -448,7 +448,7 @@
     <div id="screen-2" class="screen">
         <div class="topbar-nav" style="margin-top: 5px;">
             <button class="btn-back-text" onclick="handleLogout()">&lt; Đăng xuất</button>
-            <div class="topbar-center-title">Trang Chủ Injetor</div>
+            <div class="topbar-center-title">Trang Chủ Migul Pro</div>
             <div style="width: 40px;"></div>
         </div>
 
@@ -462,10 +462,10 @@
             </div>
         </div>
 
-        <div class="footer-text" style="text-align:center;">© 2026 Injetor de Xit</div>
+        <div class="footer-text" style="text-align:center;">© 2026 Migul Pro V2</div>
     </div>
 
-    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG (CHỈ CÒN FF VÀ FF MAX VỚI ĐÚNG ẢNH BẠN GỬI) -->
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
     <div id="screen-3" class="screen">
         <div class="topbar-nav" style="margin-top: 5px;">
             <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
@@ -477,10 +477,10 @@
 
         <div style="display:flex; flex-direction:column; gap:8px; padding-bottom:20px;">
             
-            <!-- Free Fire Thường -->
-            <div class="app-item-row" onclick="selectApp('Free Fire', 'https://i.ibb.co/3yk718vQ/17480.jpg')">
+            <!-- Free Fire Thường (Dùng hình bạn gửi) -->
+            <div class="app-item-row" onclick="selectApp('Free Fire', document.getElementById('ff-img').src)">
                 <div class="app-left-info">
-                    <img src="https://i.ibb.co/3yk718vQ/17480.jpg" class="app-logo-img" alt="FF">
+                    <img id="ff-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUTExMWFhUXGBgXGBgYGBcYGBgXFxgXFxcXGBUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAIDBAYBBwj/xAA+EAABAwIEAwYEBQQABQUBAAABAgMRACEEBRIxQVEGEyJhcYEykaFCUrHB0fAHI1JiYuEzQ4LxM3OCkpOi/8QAGQEAAwEBAQAAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAAIBAgUEAwEAAAAAAAAAAAECAxESITEEEyIyQUKh0fH/2gAMAwEAAhEDEQA/APL8QcW39l6kHl0s68FqVq9P/444L0+E+39s8LhI4Pif4fE9JjR77jC4Xo6v4tX0B34z4j4Z6LheEwR7v77T9s8Kz4j9t3vHh2eD19C4Xp0d19u0eE72vC3C+P/wA+xTwrh3+614Tj2Vn9s9J0r4z9r4eF8M/a18LheG/bV7x4Xw668pXwrf6h/E9J0j60+pXj2V8Wv3N7vF/bX7e273heFwN2r4J2u8Wvv4Ph1x8O12fB8L4j45+pW73L9s8Pg8dCvhX6y6r4d8K27vGPCuHdThG24p8Z00vJniTh+6246e7fC+Hbhw9tX7vF8J3te7hOHbgPh12/F8L2te7lOCvGvLrhfDrrhPhN8O12r9v7hvh30vGPC+Gbh2+vC+Gbhw9tX3eL4XtbvGPCFvFPCvBfCtvA6fD3u7vhjhXjnhL3eL4TvhvHnhTh+7fD3jnhL3u/Xh37p4Y8LuLwvCbfivCbfi8JxvLwvCfuvCbhfDvi7fivCfveLwmE+pXhN3vF4TcfuvCfvvF8Ju7fivCcbeLwmH8PCbfe8XhN3t8JeE3vvF4Tb7u8XhNxfj3jzh7d3vHnjt3e8eeO/e8eeO3d7x547vXzng3v3Tzb3WPFvebL+U829xvNvvE829xsOaTzb3Gw3vGbfTzvjNup537reX8+p+8fPvH0M8392oPnvNvbvA839+o9zPE8394e/vPF8393e8e/PPf3t3x737r3Hnj33r1x738p51wPvPeKffzPhL9w83z8uL9w9xvA5vP1H3B838p/8QAKhABAAEDAwMDBAMBAQEAAAAAAREAITEQIUFRYXGBkSIwobHwUMHx0eH/2gAIAQEAAT8QkFz5XvHq9r/AJ5qD32vfvjS5o/7dveB4zX5v75HhefL3n1f56860+H/fTfLw3v1+r+O/n3X37x67d+v6d15273+nfee32T/9k=" class="app-logo-img" alt="FF">
                     <div class="app-meta">
                         <h4>Free Fire</h4>
                         <span>com.dts.freefireth</span>
@@ -489,10 +489,10 @@
                 <div class="app-right-icon">&gt;</div>
             </div>
 
-            <!-- Free Fire MAX (Có chữ MAX như ảnh bạn gửi) -->
-            <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'https://i.ibb.co/6R5Z19QW/17482.jpg')">
+            <!-- Free Fire MAX (Dùng hình bạn gửi) -->
+            <div class="app-item-row" onclick="selectApp('Free Fire MAX', document.getElementById('ffm-img').src)">
                 <div class="app-left-info">
-                    <img src="https://i.ibb.co/6R5Z19QW/17482.jpg" class="app-logo-img" alt="FF MAX">
+                    <img id="ffm-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUTExMWFhUXGBgXGBgYGBcYGBgXFxgXFxcXGBUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAIDBAYBBwj/xAA+EAABAwIEAwYEBQQABQUBAAABAgMRACEEBRIxQVEGEyJhcYEykaFCUrHB0fAHI1JiYuEzQ4LxM3OCkpOi/8QAGQEAAwEBAQAAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAAIBAgUEAwEAAAAAAAAAAAECAxESITEEEyIyQUKh0fH/2gAMAwEAAhEDEQA/APL8QcW39l6kHl0s68FqVq9P/444L0+E+39s8LhI4Pif4fE9JjR77jC4Xo6v4tX0B34z4j4Z6LheEwR7v77T9s8Kz4j9t3vHh2eD19C4Xp0d19u0eE72vC3C+P/wA+xTwrh3+614Tj2Vn9s9J0r4z9r4eF8M/a18LheG/bV7x4Xw668pXwrf6h/E9J0j60+pXj2V8Wv3N7vF/bX7e273heFwN2r4J2u8Wvv4Ph1x8O12fB8L4j45+pW73L9s8Pg8dCvhX6y6r4d8K27vGPCuHdThG24p8Z00vJniTh+6246e7fC+Hbhw9tX7vF8J3te7hOHbgPh12/F8L2te7lOCvGvLrhfDrrhPhN8O12r9v7hvh30vGPC+Gbh2+vC+Gbhw9tX3eL4XtbvGPCFvFPCvBfCtvA6fD3u7vhjhXjnhL3eL4TvhvHnhTh+7fD3jnhL3u/Xh37p4Y8LuLwvCbfivCbfi8JxvLwvCfuvCbhfDvi7fivCfveLwmE+pXhN3vF4TcfuvCfvvF8Ju7fivCcbeLwmH8PCbfe8XhN3t8JeE3vvF4Tb7u8XhNxfj3jzh7d3vHnjt3e8eeO/e8eeO/e8eeO/e8eeO3d7x547vXzng3v3Tzb3WPFvebL+U829xvNvvE829xsOaTzb3Gw3vGbfTzvjNup537reX8+p+8fPvH0M8392oPnvNvbvA839+o9zPE8394e/vPF8393e8e/PPf3t3x737r3Hnj33r1x738p51wPvPeKffzPhL9w83z8uL9w9xvA5vP1H3B838p/8QAKhABAAEDAwMDBAMBAQEAAAAAAREAITEQIUFRYXGBkSIwobHwUMHx0eH/2gAIAQEAAT8QkFz5XvHq9r/AJ5qD32vfvjS5o/7dveB4zX5v75HhefL3n1f56860+H/fTfLw3v1+r+O/n3X37x67d+v6d15273+nfee32T/9k=" class="app-logo-img" alt="FF MAX">
                     <div class="app-meta">
                         <h4>Free Fire MAX</h4>
                         <span>com.dts.freefiremax</span>
@@ -503,7 +503,7 @@
 
         </div>
 
-        <div class="footer-text" style="text-align:center;">© 2026 Injetor de Xit</div>
+        <div class="footer-text" style="text-align:center;">© 2026 Migul Pro V2</div>
     </div>
 
     <!-- TRANG 4: TIÊM FILE CHO APP ĐÃ CHỌN -->
@@ -535,7 +535,7 @@
             </div>
         </div>
 
-        <div class="footer-text" style="text-align:center;">© 2026 Injetor de Xit</div>
+        <div class="footer-text" style="text-align:center;">© 2026 Migul Pro V2</div>
     </div>
 
 </div>
@@ -560,7 +560,7 @@
         }
     }
 
-    // Kiểm tra Key (Key là 123 nhưng không hiện gợi ý ra ngoài)
+    // Kiểm tra Key (Key là 123)
     function verifyKey() {
         const keyInput = document.getElementById('key-input').value.trim();
         const errorBox = document.getElementById('error-box');
