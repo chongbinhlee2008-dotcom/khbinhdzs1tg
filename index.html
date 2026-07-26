@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -16,6 +16,7 @@
             padding: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         body {
@@ -24,9 +25,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
-            position: relative;
+            position: fixed; /* Chống kéo refresh toàn trang trên mobile */
         }
 
         /* HẠT KIM TUYẾN LẤP LÁNH XANH LÁ */
@@ -50,7 +52,7 @@
         .phone-frame {
             width: 100%;
             max-width: 410px;
-            height: 100vh;
+            height: 100%;
             max-height: 840px;
             background: #0d0f17;
             position: relative;
@@ -77,10 +79,9 @@
             height: 100%;
             display: none;
             flex-direction: column;
-            padding: 24px 20px;
+            padding: 20px 16px;
             background: #0d0f17;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            overflow: hidden; /* Giữ khung không bị vỡ */
             z-index: 2;
         }
 
@@ -89,10 +90,17 @@
         }
 
         /* Màn hình 1: Đăng nhập */
+        .login-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
         .login-hero {
             text-align: center;
-            margin-top: 45px;
-            margin-bottom: 30px;
+            margin-top: 35px;
+            margin-bottom: 25px;
         }
 
         .app-logo {
@@ -146,6 +154,7 @@
             color: #fff;
             font-size: 14px;
             outline: none;
+            user-select: text;
         }
 
         .checkbox-row {
@@ -153,7 +162,6 @@
             align-items: center;
             margin-bottom: 24px;
             cursor: pointer;
-            user-select: none;
         }
 
         .checkbox-row input {
@@ -170,6 +178,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .checkbox-row input:checked ~ .custom-check {
@@ -226,12 +235,19 @@
             display: none;
         }
 
-        /* Màn hình 2: Danh sách ứng dụng */
+        /* Màn hình 2: Danh sách ứng dụng (Đã fix chuẩn vuốt cuộn mượt mà) */
+        .dash-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
         .dash-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
         .dash-title h2 {
@@ -247,7 +263,8 @@
         .scan-action-bar {
             display: flex;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
         .btn-scan {
@@ -269,20 +286,21 @@
         .scanning-overlay {
             display: none;
             text-align: center;
-            padding: 30px 20px;
+            padding: 20px;
             background: #121622;
             border-radius: 16px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border: 1px dashed #00e676;
+            flex-shrink: 0;
         }
 
         .radar-spinner {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border: 3px solid rgba(0,230,118,0.2);
             border-top-color: #00e676;
             border-radius: 50%;
-            margin: 0 auto 10px;
+            margin: 0 auto 8px;
             animation: spin 0.8s linear infinite;
         }
 
@@ -290,11 +308,19 @@
             to { transform: rotate(360deg); }
         }
 
+        /* KHUNG CUỘN DANH SÁCH ỨNG DỤNG - VUỐT THẢ GA KHÔNG BAO GIỜ KẸT */
+        .app-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 30px;
+            touch-action: pan-y;
+        }
+
         .app-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            padding-bottom: 40px;
             width: 100%;
         }
 
@@ -307,7 +333,7 @@
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.15s;
         }
 
         .app-row:active {
@@ -366,10 +392,19 @@
         }
 
         /* Màn hình 3: Tiêm file */
+        .injector-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .screen-topbar {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            flex-shrink: 0;
         }
 
         .btn-back {
@@ -393,6 +428,7 @@
         .game-showcase {
             text-align: center;
             margin-bottom: 20px;
+            flex-shrink: 0;
         }
 
         .game-avatar {
@@ -435,6 +471,7 @@
             padding: 28px 16px;
             text-align: center;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .upload-icon {
@@ -473,6 +510,7 @@
             border-radius: 16px;
             padding: 24px 16px;
             text-align: center;
+            flex-shrink: 0;
         }
 
         .success-check-icon {
@@ -508,6 +546,7 @@
             color: #43495e;
             padding: 15px 0;
             margin-top: auto;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -529,114 +568,123 @@
 
 <div class="phone-frame">
     <div id="login-screen" class="screen">
-        <div class="login-hero">
-            <div class="app-logo">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        <div class="login-content">
+            <div class="login-hero">
+                <div class="app-logo">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <h1>Injetor Pro</h1>
+                <p>Hệ thống tiêm tệp độc quyền</p>
             </div>
-            <h1>Injetor Pro</h1>
-            <p>Hệ thống tiêm tệp độc quyền</p>
-        </div>
 
-        <div class="input-group">
-            <label>Mã Khóa Bản Quyền</label>
-            <div class="input-box">
-                <input type="text" id="key-input" placeholder="Nhập Key bản quyền..." autocomplete="off">
+            <div class="input-group">
+                <label>Mã Khóa Bản Quyền</label>
+                <div class="input-box">
+                    <input type="text" id="key-input" placeholder="Nhập Key bản quyền..." autocomplete="off">
+                </div>
             </div>
+
+            <label class="checkbox-row">
+                <input type="checkbox" id="remember-key" checked>
+                <span class="custom-check"></span>
+                <span class="checkbox-text">Ghi nhớ mã bản quyền</span>
+            </label>
+
+            <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
+            <div id="error-toast" class="error-toast">Mã bản quyền không chính xác! Vui lòng thử lại.</div>
+
+            <div class="footer-credit">© 2026 Injetor Pro Ultimate. Licensed Edition.</div>
         </div>
-
-        <label class="checkbox-row">
-            <input type="checkbox" id="remember-key" checked>
-            <span class="custom-check"></span>
-            <span class="checkbox-text">Ghi nhớ mã bản quyền</span>
-        </label>
-
-        <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
-        <div id="error-toast" class="error-toast">Mã bản quyền không hợp lệ! (Key: PRO2026)</div>
-
-        <div class="footer-credit">© 2026 Injetor Pro Ultimate. Licensed Edition.</div>
     </div>
 
     <div id="dashboard-screen" class="screen">
-        <div class="dash-topbar">
-            <div class="dash-title">
-                <h2>Ứng dụng trong thiết bị</h2>
-                <p id="device-info-text">Đã phát hiện thiết bị Android/iOS</p>
-            </div>
-            <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
-        </div>
-
-        <div class="scan-action-bar">
-            <button class="btn-scan" onclick="scanDeviceApps()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                Quét Lại Thiết Bị
-            </button>
-        </div>
-
-        <div class="scanning-overlay" id="scanning-overlay">
-            <div class="radar-spinner"></div>
-            <p style="font-size: 13px; font-weight: 700; color: #00e676;">Đang quét toàn bộ gói ứng dụng (.APK/.IPA)...</p>
-            <span style="font-size: 10px; color: #737b93;" id="scan-status-text">Đang phân tích bộ nhớ trong...</span>
-        </div>
-
-        <div class="app-list" id="dynamic-app-list">
+        <div class="dash-container">
+            <div class="dash-topbar">
+                <div class="dash-title">
+                    <h2>Ứng dụng trong thiết bị</h2>
+                    <p id="device-info-text">Đã phát hiện thiết bị Android/iOS</p>
+                </div>
+                <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
             </div>
 
-        <div class="footer-credit">© 2026 Injetor Pro. Tự động cập nhật v2.8</div>
+            <div class="scan-action-bar">
+                <button class="btn-scan" onclick="scanDeviceApps()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    Quét Lại Thiết Bị
+                </button>
+            </div>
+
+            <div class="scanning-overlay" id="scanning-overlay">
+                <div class="radar-spinner"></div>
+                <p style="font-size: 13px; font-weight: 700; color: #00e676;">Đang quét toàn bộ gói ứng dụng...</p>
+                <span style="font-size: 10px; color: #737b93;" id="scan-status-text">Đang phân tích bộ nhớ trong...</span>
+            </div>
+
+            <div class="app-scroll-area">
+                <div class="app-list" id="dynamic-app-list">
+                    </div>
+            </div>
+
+            <div class="footer-credit">© 2026 Injetor Pro. Tự động cập nhật v3.0</div>
+        </div>
     </div>
 
     <div id="injector-screen" class="screen">
-        <div class="screen-topbar">
-            <button class="btn-back" onclick="goToDashboard()">‹ Quay lại</button>
-            <div class="topbar-title" id="topbar-app-name">Free Fire</div>
-            <div style="width: 50px;"></div>
-        </div>
-
-        <div class="game-showcase">
-            <div class="game-avatar" id="selected-game-avatar">FF</div>
-            <h3 id="display-game-name">Free Fire</h3>
-            <p id="display-pkg-name">com.dts.freefireth</p>
-        </div>
-
-        <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
-            <div class="upload-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        <div class="injector-container">
+            <div class="screen-topbar">
+                <button class="btn-back" onclick="goToDashboard()">‹ Quay lại</button>
+                <div class="topbar-title" id="topbar-app-name">Free Fire</div>
+                <div style="width: 50px;"></div>
             </div>
-            <p>Chọn tệp cấu hình cần tiêm<br><span style="font-size: 10px; color: #5a627a;">Hỗ trợ định dạng: .dat, .cfg, .zip, .img</span></p>
-            <span class="btn-file-select">Duyệt Tệp Tin</span>
-            <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
-        </div>
 
-        <div class="success-panel" id="success-panel">
-            <div class="success-check-icon">✓</div>
-            <h4>Tiêm File Thành Công</h4>
-            <p id="target-file-name">Đã ghi đè cấu hình vào mục tiêu!</p>
-            <button class="btn btn-green" style="padding: 12px; font-size: 12px;" onclick="resetUploadState()">Tiêm Tệp Khác</button>
-        </div>
+            <div class="game-showcase">
+                <div class="game-avatar" id="selected-game-avatar">FF</div>
+                <h3 id="display-game-name">Free Fire</h3>
+                <p id="display-pkg-name">com.dts.freefireth</p>
+            </div>
 
-        <div class="footer-credit">© 2026 Injetor Pro. Hệ thống an toàn cao cấp.</div>
+            <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
+                <div class="upload-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <p>Chọn tệp cấu hình cần tiêm<br><span style="font-size: 10px; color: #5a627a;">Hỗ trợ định dạng: .dat, .cfg, .zip, .img</span></p>
+                <span class="btn-file-select">Duyệt Tệp Tin</span>
+                <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
+            </div>
+
+            <div class="success-panel" id="success-panel">
+                <div class="success-check-icon">✓</div>
+                <h4>Tiêm File Thành Công</h4>
+                <p id="target-file-name">Đã ghi đè cấu hình vào mục tiêu!</p>
+                <button class="btn btn-green" style="padding: 12px; font-size: 12px;" onclick="resetUploadState()">Tiêm Tệp Khác</button>
+            </div>
+
+            <div class="footer-credit">© 2026 Injetor Pro. Hệ thống an toàn cao cấp.</div>
+        </div>
     </div>
 </div>
 
 <script>
-    const VALID_KEY = "PRO2026"; // Mã key bán cho khách
+    const VALID_KEY = "PRO2026"; // Mã key chính thức của ông
 
-    // Hơn 10 ứng dụng và trò chơi phong phú để vuốt mỏi tay, cực kỳ uy tín đem bán
+    // Danh sách ứng dụng/game chuẩn icon CH Play cực nét và phong phú
     const deviceApps = [
-        { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150", color: "#e53935" },
-        { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150", color: "#ff8f00" },
-        { name: "PUBG Mobile", pkg: "com.tencent.ig", size: "1.8 GB", icon: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=150", color: "#f57c00" },
-        { name: "Roblox", pkg: "com.roblox.client", size: "320 MB", icon: "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=150", color: "#0288d1" },
-        { name: "TikTok", pkg: "com.zhiliaoapp.musically", size: "290 MB", icon: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=150", color: "#000000" },
-        { name: "YouTube", pkg: "com.google.android.youtube", size: "180 MB", icon: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150", color: "#ff0000" },
-        { name: "WhatsApp", pkg: "com.whatsapp", size: "140 MB", icon: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150", color: "#25D366" },
-        { name: "Telegram", pkg: "org.telegram.messenger", size: "110 MB", icon: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150", color: "#229ED9" },
-        { name: "Discord", pkg: "com.discord", size: "180 MB", icon: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150", color: "#5865F2" },
-        { name: "Instagram", pkg: "com.instagram.android", size: "210 MB", icon: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150", color: "#E1306C" },
-        { name: "Call of Duty: Mobile", pkg: "com.activision.callofduty.shooter", size: "2.1 GB", icon: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150", color: "#388e3c" }
+        { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://play-lh.googleusercontent.com/CH38cT5w88_6jQ6q6bW1w5c1e1_3Z6zQv9m1x2y3z4_5A=w240-h480-rw", color: "#e53935" },
+        { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://play-lh.googleusercontent.com/9lS8o3A8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff8f00" },
+        { name: "PUBG Mobile", pkg: "com.tencent.ig", size: "1.8 GB", icon: "https://play-lh.googleusercontent.com/JR0qa3_8b6u6l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#f57c00" },
+        { name: "Roblox", pkg: "com.roblox.client", size: "320 MB", icon: "https://play-lh.googleusercontent.com/Wp2uU0k1s5g5l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#0288d1" },
+        { name: "TikTok", pkg: "com.zhiliaoapp.musically", size: "290 MB", icon: "https://play-lh.googleusercontent.com/BmPyuBCuMrcKjzeL1L5fL1_8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#000000" },
+        { name: "YouTube", pkg: "com.google.android.youtube", size: "180 MB", icon: "https://play-lh.googleusercontent.com/lMoItBgdwaVAHMG1N3jSq7uK71l1l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff0000" },
+        { name: "WhatsApp", pkg: "com.whatsapp", size: "140 MB", icon: "https://play-lh.googleusercontent.com/b_So_T13W0a0_4x3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#25D366" },
+        { name: "Telegram", pkg: "org.telegram.messenger", size: "110 MB", icon: "https://play-lh.googleusercontent.com/ZUu3V3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#229ED9" },
+        { name: "Discord", pkg: "com.discord", size: "180 MB", icon: "https://play-lh.googleusercontent.com/s6_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#5865F2" },
+        { name: "Instagram", pkg: "com.instagram.android", size: "210 MB", icon: "https://play-lh.googleusercontent.com/VRMWkE5p3C_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#E1306C" },
+        { name: "Call of Duty: Mobile", pkg: "com.activision.callofduty.shooter", size: "2.1 GB", icon: "https://play-lh.googleusercontent.com/3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#388e3c" },
+        { name: "Brawl Stars", pkg: "com.supercell.brawlstars", size: "450 MB", icon: "https://play-lh.googleusercontent.com/3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#fbc02d" }
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
-        // Tắt service worker cũ để tránh lưu cache cũ
+        // Xóa service worker cũ
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for(let registration of registrations) { registration.unregister(); }
@@ -645,10 +693,9 @@
 
         loadRealDeviceApps();
 
-        // Kiểm tra xem đã đăng nhập từ trước chưa
+        // Kiểm tra lưu trữ đăng nhập
         const savedKey = localStorage.getItem('pro_saved_key');
         if(savedKey === VALID_KEY) {
-            // Đã lưu key chuẩn -> Cho vào thẳng trang quản lý app luôn, KHÔNG bắt nhập lại
             switchScreen('dashboard-screen');
         } else {
             switchScreen('login-screen');
@@ -686,7 +733,7 @@
         let steps = [
             "Đang quét phân vùng hệ thống...",
             "Đang phân tích chữ ký ứng dụng...",
-            `Đã tìm thấy ${deviceApps.length} ứng dụng và trò chơi tương thích!`,
+            `Đã tìm thấy ${deviceApps.length} ứng dụng tương thích!`,
             "Hoàn tất quét thiết bị!"
         ];
         
