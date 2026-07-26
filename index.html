@@ -27,7 +27,6 @@
             position: fixed;
         }
 
-        /* Hiệu ứng kim tuyến xanh lấp lánh rơi */
         .sparkle {
             position: absolute;
             top: -15px;
@@ -46,18 +45,9 @@
         }
 
         @keyframes pulseGlow {
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
-            }
-            50% {
-                transform: scale(1.08);
-                text-shadow: 0 0 22px rgba(0, 230, 118, 0.9), 0 0 35px rgba(0, 230, 118, 0.5);
-            }
-            100% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
-            }
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); }
+            50% { transform: scale(1.08); text-shadow: 0 0 22px rgba(0, 230, 118, 0.9), 0 0 35px rgba(0, 230, 118, 0.5); }
+            100% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); }
         }
 
         .phone-frame {
@@ -79,6 +69,32 @@
                 border: 8px solid #14221a;
                 box-shadow: 0 25px 50px rgba(0,0,0,0.9);
             }
+        }
+
+        /* NÚT DẤU X GÓC TRÊN CÙNG TUYỆT ĐỐI CHO CẢ 4 TRANG */
+        .absolute-exit-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #131f18;
+            border: 1px solid #1f3326;
+            color: #ff4d4d;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: 0.2s;
+        }
+
+        .absolute-exit-btn:active {
+            background: rgba(255, 77, 77, 0.15);
+            border-color: #ff4d4d;
         }
 
         .status-header-bar {
@@ -107,23 +123,10 @@
             border-radius: 50%;
         }
 
-        .status-badge.offline .status-dot {
-            background: #ff4d4d;
-            box-shadow: 0 0 6px #ff4d4d;
-        }
-
-        .status-badge.offline {
-            color: #ff4d4d;
-        }
-
-        .status-badge.online .status-dot {
-            background: #00e676;
-            box-shadow: 0 0 6px #00e676;
-        }
-
-        .status-badge.online {
-            color: #00e676;
-        }
+        .status-badge.offline .status-dot { background: #ff4d4d; box-shadow: 0 0 6px #ff4d4d; }
+        .status-badge.offline { color: #ff4d4d; }
+        .status-badge.online .status-dot { background: #00e676; box-shadow: 0 0 6px #00e676; }
+        .status-badge.online { color: #00e676; }
 
         .animated-notice {
             font-size: 9px;
@@ -139,23 +142,9 @@
             white-space: nowrap;
         }
 
-        .animated-notice.show {
-            max-height: 30px;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .animated-notice.logout-color {
-            color: #ff4d4d;
-            background: rgba(255, 77, 77, 0.1);
-            border: 1px solid rgba(255, 77, 77, 0.2);
-        }
-
-        .animated-notice.login-color {
-            color: #00e676;
-            background: rgba(0, 230, 118, 0.1);
-            border: 1px solid rgba(0, 230, 118, 0.2);
-        }
+        .animated-notice.show { max-height: 30px; opacity: 1; transform: translateY(0); }
+        .animated-notice.logout-color { color: #ff4d4d; background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.2); }
+        .animated-notice.login-color { color: #00e676; background: rgba(0, 230, 118, 0.1); border: 1px solid rgba(0, 230, 118, 0.2); }
 
         .screen {
             position: absolute;
@@ -172,33 +161,8 @@
             z-index: 2;
         }
 
-        .screen.active {
-            display: flex;
-        }
+        .screen.active { display: flex; }
 
-        /* NÚT DẤU X THOÁT APP GÓC TRÊN BÊN TRÁI */
-        .exit-app-btn {
-            background: #131f18;
-            border: 1px solid #1f3326;
-            color: #ff4d4d;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .exit-app-btn:active {
-            background: rgba(255, 77, 77, 0.15);
-            border-color: #ff4d4d;
-        }
-
-        /* TRANG 1: NHẬP KEY */
         .login-container {
             flex: 1;
             display: flex;
@@ -240,17 +204,8 @@
             color: #00e676;
         }
 
-        .card-box h3 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .card-box p {
-            font-size: 10px;
-            color: #8bb09a;
-            margin-bottom: 16px;
-        }
+        .card-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+        .card-box p { font-size: 10px; color: #8bb09a; margin-bottom: 16px; }
 
         .input-group-container {
             position: relative;
@@ -270,9 +225,7 @@
             text-align: center;
         }
 
-        .input-key:focus {
-            border-color: #00e676;
-        }
+        .input-key:focus { border-color: #00e676; }
 
         .eye-toggle-btn {
             position: absolute;
@@ -289,10 +242,6 @@
             padding: 4px;
         }
 
-        .eye-toggle-btn:hover {
-            color: #00e676;
-        }
-
         .btn-main {
             width: 100%;
             background: linear-gradient(135deg, #00e676 0%, #00a854 100%);
@@ -306,13 +255,7 @@
             box-shadow: 0 6px 20px rgba(0, 230, 118, 0.3);
         }
 
-        .error-msg {
-            color: #ff4d4d;
-            font-size: 11px;
-            margin-top: 10px;
-            font-weight: 600;
-            display: none;
-        }
+        .error-msg { color: #ff4d4d; font-size: 11px; margin-top: 10px; font-weight: 600; display: none; }
 
         .footer-text {
             font-size: 9px;
@@ -352,10 +295,7 @@
             transition: 0.2s;
         }
 
-        .folder-box-btn:active {
-            border-color: #00e676;
-            background: #192c22;
-        }
+        .folder-box-btn:active { border-color: #00e676; background: #192c22; }
 
         .logout-big-btn {
             width: 100%;
@@ -376,9 +316,7 @@
             margin-top: auto;
         }
 
-        .logout-big-btn:active {
-            background: rgba(0, 230, 118, 0.15);
-        }
+        .logout-big-btn:active { background: rgba(0, 230, 118, 0.15); }
 
         .topbar-nav {
             display: flex;
@@ -396,6 +334,7 @@
             font-weight: 700;
             cursor: pointer;
             padding: 4px 8px;
+            margin-left: 36px; /* Chừa chỗ cho nút X tuyệt đối */
         }
 
         .topbar-center-title-big {
@@ -428,16 +367,9 @@
             cursor: pointer;
         }
 
-        .app-item-row:active {
-            background: #1b2f24;
-            border-color: #00e676;
-        }
+        .app-item-row:active { background: #1b2f24; border-color: #00e676; }
 
-        .app-left-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .app-left-info { display: flex; align-items: center; gap: 12px; }
 
         .app-logo-badge {
             width: 40px;
@@ -451,32 +383,11 @@
             color: #00e676;
             font-weight: 800;
             font-size: 11px;
-            letter-spacing: 0.5px;
         }
 
-        .app-meta h4 {
-            font-size: 12px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 2px;
-        }
-
-        .app-meta span {
-            font-size: 9px;
-            color: #8bb09a;
-        }
-
-        .app-right-icon {
-            width: 24px;
-            height: 24px;
-            background: rgba(0, 230, 118, 0.15);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #00e676;
-            font-size: 11px;
-        }
+        .app-meta h4 { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .app-meta span { font-size: 9px; color: #8bb09a; }
+        .app-right-icon { width: 24px; height: 24px; background: rgba(0, 230, 118, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #00e676; font-size: 11px; }
 
         .inject-screen-layout {
             flex: 1;
@@ -530,18 +441,8 @@
             text-align: center;
         }
 
-        .success-box h4 {
-            color: #00e676;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .success-box p {
-            color: #8cb89b;
-            font-size: 10px;
-            word-break: break-all;
-        }
+        .success-box h4 { color: #00e676; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .success-box p { color: #8cb89b; font-size: 10px; word-break: break-all; }
     </style>
 </head>
 <body>
@@ -562,19 +463,16 @@
 
 <div class="phone-frame">
     
-    <div class="status-header-bar">
-        <div id="status-badge" class="status-badge offline">
-            <div class="status-dot"></div>
-            <span id="status-text">OFFLINE</span>
-        </div>
-        <div id="animated-notice" class="animated-notice"></div>
-    </div>
-
     <!-- TRANG 1: NHẬP KEY -->
     <div id="screen-1" class="screen">
-        <!-- THANH ĐIỀU HƯỚNG TRANG 1 CÓ NÚT X GÓC TRÁI -->
-        <div class="topbar-nav" style="justify-content: flex-start;">
-            <button class="exit-app-btn" onclick="exitApp()">✕</button>
+        <button class="absolute-exit-btn" onclick="exitApp()">✕</button>
+
+        <div class="status-header-bar">
+            <div id="status-badge" class="status-badge offline">
+                <div class="status-dot"></div>
+                <span id="status-text">OFFLINE</span>
+            </div>
+            <div id="animated-notice" class="animated-notice"></div>
         </div>
 
         <div class="login-container">
@@ -610,13 +508,16 @@
 
     <!-- TRANG 2: TRANG CHỦ -->
     <div id="screen-2" class="screen">
-        <div class="screen-content-wrapper">
-            <!-- THANH ĐIỀU HƯỚNG TRANG 2 CÓ NÚT X GÓC TRÁI -->
-            <div class="topbar-nav">
-                <button class="exit-app-btn" onclick="exitApp()">✕</button>
-                <div style="width: 40px;"></div>
+        <button class="absolute-exit-btn" onclick="exitApp()">✕</button>
+
+        <div class="status-header-bar">
+            <div id="status-badge-2" class="status-badge online">
+                <div class="status-dot"></div>
+                <span>ONLINE</span>
             </div>
-            
+        </div>
+
+        <div class="screen-content-wrapper">
             <div class="topbar-center-title-big">INJECTION FILES</div>
 
             <div class="hub-center">
@@ -639,19 +540,18 @@
 
     <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
     <div id="screen-3" class="screen">
-        <div class="screen-content-wrapper">
-            <!-- THANH ĐIỀU HƯỚNG TRANG 3: NÚT X TRÁI CÙNG, TIÊU ĐỀ Ở GIỮA, NÚT QUAY LẠI KẾ BÊN -->
-            <div class="topbar-nav" style="justify-content: flex-start; gap: 8px;">
-                <button class="exit-app-btn" onclick="exitApp()">✕</button>
+        <button class="absolute-exit-btn" onclick="exitApp()">✕</button>
+
+        <div class="screen-content-wrapper" style="padding-top: 45px;">
+            <div class="topbar-nav">
                 <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
-                <div class="topbar-center-title" style="margin-left: auto; margin-right: auto;">Danh Sách Ứng Dụng</div>
+                <div class="topbar-center-title">Danh Sách Ứng Dụng</div>
                 <div style="width: 40px;"></div>
             </div>
 
             <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Chọn ứng dụng bạn muốn tiêm file vào:</div>
 
             <div style="display:flex; flex-direction:column; gap:8px;">
-                
                 <div class="app-item-row" onclick="selectApp('Free Fire', 'FFTH')">
                     <div class="app-left-info">
                         <div class="app-logo-badge">FFTH</div>
@@ -673,7 +573,6 @@
                     </div>
                     <div class="app-right-icon">&gt;</div>
                 </div>
-
             </div>
 
             <button class="logout-big-btn" onclick="handleLogout()">
@@ -686,12 +585,12 @@
 
     <!-- TRANG 4: TIÊM FILE -->
     <div id="screen-4" class="screen">
-        <div class="inject-screen-layout">
-            <!-- THANH ĐIỀU HƯỚNG TRANG 4: NÚT X TRÁI CÙNG, NÚT QUAY LẠI VÀ TIÊU ĐỀ -->
-            <div class="topbar-nav" style="justify-content: flex-start; gap: 8px;">
-                <button class="exit-app-btn" onclick="exitApp()">✕</button>
+        <button class="absolute-exit-btn" onclick="exitApp()">✕</button>
+
+        <div class="inject-screen-layout" style="padding-top: 45px;">
+            <div class="topbar-nav">
                 <button class="btn-back-text" onclick="goToScreen(3)">&lt; Quay lại</button>
-                <div class="topbar-center-title" id="selected-app-title" style="margin-left: auto; margin-right: auto;">Tiêm File</div>
+                <div class="topbar-center-title" id="selected-app-title">Tiêm File</div>
                 <div style="width: 40px;"></div>
             </div>
 
@@ -742,24 +641,18 @@
         document.getElementById('screen-' + screenNum).classList.add('active');
     }
 
-    /* HÀM THOÁT APP KHI BẤM NÚT X */
     function exitApp() {
         try {
             window.close();
         } catch (e) {}
-        
-        // Điều hướng phụ trợ ép đóng app trên Webview
         window.location.href = "about:blank";
     }
 
     function triggerAnimatedNotice(text, type) {
         const notice = document.getElementById('animated-notice');
-        
         if (noticeTimer) clearTimeout(noticeTimer);
-
         notice.innerText = text;
         notice.className = `animated-notice ${type} show`;
-
         noticeTimer = setTimeout(() => {
             notice.classList.remove('show');
         }, 3000);
@@ -768,13 +661,14 @@
     function setAppStatus(status) {
         const badge = document.getElementById('status-badge');
         const text = document.getElementById('status-text');
-        
-        if (status === 'online') {
-            badge.className = 'status-badge online';
-            text.innerText = 'ONLINE';
-        } else {
-            badge.className = 'status-badge offline';
-            text.innerText = 'OFFLINE';
+        if (badge && text) {
+            if (status === 'online') {
+                badge.className = 'status-badge online';
+                text.innerText = 'ONLINE';
+            } else {
+                badge.className = 'status-badge offline';
+                text.innerText = 'OFFLINE';
+            }
         }
     }
 
