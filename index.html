@@ -304,7 +304,7 @@
             background: #192c22;
         }
 
-        /* NÚT ĐĂNG XUẤT TO (XANH LÁ) NẰM SÁT DƯỚI CÙNG (TRÊN CHỮ XÁM) */
+        /* NÚT ĐĂNG XUẤT TO (XANH LÁ) NẰM SÁT DƯỚI */
         .logout-big-btn {
             width: 100%;
             background: #131f18;
@@ -321,7 +321,7 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
             transition: 0.2s;
-            margin-top: auto; /* Đẩy xuống sát đáy */
+            margin-top: auto;
         }
 
         .logout-big-btn:active {
@@ -408,14 +408,22 @@
             font-size: 11px;
         }
 
-        /* TRANG 4: TIÊM FILE */
+        /* TRANG 4: TIÊM FILE - ĐƯA RA GIỮA MÀN HÌNH */
+        .inject-screen-layout {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         .inject-center-box {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 10px 0;
+            padding-bottom: 40px;
         }
 
         .target-app-banner {
@@ -594,13 +602,15 @@
 
     <!-- TRANG 4: TIÊM FILE -->
     <div id="screen-4" class="screen">
-        <div class="screen-content-wrapper">
+        <div class="inject-screen-layout">
             <div class="topbar-nav">
+                <!-- NÚT QUAY LẠI Ở GÓC TRÊN BÊN PHẢI HOẠT ĐỘNG CHUẨN XÁC -->
                 <button class="btn-back-text" onclick="goToScreen(3)">&lt; Quay lại</button>
                 <div class="topbar-center-title" id="selected-app-title">Tiêm File</div>
                 <div style="width: 40px;"></div>
             </div>
 
+            <!-- PHẦN CHỌN FILE ĐƯỢC ĐẨY RA CHÍNH GIỮA MÀN HÌNH -->
             <div class="inject-center-box">
                 <div class="target-app-banner">
                     <img id="selected-app-icon" src="" alt="App Icon">
