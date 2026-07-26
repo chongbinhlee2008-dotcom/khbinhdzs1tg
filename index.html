@@ -404,7 +404,7 @@
             background: #131f18;
             border: 1px solid #1f3326;
             border-radius: 12px;
-            padding: 10px 12px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -423,12 +423,19 @@
             gap: 12px;
         }
 
-        .app-logo-img {
+        .app-logo-badge {
             width: 40px;
             height: 40px;
             border-radius: 10px;
-            object-fit: cover;
+            background: rgba(0, 230, 118, 0.1);
             border: 1px solid #22382c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00e676;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 0.5px;
         }
 
         .app-meta h4 {
@@ -477,15 +484,15 @@
             width: 60px;
             height: 60px;
             border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 8px;
+            background: rgba(0, 230, 118, 0.1);
             border: 2px solid #00e676;
-        }
-
-        .target-app-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00e676;
+            font-weight: 800;
+            font-size: 12px;
+            margin-bottom: 8px;
         }
 
         .file-upload-zone {
@@ -627,9 +634,9 @@
 
             <div style="display:flex; flex-direction:column; gap:8px;">
                 
-                <div class="app-item-row" onclick="selectApp('Free Fire', document.getElementById('ff-icon').src)">
+                <div class="app-item-row" onclick="selectApp('Free Fire', 'FFTH')">
                     <div class="app-left-info">
-                        <img id="ff-icon" src="ff.jpg" class="app-logo-img" alt="FF">
+                        <div class="app-logo-badge">FFTH</div>
                         <div class="app-meta">
                             <h4>Free Fire</h4>
                             <span>com.dts.freefireth</span>
@@ -638,9 +645,9 @@
                     <div class="app-right-icon">&gt;</div>
                 </div>
 
-                <div class="app-item-row" onclick="selectApp('Free Fire MAX', document.getElementById('ffm-icon').src)">
+                <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'FFMAX')">
                     <div class="app-left-info">
-                        <img id="ffm-icon" src="ffmax.jpg" class="app-logo-img" alt="FF MAX">
+                        <div class="app-logo-badge">FFMAX</div>
                         <div class="app-meta">
                             <h4>Free Fire MAX</h4>
                             <span>com.dts.freefiremax</span>
@@ -669,9 +676,7 @@
             </div>
 
             <div class="inject-center-box">
-                <div class="target-app-banner">
-                    <img id="selected-app-icon" src="" alt="App Icon">
-                </div>
+                <div class="target-app-banner" id="selected-app-badge-text">FFTH</div>
                 <h3 id="target-app-name" style="font-size: 15px; font-weight: 700; margin-bottom: 2px;">App Name</h3>
                 <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg) để tiến hành tiêm</p>
 
@@ -783,10 +788,10 @@
         triggerAnimatedNotice("Đã đăng xuất!", "logout-color");
     }
 
-    function selectApp(appName, iconUrl) {
+    function selectApp(appName, badgeText) {
         document.getElementById('selected-app-title').innerText = appName;
         document.getElementById('target-app-name').innerText = appName;
-        document.getElementById('selected-app-icon').src = iconUrl;
+        document.getElementById('selected-app-badge-text').innerText = badgeText;
         
         document.querySelector('.file-upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
