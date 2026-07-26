@@ -29,22 +29,22 @@
             position: relative;
         }
 
-        /* HIỆU ỨNG HẠT KIM TUYẾN RỚT TỪ TRÊN XUỐNG */
+        /* HẠT KIM TUYẾN LẤP LÁNH RƠT TỪ TRÊN XUỐNG */
         .sparkle {
             position: absolute;
             top: -15px;
-            background: radial-gradient(circle, #fff 0%, #ffdf00 60%, rgba(255,255,255,0) 100%);
+            background: radial-gradient(circle, #ffffff 0%, #ffd700 70%, rgba(255,255,255,0) 100%);
             border-radius: 50%;
             pointer-events: none;
-            animation: sparkleFall linear infinite;
-            box-shadow: 0 0 6px #fff, 0 0 10px #ffcc00;
-            z-index: 5;
+            animation: fallAnimation linear infinite;
+            box-shadow: 0 0 8px #ffffff, 0 0 12px #ffcc00;
+            z-index: 99;
         }
 
-        @keyframes sparkleFall {
-            0% { transform: translateY(-10px) translateX(0) scale(0.8); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: translateY(105vh) translateX(25px) scale(1.2); opacity: 0; }
+        @keyframes fallAnimation {
+            0% { transform: translateY(-10px) translateX(0) scale(0.6); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(30px) scale(1.2); opacity: 0; }
         }
 
         .phone-frame {
@@ -54,7 +54,7 @@
             max-height: 840px;
             background: #0d0f17;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -75,29 +75,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
+            display: none;
             flex-direction: column;
             padding: 24px 20px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(15px) scale(0.98);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             background: #0d0f17;
-            z-index: 1;
             overflow-y: auto;
-        }
-
-        .screen.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
             z-index: 2;
         }
 
-        /* Màn hình Đăng Nhập */
+        .screen.active {
+            display: flex;
+        }
+
+        /* Màn hình 1: Đăng nhập */
         .login-hero {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 45px;
             margin-bottom: 30px;
         }
 
@@ -136,7 +129,6 @@
             color: #8b90a0;
             margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .input-box {
@@ -233,7 +225,7 @@
             display: none;
         }
 
-        /* Màn hình 2: Danh sách ứng dụng */
+        /* Màn hình 2: Chọn ứng dụng */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
@@ -267,10 +259,9 @@
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .app-row:hover {
+        .app-row:active {
             border-color: #e53935;
         }
 
@@ -360,7 +351,6 @@
             margin: 0 auto 10px;
             overflow: hidden;
             border: 1px solid #202638;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .game-avatar img {
@@ -405,7 +395,6 @@
             font-size: 12px;
             color: #8b90a0;
             margin-bottom: 14px;
-            line-height: 1.4;
         }
 
         .btn-file-select {
@@ -467,15 +456,15 @@
 <body>
 
 <script>
-    for(let i=0; i<10; i++) {
+    for(let i=0; i<15; i++) {
         let sparkle = document.createElement('div');
         sparkle.className = 'sparkle';
-        let size = Math.random() * 4 + 3;
+        let size = Math.random() * 5 + 3;
         sparkle.style.width = size + 'px';
         sparkle.style.height = size + 'px';
         sparkle.style.left = Math.random() * 100 + 'vw';
-        sparkle.style.animationDuration = (Math.random() * 4 + 3) + 's';
-        sparkle.style.animationDelay = (Math.random() * 4) + 's';
+        sparkle.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
+        sparkle.style.animationDelay = (Math.random() * 3) + 's';
         document.body.appendChild(sparkle);
     }
 </script>
@@ -534,7 +523,7 @@
 
             <div class="app-row" onclick="selectApp('Discord', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
                 <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#5865F2; color:#fff; font-weight:bold; font-size:14px;">Di</div>
+                    <div class="app-icon-box" style="background:#5865F2; color:#fff; font-weight:bold;">Di</div>
                     <div class="app-info">
                         <h4>Discord</h4>
                         <span>4120 KB</span>
@@ -545,7 +534,7 @@
 
             <div class="app-row" onclick="selectApp('WhatsApp', 'https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150')">
                 <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#25D366; color:#fff; font-weight:bold; font-size:14px;">Wa</div>
+                    <div class="app-icon-box" style="background:#25D366; color:#fff; font-weight:bold;">Wa</div>
                     <div class="app-info">
                         <h4>WhatsApp</h4>
                         <span>3100 KB</span>
@@ -556,21 +545,10 @@
 
             <div class="app-row" onclick="selectApp('Telegram', 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150')">
                 <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#229ED9; color:#fff; font-weight:bold; font-size:14px;">Te</div>
+                    <div class="app-icon-box" style="background:#229ED9; color:#fff; font-weight:bold;">Te</div>
                     <div class="app-info">
                         <h4>Telegram</h4>
                         <span>1850 KB</span>
-                    </div>
-                </div>
-                <div class="app-action-icon">›</div>
-            </div>
-
-            <div class="app-row" onclick="selectApp('YouTube', 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=150')">
-                <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#FF0000; color:#fff; font-weight:bold; font-size:14px;">Yt</div>
-                    <div class="app-info">
-                        <h4>YouTube</h4>
-                        <span>5400 KB</span>
                     </div>
                 </div>
                 <div class="app-action-icon">›</div>
@@ -599,7 +577,7 @@
             <div class="upload-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             </div>
-            <p>Kéo thả tệp hoặc bấm vào đây<br><span style="font-size: 10px; color: #4e556b;">Hỗ trợ: .dat, .cfg, .img</span></p>
+            <p>Bấm vào đây để chọn tệp tin<br><span style="font-size: 10px; color: #4e556b;">Hỗ trợ: .dat, .cfg, .img</span></p>
             <span class="btn-file-select">Chọn Tệp Tin</span>
             <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
         </div>
@@ -608,3 +586,88 @@
             <div class="success-check-icon">✓</div>
             <h4>Tiêm File Thành Công</h4>
             <p id="target-file-name">config.dat đã áp dụng!</p>
+            <button class="btn btn-red" style="background: #113822; color: #00e676; border: 1px solid #175231; padding: 12px; font-size: 12px;" onclick="resetUploadState()">Chọn Tệp Khác</button>
+        </div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. Chế độ an toàn.</div>
+    </div>
+</div>
+
+<script>
+    // Ép làm mới cache tự động bằng cách kiểm tra phiên bản thời gian thực
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedKey = localStorage.getItem('pro_saved_key');
+        if(savedKey) {
+            document.getElementById('key-input').value = savedKey;
+            document.getElementById('remember-key').checked = true;
+        }
+
+        // Tự động reload cache ngầm nếu phát hiện bản cập nhật mới từ GitHub
+        let lastVersion = localStorage.getItem('app_ver');
+        let currentVer = '2026-v3'; // Mỗi lần ông muốn chắc chắn app nhận bản mới, chỉ cần đổi chữ này thành v4, v5... ở đây
+        if(lastVersion !== currentVer) {
+            localStorage.setItem('app_ver', currentVer);
+            if(window.navigator && navigator.serviceWorker) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for(let registration of registrations) { registration.unregister(); }
+                });
+            }
+        }
+    });
+
+    function switchScreen(targetId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(targetId).classList.add('active');
+    }
+
+    function handleLogin() {
+        const keyVal = document.getElementById('key-input').value.trim();
+        const errorToast = document.getElementById('error-toast');
+        const rememberMe = document.getElementById('remember-key').checked;
+
+        if(keyVal === '123') {
+            errorToast.style.display = 'none';
+            if(rememberMe) {
+                localStorage.setItem('pro_saved_key', keyVal);
+            } else {
+                localStorage.removeItem('pro_saved_key');
+            }
+            switchScreen('dashboard-screen');
+        } else {
+            errorToast.style.display = 'block';
+        }
+    }
+
+    function handleLogout() {
+        switchScreen('login-screen');
+    }
+
+    function selectApp(appName, iconUrl) {
+        document.getElementById('topbar-app-name').innerText = appName;
+        document.getElementById('display-game-name').innerText = appName;
+        document.getElementById('selected-game-icon').src = iconUrl;
+        switchScreen('injector-screen');
+    }
+
+    function goToDashboard() {
+        switchScreen('dashboard-screen');
+    }
+
+    function onFileChosen(event) {
+        const file = event.target.files[0];
+        if(file) {
+            document.getElementById('upload-dropzone').style.display = 'none';
+            document.getElementById('success-panel').style.display = 'block';
+            document.getElementById('target-file-name').innerText = `${file.name} đã được tiêm thành công!`;
+        }
+    }
+
+    function resetUploadState() {
+        document.getElementById('upload-dropzone').style.display = 'block';
+        document.getElementById('success-panel').style.display = 'none';
+        document.getElementById('real-file-input').value = '';
+    }
+</script>
+
+</body>
+</html>
