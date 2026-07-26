@@ -26,7 +26,6 @@
             height: 100vh;
             overflow: hidden;
             position: fixed;
-            overscroll-behavior-y: none;
         }
 
         .phone-frame {
@@ -40,15 +39,6 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            z-index: 10;
-        }
-
-        @media (min-width: 450px) {
-            .phone-frame {
-                border-radius: 42px;
-                height: 820px;
-                border: 10px solid #181b26;
-            }
         }
 
         .screen {
@@ -62,7 +52,6 @@
             padding: 20px 16px;
             background: #0d0f17;
             overflow: hidden;
-            z-index: 2;
         }
 
         .screen.active {
@@ -74,7 +63,6 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 30px;
-            overscroll-behavior-y: contain;
         }
 
         /* Màn hình Đăng nhập */
@@ -167,17 +155,13 @@
             border-color: #00e676;
         }
 
-        .custom-check::after {
+        .checkbox-row input:checked ~ .custom-check::after {
             content: '';
             width: 4px;
             height: 8px;
             border: solid #000;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
-            display: none;
-        }
-
-        .checkbox-row input:checked ~ .custom-check::after {
             display: block;
         }
 
@@ -234,7 +218,6 @@
             border: 2px solid #222d4a;
             color: #00e676;
             font-size: 28px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .menu-card {
@@ -605,9 +588,7 @@
             </div>
 
             <div class="inner-scroll">
-                <div class="app-list" id="dynamic-app-list">
-                    <!-- Render động -->
-                </div>
+                <div class="app-list" id="dynamic-app-list"></div>
             </div>
 
             <div class="footer-credit">© 2026 Migul Pro. Stable v2.8</div>
@@ -654,7 +635,6 @@
 
 <script>
     const VALID_KEY = "PRO2026";
-
     const deviceApps = [
         { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://play-lh.googleusercontent.com/CH38cT5w88_6jQ6q6bW1w5c1e1_3Z6zQv9m1x2y3z4_5A=w240-h480-rw", color: "#e53935" },
         { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://play-lh.googleusercontent.com/9lS8o3A8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff8f00" }
