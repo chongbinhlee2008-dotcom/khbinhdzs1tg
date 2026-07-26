@@ -66,7 +66,7 @@
             }
         }
 
-        /* TRẠNG THÁI GÓC TRÊN CỦA APP (LUÔN HIỆN) */
+        /* TRẠNG THÁI GÓC TRÊN CỦA APP */
         .status-header-bar {
             display: flex;
             justify-content: flex-end;
@@ -129,7 +129,7 @@
             display: flex;
         }
 
-        /* TRANG 1: MỚI MỞ APP LÀ NHẬP KEY */
+        /* TRANG 1: NHẬP KEY */
         .login-container {
             flex: 1;
             display: flex;
@@ -231,7 +231,7 @@
             margin-top: 20px;
         }
 
-        /* TRANG 2: NÚT CHỌN ỨNG DỤNG ĐỂ TIÊM */
+        /* TRANG 2: TRANG CHỦ */
         .hub-center {
             flex: 1;
             display: flex;
@@ -303,12 +303,18 @@
             gap: 12px;
         }
 
-        .app-logo-img {
-            width: 38px;
-            height: 38px;
-            border-radius: 9px;
-            object-fit: cover;
-            background: #1c2e22;
+        /* Khung chứa icon chuẩn đẹp */
+        .app-logo-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1b2f24 0%, #0d1410 100%);
+            border: 1.5px solid #284734;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
         .app-meta h4 {
@@ -346,18 +352,16 @@
         }
 
         .target-app-banner {
-            width: 64px;
-            height: 64px;
+            width: 68px;
+            height: 68px;
             border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 10px;
+            background: #131f18;
             border: 2px solid #00e676;
-        }
-
-        .target-app-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            overflow: hidden;
         }
 
         .file-upload-zone {
@@ -465,7 +469,7 @@
         <div class="footer-text" style="text-align:center;">© 2026 Migul Pro V2</div>
     </div>
 
-    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG (FF THƯỜNG & FF MAX CHUẨN XÁC) -->
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
     <div id="screen-3" class="screen">
         <div class="topbar-nav" style="margin-top: 5px;">
             <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
@@ -478,9 +482,11 @@
         <div style="display:flex; flex-direction:column; gap:8px; padding-bottom:20px;">
             
             <!-- Free Fire Thường -->
-            <div class="app-item-row" onclick="selectApp('Free Fire', 'https://images.vexels.com/content/users/images/preview/138403/free-fire-logo-icon.png')">
+            <div class="app-item-row" onclick="selectApp('Free Fire', 'ff')">
                 <div class="app-left-info">
-                    <img src="https://images.vexels.com/content/users/images/preview/138403/free-fire-logo-icon.png" class="app-logo-img" alt="FF" onerror="this.src='https://cdn-icons-png.flaticon.com/512/8159/8159495.png'">
+                    <div class="app-logo-box">
+                        <svg viewBox="0 0 100 100" width="34" height="34"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg>
+                    </div>
                     <div class="app-meta">
                         <h4>Free Fire</h4>
                         <span>com.dts.freefireth</span>
@@ -490,9 +496,12 @@
             </div>
 
             <!-- Free Fire MAX (Có chữ MAX rõ nét) -->
-            <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'https://play-lh.googleusercontent.com/gYf_2gT2-0q16L0_R8zS_N1zG7jV8oVwE3l1qW3v9Z1_2j0sX7l7g3Z1v0N5l0=w240-h480-rw')">
+            <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'ffmax')">
                 <div class="app-left-info">
-                    <img src="https://play-lh.googleusercontent.com/gYf_2gT2-0q16L0_R8zS_N1zG7jV8oVwE3l1qW3v9Z1_2j0sX7l7g3Z1v0N5l0=w240-h480-rw" class="app-logo-img" alt="FF MAX" onerror="this.src='https://cdn-icons-png.flaticon.com/512/10412/10412497.png'">
+                    <div class="app-logo-box" style="position:relative;">
+                        <svg viewBox="0 0 100 100" width="34" height="34"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg>
+                        <div style="position:absolute; top:1px; left:1px; background:#ffcc00; color:#000; font-size:9px; font-weight:900; padding:1px 3px; border-radius:3px;">MAX</div>
+                    </div>
                     <div class="app-meta">
                         <h4>Free Fire MAX</h4>
                         <span>com.dts.freefiremax</span>
@@ -515,8 +524,8 @@
         </div>
 
         <div class="inject-center-box">
-            <div class="target-app-banner">
-                <img id="selected-app-icon" src="" alt="App Icon">
+            <div class="target-app-banner" id="target-banner-icon">
+                <!-- Icon sẽ tự đổi theo app -->
             </div>
             <h3 id="target-app-name" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">App Name</h3>
             <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg) để tiến hành tiêm</p>
@@ -578,11 +587,17 @@
         goToScreen(1);
     }
 
-    function selectApp(appName, iconUrl) {
+    function selectApp(appName, type) {
         document.getElementById('selected-app-title').innerText = appName;
         document.getElementById('target-app-name').innerText = appName;
-        document.getElementById('selected-app-icon').src = iconUrl;
         
+        const banner = document.getElementById('target-banner-icon');
+        if(type === 'ff') {
+            banner.innerHTML = `<svg viewBox="0 0 100 100" width="45" height="45"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg>`;
+        } else {
+            banner.innerHTML = `<div style="position:relative; width:100%; height:100%; display:flex; justify-content:center; align-items:center;"><svg viewBox="0 0 100 100" width="45" height="45"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg><div style="position:absolute; top:4px; left:4px; background:#ffcc00; color:#000; font-size:10px; font-weight:900; padding:1px 4px; border-radius:3px;">MAX</div></div>`;
+        }
+
         document.querySelector('.file-upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
 
