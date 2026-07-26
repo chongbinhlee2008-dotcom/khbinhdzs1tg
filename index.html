@@ -28,7 +28,7 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            position: fixed; /* Chống kéo refresh toàn trang trên mobile */
+            position: fixed;
         }
 
         /* HẠT KIM TUYẾN LẤP LÁNH XANH LÁ */
@@ -81,7 +81,7 @@
             flex-direction: column;
             padding: 20px 16px;
             background: #0d0f17;
-            overflow: hidden; /* Giữ khung không bị vỡ */
+            overflow: hidden;
             z-index: 2;
         }
 
@@ -89,17 +89,18 @@
             display: flex;
         }
 
-        /* Màn hình 1: Đăng nhập */
-        .login-content {
+        .inner-scroll {
             flex: 1;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 20px;
+            padding-bottom: 30px;
+            touch-action: pan-y;
         }
 
+        /* Màn hình 1: Đăng nhập */
         .login-hero {
             text-align: center;
-            margin-top: 35px;
+            margin-top: 45px;
             margin-bottom: 25px;
         }
 
@@ -235,13 +236,75 @@
             display: none;
         }
 
-        /* Màn hình 2: Danh sách ứng dụng (Đã fix chuẩn vuốt cuộn mượt mà) */
-        .dash-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+        /* Màn hình Menu chính (Sau khi nhập Key xong) */
+        .menu-hero {
+            text-align: center;
+            margin: 40px 0 30px;
         }
 
+        .menu-avatar-box {
+            width: 80px;
+            height: 80px;
+            background: #141a29;
+            border-radius: 24px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #222d4a;
+            color: #00e676;
+            font-size: 28px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .menu-card {
+            background: #131722;
+            border: 1px solid #1f2638;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .menu-card:active {
+            border-color: #00e676;
+            background: #1a2235;
+        }
+
+        .menu-card-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .menu-card-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 230, 118, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00e676;
+        }
+
+        .menu-card-info h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .menu-card-info span {
+            font-size: 11px;
+            color: #8b90a0;
+        }
+
+        /* Màn hình danh sách app */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
@@ -251,13 +314,24 @@
         }
 
         .dash-title h2 {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 800;
         }
 
         .dash-title p {
             font-size: 11px;
             color: #8b90a0;
+        }
+
+        .btn-back {
+            background: #141824;
+            border: 1px solid #202638;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .scan-action-bar {
@@ -306,15 +380,6 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-
-        /* KHUNG CUỘN DANH SÁCH ỨNG DỤNG - VUỐT THẢ GA KHÔNG BAO GIỜ KẸT */
-        .app-scroll-area {
-            flex: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 30px;
-            touch-action: pan-y;
         }
 
         .app-list {
@@ -391,31 +456,12 @@
             font-size: 12px;
         }
 
-        /* Màn hình 3: Tiêm file */
-        .injector-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
+        /* Màn hình Tiêm file */
         .screen-topbar {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
             flex-shrink: 0;
-        }
-
-        .btn-back {
-            background: #141824;
-            border: 1px solid #202638;
-            color: #fff;
-            padding: 8px 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
         }
 
         .topbar-title {
@@ -567,8 +613,9 @@
 </script>
 
 <div class="phone-frame">
+    <!-- MÀN HÌNH 1: ĐĂNG NHẬP -->
     <div id="login-screen" class="screen">
-        <div class="login-content">
+        <div class="inner-scroll">
             <div class="login-hero">
                 <div class="app-logo">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
@@ -597,14 +644,61 @@
         </div>
     </div>
 
-    <div id="dashboard-screen" class="screen">
-        <div class="dash-container">
-            <div class="dash-topbar">
-                <div class="dash-title">
-                    <h2>Ứng dụng trong thiết bị</h2>
-                    <p id="device-info-text">Đã phát hiện thiết bị Android/iOS</p>
-                </div>
+    <!-- MÀN HÌNH 2: MENU CHÍNH (GIỐNG VIDEO TIKTOK) -->
+    <div id="main-menu-screen" class="screen">
+        <div class="inner-scroll">
+            <div style="display: flex; justify-content: flex-end; padding-top: 5px;">
                 <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
+            </div>
+
+            <div class="menu-hero">
+                <div class="menu-avatar-box">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">Injetor Pro Active</h2>
+                <p style="font-size: 11px; color: #00e676;">Trạng thái: Đã kích hoạt bản quyền</p>
+            </div>
+
+            <div class="menu-card" onclick="goToDashboard()">
+                <div class="menu-card-left">
+                    <div class="menu-card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <div class="menu-card-info">
+                        <h4>Chọn Ứng Dụng</h4>
+                        <span>Quét và quản lý ứng dụng tiêm file</span>
+                    </div>
+                </div>
+                <div style="color: #00e676; font-size: 16px;">›</div>
+            </div>
+
+            <div class="menu-card" onclick="alert('Hệ thống an toàn v3.0 đã bật bảo vệ!')">
+                <div class="menu-card-left">
+                    <div class="menu-card-icon" style="color: #29b6f6; background: rgba(41, 182, 246, 0.1);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="menu-card-info">
+                        <h4>Cấu Hình Nâng Cao</h4>
+                        <span>Tùy chỉnh thông số hệ thống</span>
+                    </div>
+                </div>
+                <div style="color: #29b6f6; font-size: 16px;">›</div>
+            </div>
+
+            <div class="footer-credit">© 2026 Injetor Pro Ultimate. Secured Core.</div>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH 3: DANH SÁCH ỨNG DỤNG -->
+    <div id="dashboard-screen" class="screen">
+        <div style="display: flex; flex-direction: column; height: 100%;">
+            <div class="dash-topbar">
+                <button class="btn-back" onclick="goToMainMenu()">‹ Menu</button>
+                <div class="dash-title" style="text-align: center;">
+                    <h2>Chọn Ứng Dụng</h2>
+                    <p id="device-info-text">Danh sách khả dụng</p>
+                </div>
+                <div style="width: 50px;"></div>
             </div>
 
             <div class="scan-action-bar">
@@ -620,54 +714,57 @@
                 <span style="font-size: 10px; color: #737b93;" id="scan-status-text">Đang phân tích bộ nhớ trong...</span>
             </div>
 
-            <div class="app-scroll-area">
+            <div class="inner-scroll">
                 <div class="app-list" id="dynamic-app-list">
-                    </div>
+                    <!-- Render động danh sách app -->
+                </div>
             </div>
 
             <div class="footer-credit">© 2026 Injetor Pro. Tự động cập nhật v3.0</div>
         </div>
     </div>
 
+    <!-- MÀN HÌNH 4: TIÊM FILE -->
     <div id="injector-screen" class="screen">
-        <div class="injector-container">
+        <div style="display: flex; flex-direction: column; height: 100%;">
             <div class="screen-topbar">
                 <button class="btn-back" onclick="goToDashboard()">‹ Quay lại</button>
                 <div class="topbar-title" id="topbar-app-name">Free Fire</div>
                 <div style="width: 50px;"></div>
             </div>
 
-            <div class="game-showcase">
-                <div class="game-avatar" id="selected-game-avatar">FF</div>
-                <h3 id="display-game-name">Free Fire</h3>
-                <p id="display-pkg-name">com.dts.freefireth</p>
-            </div>
-
-            <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
-                <div class="upload-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <div class="inner-scroll">
+                <div class="game-showcase">
+                    <div class="game-avatar" id="selected-game-avatar">FF</div>
+                    <h3 id="display-game-name">Free Fire</h3>
+                    <p id="display-pkg-name">com.dts.freefireth</p>
                 </div>
-                <p>Chọn tệp cấu hình cần tiêm<br><span style="font-size: 10px; color: #5a627a;">Hỗ trợ định dạng: .dat, .cfg, .zip, .img</span></p>
-                <span class="btn-file-select">Duyệt Tệp Tin</span>
-                <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
-            </div>
 
-            <div class="success-panel" id="success-panel">
-                <div class="success-check-icon">✓</div>
-                <h4>Tiêm File Thành Công</h4>
-                <p id="target-file-name">Đã ghi đè cấu hình vào mục tiêu!</p>
-                <button class="btn btn-green" style="padding: 12px; font-size: 12px;" onclick="resetUploadState()">Tiêm Tệp Khác</button>
-            </div>
+                <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
+                    <div class="upload-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    </div>
+                    <p>Chọn tệp cấu hình cần tiêm<br><span style="font-size: 10px; color: #5a627a;">Hỗ trợ định dạng: .dat, .cfg, .zip, .img</span></p>
+                    <span class="btn-file-select">Duyệt Tệp Tin</span>
+                    <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
+                </div>
 
-            <div class="footer-credit">© 2026 Injetor Pro. Hệ thống an toàn cao cấp.</div>
+                <div class="success-panel" id="success-panel">
+                    <div class="success-check-icon">✓</div>
+                    <h4>Tiêm File Thành Công</h4>
+                    <p id="target-file-name">Đã ghi đè cấu hình vào mục tiêu!</p>
+                    <button class="btn btn-green" style="padding: 12px; font-size: 12px;" onclick="resetUploadState()">Tiêm Tệp Khác</button>
+                </div>
+
+                <div class="footer-credit">© 2026 Injetor Pro. Hệ thống an toàn cao cấp.</div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    const VALID_KEY = "PRO2026"; // Mã key chính thức của ông
+    const VALID_KEY = "PRO2026"; // Mã key chính thức
 
-    // Danh sách ứng dụng/game chuẩn icon CH Play cực nét và phong phú
     const deviceApps = [
         { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://play-lh.googleusercontent.com/CH38cT5w88_6jQ6q6bW1w5c1e1_3Z6zQv9m1x2y3z4_5A=w240-h480-rw", color: "#e53935" },
         { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://play-lh.googleusercontent.com/9lS8o3A8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff8f00" },
@@ -675,7 +772,7 @@
         { name: "Roblox", pkg: "com.roblox.client", size: "320 MB", icon: "https://play-lh.googleusercontent.com/Wp2uU0k1s5g5l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#0288d1" },
         { name: "TikTok", pkg: "com.zhiliaoapp.musically", size: "290 MB", icon: "https://play-lh.googleusercontent.com/BmPyuBCuMrcKjzeL1L5fL1_8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#000000" },
         { name: "YouTube", pkg: "com.google.android.youtube", size: "180 MB", icon: "https://play-lh.googleusercontent.com/lMoItBgdwaVAHMG1N3jSq7uK71l1l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff0000" },
-        { name: "WhatsApp", pkg: "com.whatsapp", size: "140 MB", icon: "https://play-lh.googleusercontent.com/b_So_T13W0a0_4x3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#25D366" },
+        { name: "WhatsApp", pkg: "com.whatsapp", size: "140 MB", icon: "https://play-lh.googleusercontent.com/b_So_T13W0a0_4x3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#25D366" },
         { name: "Telegram", pkg: "org.telegram.messenger", size: "110 MB", icon: "https://play-lh.googleusercontent.com/ZUu3V3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#229ED9" },
         { name: "Discord", pkg: "com.discord", size: "180 MB", icon: "https://play-lh.googleusercontent.com/s6_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#5865F2" },
         { name: "Instagram", pkg: "com.instagram.android", size: "210 MB", icon: "https://play-lh.googleusercontent.com/VRMWkE5p3C_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3_3=w240-h480-rw", color: "#E1306C" },
@@ -684,7 +781,6 @@
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
-        // Xóa service worker cũ
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for(let registration of registrations) { registration.unregister(); }
@@ -693,10 +789,9 @@
 
         loadRealDeviceApps();
 
-        // Kiểm tra lưu trữ đăng nhập
         const savedKey = localStorage.getItem('pro_saved_key');
         if(savedKey === VALID_KEY) {
-            switchScreen('dashboard-screen');
+            switchScreen('main-menu-screen'); // Vào thẳng menu chính giống video gốc
         } else {
             switchScreen('login-screen');
         }
@@ -767,7 +862,7 @@
             if(rememberMe) {
                 localStorage.setItem('pro_saved_key', keyVal);
             }
-            switchScreen('dashboard-screen');
+            switchScreen('main-menu-screen');
         } else {
             errorToast.style.display = 'block';
         }
@@ -779,6 +874,14 @@
         switchScreen('login-screen');
     }
 
+    function goToMainMenu() {
+        switchScreen('main-menu-screen');
+    }
+
+    function goToDashboard() {
+        switchScreen('dashboard-screen');
+    }
+
     function selectApp(appName, pkgName, iconUrl) {
         document.getElementById('topbar-app-name').innerText = appName;
         document.getElementById('display-game-name').innerText = appName;
@@ -788,10 +891,6 @@
         avatarBox.innerHTML = `<img src="${iconUrl}" onerror="this.style.display='none'; this.parentElement.innerText='${appName.substring(0,2)}'" style="width:100%; height:100%; object-fit:cover;">`;
         
         switchScreen('injector-screen');
-    }
-
-    function goToDashboard() {
-        switchScreen('dashboard-screen');
     }
 
     function onFileChosen(event) {
