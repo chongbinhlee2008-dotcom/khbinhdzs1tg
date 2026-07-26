@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Injetor Pro Ultimate</title>
+    <title>Migul Pro V2</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -19,6 +19,7 @@
             user-select: none;
         }
 
+        /* Khóa scroll body để chống kéo trang gây văng app */
         body {
             background-color: #050608;
             color: #ffffff;
@@ -29,6 +30,7 @@
             height: 100vh;
             overflow: hidden;
             position: fixed;
+            overscroll-behavior-y: none;
         }
 
         /* HẠT KIM TUYẾN LẤP LÁNH XANH LÁ */
@@ -94,7 +96,7 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 30px;
-            touch-action: pan-y;
+            overscroll-behavior-y: contain;
         }
 
         /* Màn hình 1: Đăng nhập */
@@ -314,12 +316,12 @@
         }
 
         .dash-title h2 {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
         }
 
         .dash-title p {
-            font-size: 11px;
+            font-size: 10px;
             color: #8b90a0;
         }
 
@@ -620,7 +622,7 @@
                 <div class="app-logo">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                 </div>
-                <h1>Injetor Pro</h1>
+                <h1>Migul Pro V2</h1>
                 <p>Hệ thống tiêm tệp độc quyền</p>
             </div>
 
@@ -640,7 +642,7 @@
             <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
             <div id="error-toast" class="error-toast">Mã bản quyền không chính xác! Vui lòng thử lại.</div>
 
-            <div class="footer-credit">© 2026 Injetor Pro Ultimate. Licensed Edition.</div>
+            <div class="footer-credit">© 2026 Migul Pro V2. Licensed Edition.</div>
         </div>
     </div>
 
@@ -655,7 +657,7 @@
                 <div class="menu-avatar-box">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
-                <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">Injetor Pro Active</h2>
+                <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">Migul Pro Active</h2>
                 <p style="font-size: 11px; color: #00e676;">Trạng thái: Đã kích hoạt bản quyền</p>
             </div>
 
@@ -672,20 +674,7 @@
                 <div style="color: #00e676; font-size: 16px;">›</div>
             </div>
 
-            <div class="menu-card" onclick="alert('Hệ thống an toàn v3.0 đã bật bảo vệ!')">
-                <div class="menu-card-left">
-                    <div class="menu-card-icon" style="color: #29b6f6; background: rgba(41, 182, 246, 0.1);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    </div>
-                    <div class="menu-card-info">
-                        <h4>Cấu Hình Nâng Cao</h4>
-                        <span>Tùy chỉnh thông số hệ thống</span>
-                    </div>
-                </div>
-                <div style="color: #29b6f6; font-size: 16px;">›</div>
-            </div>
-
-            <div class="footer-credit">© 2026 Injetor Pro Ultimate. Secured Core.</div>
+            <div class="footer-credit">© 2026 Migul Pro V2. Secured Core.</div>
         </div>
     </div>
 
@@ -695,10 +684,10 @@
             <div class="dash-topbar">
                 <button class="btn-back" onclick="goToMainMenu()">‹ Menu</button>
                 <div class="dash-title" style="text-align: center;">
-                    <h2>Chọn Ứng Dụng</h2>
-                    <p id="device-info-text">Danh sách khả dụng</p>
+                    <h2>Ứng dụng trong thiết bị</h2>
+                    <p>Đã phát hiện thiết bị Android/iOS</p>
                 </div>
-                <div style="width: 50px;"></div>
+                <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
             </div>
 
             <div class="scan-action-bar">
@@ -714,13 +703,13 @@
                 <span style="font-size: 10px; color: #737b93;" id="scan-status-text">Đang phân tích bộ nhớ trong...</span>
             </div>
 
-            <div class="inner-scroll">
+            <div class="inner-scroll" id="dash-scroll-container">
                 <div class="app-list" id="dynamic-app-list">
                     <!-- Render động danh sách app -->
                 </div>
             </div>
 
-            <div class="footer-credit">© 2026 Injetor Pro. Tự động cập nhật v3.0</div>
+            <div class="footer-credit">© 2026 Migul Pro. Tự động cập nhật v2.8</div>
         </div>
     </div>
 
@@ -756,7 +745,7 @@
                     <button class="btn btn-green" style="padding: 12px; font-size: 12px;" onclick="resetUploadState()">Tiêm Tệp Khác</button>
                 </div>
 
-                <div class="footer-credit">© 2026 Injetor Pro. Hệ thống an toàn cao cấp.</div>
+                <div class="footer-credit">© 2026 Migul Pro. Hệ thống an toàn cao cấp.</div>
             </div>
         </div>
     </div>
@@ -789,11 +778,11 @@
 
         loadRealDeviceApps();
 
-        const savedKey = localStorage.getItem('pro_saved_key');
+        const savedKey = localStorage.getItem('migul_saved_key');
         if(savedKey === VALID_KEY) {
-            switchScreen('main-menu-screen'); // Vào thẳng menu chính giống video gốc
+            switchScreen('main-menu-screen'); // Đã kích hoạt -> Vào menu chính trực tiếp
         } else {
-            switchScreen('login-screen');
+            switchScreen('login-screen'); // Chưa có key -> Hiện màn hình nhập key
         }
     });
 
@@ -842,6 +831,8 @@
                 setTimeout(() => {
                     overlay.style.display = 'none';
                     loadRealDeviceApps();
+                    // Đưa cuộn về đầu danh sách, tuyệt đối không văng màn hình
+                    document.getElementById('dash-scroll-container').scrollTop = 0;
                 }, 400);
             }
         }, 500);
@@ -860,7 +851,7 @@
         if(keyVal === VALID_KEY) {
             errorToast.style.display = 'none';
             if(rememberMe) {
-                localStorage.setItem('pro_saved_key', keyVal);
+                localStorage.setItem('migul_saved_key', keyVal);
             }
             switchScreen('main-menu-screen');
         } else {
@@ -869,7 +860,7 @@
     }
 
     function handleLogout() {
-        localStorage.removeItem('pro_saved_key');
+        localStorage.removeItem('migul_saved_key');
         document.getElementById('key-input').value = '';
         switchScreen('login-screen');
     }
