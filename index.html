@@ -16,7 +16,7 @@
         }
 
         body {
-            background-color: #0b0f0d;
+            background-color: #070b08;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -27,15 +27,15 @@
             position: fixed;
         }
 
-        /* Hiệu ứng kim tuyến lấp lánh rơi */
+        /* Hiệu ứng kim tuyến XANH lấp lánh rơi */
         .sparkle {
             position: absolute;
             top: -15px;
-            background: radial-gradient(circle, #ffffff 0%, #ff3b3b 70%, rgba(255,59,59,0) 100%);
+            background: radial-gradient(circle, #ffffff 0%, #00e676 70%, rgba(0,230,118,0) 100%);
             border-radius: 50%;
             pointer-events: none;
             animation: fallAnimation linear infinite;
-            box-shadow: 0 0 6px #ffffff, 0 0 10px #ff3b3b;
+            box-shadow: 0 0 6px #ffffff, 0 0 10px #00e676;
             z-index: 100;
         }
 
@@ -49,7 +49,7 @@
             width: 100%;
             max-width: 410px;
             height: 100vh;
-            background: #121212;
+            background: #0d1410;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -61,7 +61,7 @@
             .phone-frame {
                 border-radius: 36px;
                 height: 820px;
-                border: 8px solid #1e1e1e;
+                border: 8px solid #14221a;
                 box-shadow: 0 25px 50px rgba(0,0,0,0.9);
             }
         }
@@ -75,7 +75,7 @@
             display: none;
             flex-direction: column;
             padding: 20px 16px;
-            background: #121212;
+            background: #0d1410;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             z-index: 2;
@@ -85,7 +85,7 @@
             display: flex;
         }
 
-        /* TRANG 1: Đăng nhập & Nhập Key */
+        /* TRANG 1: MỚI MỞ APP LÀ NHẬP KEY */
         .login-container {
             flex: 1;
             display: flex;
@@ -105,15 +105,15 @@
 
         .welcome-sub {
             font-size: 11px;
-            color: #8c8c8c;
+            color: #8bb09a;
             margin-bottom: 30px;
             line-height: 1.4;
         }
 
         .card-box {
             width: 100%;
-            background: #181818;
-            border: 1px solid #282828;
+            background: #131f18;
+            border: 1px solid #1f3326;
             border-radius: 16px;
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -122,13 +122,13 @@
         .card-icon {
             width: 52px;
             height: 52px;
-            background: rgba(255, 59, 59, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             border-radius: 14px;
             margin: 0 auto 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ff3b3b;
+            color: #00e676;
         }
 
         .card-box h3 {
@@ -139,14 +139,14 @@
 
         .card-box p {
             font-size: 10px;
-            color: #8c8c8c;
+            color: #8bb09a;
             margin-bottom: 16px;
         }
 
         .input-key {
             width: 100%;
-            background: #111;
-            border: 1.5px solid #2d2d2d;
+            background: #0a100d;
+            border: 1.5px solid #1f3326;
             border-radius: 10px;
             padding: 12px;
             color: #fff;
@@ -157,20 +157,20 @@
         }
 
         .input-key:focus {
-            border-color: #ff3b3b;
+            border-color: #00e676;
         }
 
         .btn-main {
             width: 100%;
-            background: linear-gradient(135deg, #ff3b3b 0%, #c91414 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #00e676 0%, #00a854 100%);
+            color: #070b08;
             border: none;
             padding: 13px;
             border-radius: 10px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255, 59, 59, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.3);
         }
 
         .error-msg {
@@ -183,11 +183,37 @@
 
         .footer-text {
             font-size: 9px;
-            color: #555;
+            color: #435e4d;
             margin-top: 20px;
         }
 
-        /* TRANG 2: Danh sách ứng dụng (Giống ảnh 17478.jpg) */
+        /* TRANG 2: SAU KHI ĐĂNG NHẬP XONG (CÓ NÚT CHỌN ỨNG DỤNG ĐỂ TIÊM) */
+        .hub-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .folder-box-btn {
+            width: 100%;
+            background: #131f18;
+            border: 1px solid #1f3326;
+            border-radius: 16px;
+            padding: 30px 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.2s;
+        }
+
+        .folder-box-btn:active {
+            border-color: #00e676;
+            background: #192c22;
+        }
+
+        /* TRANG 3: HIỆN DANH SÁCH APP KHI BẤM NÚT Ở TRANG 2 */
         .topbar-nav {
             display: flex;
             justify-content: space-between;
@@ -198,7 +224,7 @@
         .btn-back-text {
             background: none;
             border: none;
-            color: #ff3b3b;
+            color: #00e676;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
@@ -211,8 +237,8 @@
         }
 
         .app-item-row {
-            background: #161616;
-            border: 1px solid #222;
+            background: #131f18;
+            border: 1px solid #1f3326;
             border-radius: 12px;
             padding: 10px 12px;
             display: flex;
@@ -223,8 +249,8 @@
         }
 
         .app-item-row:active {
-            background: #201616;
-            border-color: #ff3b3b;
+            background: #1b2f24;
+            border-color: #00e676;
         }
 
         .app-left-info {
@@ -238,7 +264,7 @@
             height: 38px;
             border-radius: 9px;
             object-fit: cover;
-            background: #222;
+            background: #1c2e22;
         }
 
         .app-meta h4 {
@@ -250,22 +276,22 @@
 
         .app-meta span {
             font-size: 9px;
-            color: #777;
+            color: #8bb09a;
         }
 
         .app-right-icon {
             width: 24px;
             height: 24px;
-            background: rgba(255, 59, 59, 0.12);
+            background: rgba(0, 230, 118, 0.15);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ff3b3b;
+            color: #00e676;
             font-size: 11px;
         }
 
-        /* TRANG 3: Tiêm File (Giống ảnh 17477.jpg mẫu giao diện chính) */
+        /* TRANG 4 (HOẶC GIAO DIỆN TIÊM FILE TRONG APP ĐÓ): Chọn file */
         .inject-center-box {
             flex: 1;
             display: flex;
@@ -281,7 +307,7 @@
             border-radius: 16px;
             overflow: hidden;
             margin-bottom: 10px;
-            border: 2px solid #ff3b3b;
+            border: 2px solid #00e676;
         }
 
         .target-app-banner img {
@@ -292,22 +318,18 @@
 
         .file-upload-zone {
             width: 100%;
-            border: 2px dashed #333;
-            background: #161616;
+            border: 2px dashed #1f382a;
+            background: #111a14;
             border-radius: 14px;
             padding: 24px 16px;
             margin-top: 15px;
             cursor: pointer;
         }
 
-        .file-upload-zone:hover {
-            border-color: #ff3b3b;
-        }
-
         .success-box {
             display: none;
-            background: #112415;
-            border: 1px solid #1e4d2b;
+            background: #0d261a;
+            border: 1px solid #17422b;
             border-radius: 12px;
             padding: 16px;
             margin-top: 15px;
@@ -315,7 +337,7 @@
         }
 
         .success-box h4 {
-            color: #2ecc71;
+            color: #00e676;
             font-size: 13px;
             font-weight: 700;
             margin-bottom: 4px;
@@ -330,6 +352,7 @@
 </head>
 <body>
 
+<!-- Hiệu ứng kim tuyến xanh rơi -->
 <script>
     for(let i=0; i<20; i++) {
         let sparkle = document.createElement('div');
@@ -346,36 +369,59 @@
 
 <div class="phone-frame">
     
+    <!-- TRANG 1: MỚI MỞ APP LÀ NHẬP KEY (Key: 123) -->
     <div id="screen-1" class="screen active">
         <div class="login-container">
             <h1 class="welcome-title">Bem-vindo!</h1>
-            <p class="welcome-sub">Clique no botão abaixo para acessar o gerenciador de arquivos e aplicativos</p>
+            <p class="welcome-sub">Digite sua chave de acesso para continuar</p>
 
             <div class="card-box">
                 <div class="card-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
                 </div>
-                <h3>Gerenciador de Aplicativos</h3>
-                <p>Acesse o Injetor para gerenciar seus aplicativos e injetar arquivos.</p>
+                <h3>Xác Thực Bản Quyền</h3>
+                <p>Nhập mã key chính xác để mở khóa ứng dụng.</p>
                 
-                <input type="password" id="key-input" class="input-key" placeholder="Nhập Key bản quyền (123)..." autocomplete="off">
+                <input type="password" id="key-input" class="input-key" placeholder="Nhập Key (123)..." autocomplete="off">
                 
-                <button class="btn-main" onclick="verifyKey()">Abrir Gerenciador de Aplicativos</button>
-                <div id="error-box" class="error-msg">Sai Key! Vui lòng nhập đúng mã (123).</div>
+                <button class="btn-main" onclick="verifyKey()">Xác Thực Key</button>
+                <div id="error-box" class="error-msg">Sai Key! Vui lòng nhập lại (123).</div>
             </div>
 
             <div class="footer-text">© 2026 Injetor de Xit. Todos os direitos reservados.</div>
         </div>
     </div>
 
+    <!-- TRANG 2: NHẬP KEY XONG HIỆN NÚT CHỌN ỨNG DỤNG ĐỂ TIÊM -->
     <div id="screen-2" class="screen">
         <div class="topbar-nav">
-            <button class="btn-back-text" onclick="goToScreen(1)">&lt; Voltar</button>
-            <div class="topbar-center-title">Gerenciador de Aplicativos</div>
-            <button class="btn-back-text" style="color:#777;">Editar</button>
+            <button class="btn-back-text" onclick="goToScreen(1)">&lt; Thoát</button>
+            <div class="topbar-center-title">Trang Chủ Injetor</div>
+            <div style="width: 40px;"></div>
         </div>
 
-        <div style="font-size:10px; color:#8c8c8c; margin-bottom: 10px;">Chọn ứng dụng bên dưới để tiến hành tiêm file:</div>
+        <div class="hub-center">
+            <div class="folder-box-btn" onclick="goToScreen(3)">
+                <div style="width: 50px; height: 50px; background: rgba(0,230,118,0.15); border-radius: 14px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: #00e676;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+                <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Chọn Ứng Dụng Để Tiêm</h3>
+                <p style="font-size: 10px; color: #8bb09a;">Bấm vào đây để chọn danh sách app và file tiêm</p>
+            </div>
+        </div>
+
+        <div class="footer-text" style="text-align:center;">© 2026 Injetor de Xit</div>
+    </div>
+
+    <!-- TRANG 3: BẤM NÚT Ở TRANG 2 SẼ HIỆN LÊN MẤY CÁI APP ĐỂ CHỌN -->
+    <div id="screen-3" class="screen">
+        <div class="topbar-nav">
+            <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
+            <div class="topbar-center-title">Danh Sách Ứng Dụng</div>
+            <div style="width: 40px;"></div>
+        </div>
+
+        <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Chọn ứng dụng bạn muốn tiêm file vào:</div>
 
         <div style="display:flex; flex-direction:column; gap:6px; padding-bottom:20px;">
             <div class="app-item-row" onclick="selectApp('Free Fire', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150')">
@@ -383,7 +429,29 @@
                     <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="app-logo-img" alt="FF">
                     <div class="app-meta">
                         <h4>Free Fire</h4>
-                        <span>ZERO KB • com.dts.freefireth</span>
+                        <span>com.dts.freefireth</span>
+                    </div>
+                </div>
+                <div class="app-right-icon">&gt;</div>
+            </div>
+
+            <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150')">
+                <div class="app-left-info">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150" class="app-logo-img" alt="FF MAX">
+                    <div class="app-meta">
+                        <h4>Free Fire MAX</h4>
+                        <span>com.dts.freefiremax</span>
+                    </div>
+                </div>
+                <div class="app-right-icon">&gt;</div>
+            </div>
+
+            <div class="app-item-row" onclick="selectApp('PUBG Mobile', 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150')">
+                <div class="app-left-info">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150" class="app-logo-img" alt="PUBG">
+                    <div class="app-meta">
+                        <h4>PUBG Mobile</h4>
+                        <span>com.tencent.ig</span>
                     </div>
                 </div>
                 <div class="app-right-icon">&gt;</div>
@@ -394,7 +462,7 @@
                     <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" class="app-logo-img" alt="Discord">
                     <div class="app-meta">
                         <h4>Discord</h4>
-                        <span>ZERO KB • com.discord</span>
+                        <span>com.discord</span>
                     </div>
                 </div>
                 <div class="app-right-icon">&gt;</div>
@@ -405,29 +473,7 @@
                     <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?w=150" class="app-logo-img" alt="WhatsApp">
                     <div class="app-meta">
                         <h4>WhatsApp</h4>
-                        <span>ZERO KB • com.whatsapp</span>
-                    </div>
-                </div>
-                <div class="app-right-icon">&gt;</div>
-            </div>
-
-            <div class="app-item-row" onclick="selectApp('Telegram', 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150')">
-                <div class="app-left-info">
-                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150" class="app-logo-img" alt="Telegram">
-                    <div class="app-meta">
-                        <h4>Telegram</h4>
-                        <span>ZERO KB • org.telegram.messenger</span>
-                    </div>
-                </div>
-                <div class="app-right-icon">&gt;</div>
-            </div>
-
-            <div class="app-item-row" onclick="selectApp('YouTube', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
-                <div class="app-left-info">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" class="app-logo-img" alt="YouTube">
-                    <div class="app-meta">
-                        <h4>YouTube</h4>
-                        <span>ZERO KB • com.google.android.youtube</span>
+                        <span>com.whatsapp</span>
                     </div>
                 </div>
                 <div class="app-right-icon">&gt;</div>
@@ -437,9 +483,10 @@
         <div class="footer-text" style="text-align:center;">© 2026 Injetor de Xit</div>
     </div>
 
-    <div id="screen-3" class="screen">
+    <!-- TRANG 4: GIAO DIỆN TIÊM FILE CHO APP ĐÃ CHỌN -->
+    <div id="screen-4" class="screen">
         <div class="topbar-nav">
-            <button class="btn-back-text" onclick="goToScreen(2)">&lt; Chọn app khác</button>
+            <button class="btn-back-text" onclick="goToScreen(3)">&lt; Chọn app khác</button>
             <div class="topbar-center-title" id="selected-app-title">Tiêm File</div>
             <div style="width: 40px;"></div>
         </div>
@@ -448,12 +495,12 @@
             <div class="target-app-banner">
                 <img id="selected-app-icon" src="" alt="App Icon">
             </div>
-            <h3 id="target-app-name" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">Free Fire</h3>
-            <p style="font-size: 10px; color: #8c8c8c;">Chọn tệp tin (.dat, .cfg) để tiêm vào ứng dụng</p>
+            <h3 id="target-app-name" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">App Name</h3>
+            <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg) để tiến hành tiêm</p>
 
             <div class="file-upload-zone" onclick="document.getElementById('hidden-file-input').click()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b3b" stroke-width="2" style="margin-bottom:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                <div style="font-size: 11px; font-weight: 600; color: #ccc;">Bấm để chọn file cấu hình</div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" style="margin-bottom:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <div style="font-size: 11px; font-weight: 600; color: #fff;">Bấm để chọn file cấu hình</div>
                 <span style="font-size: 9px; color: #666;">Hỗ trợ tất cả định dạng file</span>
                 <input type="file" id="hidden-file-input" style="display:none;" onchange="handleFileInjection(event)">
             </div>
@@ -476,20 +523,20 @@
         document.getElementById('screen-' + screenNum).classList.add('active');
     }
 
-    // Kiểm tra Key bản quyền (Yêu cầu Key là 123)
+    // Kiểm tra Key (Yêu cầu chính xác là 123)
     function verifyKey() {
         const keyInput = document.getElementById('key-input').value.trim();
         const errorBox = document.getElementById('error-box');
 
         if (keyInput === "123") {
             errorBox.style.display = 'none';
-            goToScreen(2); // Chuyển sang trang danh sách ứng dụng
+            goToScreen(2); // Sang trang có nút chọn ứng dụng
         } else {
             errorBox.style.display = 'block'; // Báo lỗi nếu sai key
         }
     }
 
-    // Chọn ứng dụng từ danh sách (Trang 2) -> Sang trang tiêm file (Trang 3)
+    // Bấm vào app nào thì sang trang tiêm file của app đó
     function selectApp(appName, iconUrl) {
         document.getElementById('selected-app-title').innerText = appName;
         document.getElementById('target-app-name').innerText = appName;
@@ -499,16 +546,16 @@
         document.querySelector('.file-upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
 
-        goToScreen(3);
+        goToScreen(4);
     }
 
-    // Xử lý khi người dùng chọn file để tiêm
+    // Xử lý khi chọn file để tiêm
     function handleFileInjection(event) {
         const file = event.target.files[0];
         if (file) {
             document.querySelector('.file-upload-zone').style.display = 'none';
             document.getElementById('success-notification').style.display = 'block';
-            document.getElementById('injected-file-name').innerText = `${file.name} đã được tiêm thành công vào ứng dụng!`;
+            document.getElementById('injected-file-name').innerText = `${file.name} đã được tiêm thành công!`;
         }
     }
 
