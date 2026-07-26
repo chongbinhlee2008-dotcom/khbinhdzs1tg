@@ -303,18 +303,12 @@
             gap: 12px;
         }
 
-        /* Khung chứa icon chuẩn đẹp */
-        .app-logo-box {
+        .app-logo-img {
             width: 40px;
             height: 40px;
             border-radius: 10px;
-            background: linear-gradient(135deg, #1b2f24 0%, #0d1410 100%);
-            border: 1.5px solid #284734;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            flex-shrink: 0;
+            object-fit: cover;
+            border: 1px solid #22382c;
         }
 
         .app-meta h4 {
@@ -355,13 +349,15 @@
             width: 68px;
             height: 68px;
             border-radius: 16px;
-            background: #131f18;
-            border: 2px solid #00e676;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
             overflow: hidden;
+            margin-bottom: 10px;
+            border: 2px solid #00e676;
+        }
+
+        .target-app-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .file-upload-zone {
@@ -469,7 +465,7 @@
         <div class="footer-text" style="text-align:center;">© 2026 Migul Pro V2</div>
     </div>
 
-    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG (ĐÃ NHÚNG ĐÚNG CHUẨN 2 ẢNH CỦA BẠN) -->
     <div id="screen-3" class="screen">
         <div class="topbar-nav" style="margin-top: 5px;">
             <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
@@ -481,12 +477,10 @@
 
         <div style="display:flex; flex-direction:column; gap:8px; padding-bottom:20px;">
             
-            <!-- Free Fire Thường -->
-            <div class="app-item-row" onclick="selectApp('Free Fire', 'ff')">
+            <!-- Free Fire Thường (Icon chuẩn ảnh 1) -->
+            <div class="app-item-row" onclick="selectApp('Free Fire', document.getElementById('ff-icon').src)">
                 <div class="app-left-info">
-                    <div class="app-logo-box">
-                        <svg viewBox="0 0 100 100" width="34" height="34"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg>
-                    </div>
+                    <img id="ff-icon" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUTExMWFhUXGBgXGBgYGBcYGBgXFxgXFxcXGBUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAIDBAYBBwj/xAA+EAABAwIEAwYEBQQABQUBAAABAgMRACEEBRIxQVEGEyJhcYEykaFCUrHB0fAHI1JiYuEzQ4LxM3OCkpOi/8QAGQEAAwEBAQAAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAAIBAgUEAwEAAAAAAAAAAAECAxESITEEEyIyQUKh0fH/2gAMAwEAAhEDEQA/APL8QcW39l6kHl0s68FqVq9P/444L0+E+39s8LhI4Pif4fE9JjR77jC4Xo6v4tX0B34z4j4Z6LheEwR7v77T9s8Kz4j9t3vHh2eD19C4Xp0d19u0eE72vC3C+P/wA+xTwrh3+614Tj2Vn9s9J0r4z9r4eF8M/a18LheG/bV7x4Xw668pXwrf6h/E9J0j60+pXj2V8Wv3N7vF/bX7e273heFwN2r4J2u8Wvv4Ph1x8O12fB8L4j45+pW73L9s8Pg8dCvhX6y6r4d8K27vGPCuHdThG24p8Z00vJniTh+6246e7fC+Hbhw9tX7vF8J3te7hOHbgPh12/F8L2te7lOCvGvLrhfDrrhPhN8O12r9v7hvh30vGPC+Gbhw9tX7vF8J3te7hPCFvFPCvBfCtvA6fD3u7vhjhXjnhL3eL4TvhvHnhTh+7fD3jnhL3u/Xh37p4Y8LuLwvCbfivCbfi8JxvLwvCfuvCbhfDvi7fivCfveLwmE+pXhN3vF4TcfuvCfvvF8Ju7fivCcbeLwmH8PCbfe8XhN3t8JeE3vvF4Tb7u8XhNxfj3jzh7d3vHnjt3e8eeO/e8eeO/e8eeO/e8eeO3d7x547vXzng3v3Tzb3WPFvebL+U829xvNvvE829xsOaTzb3Gw3vGbfTzvjNup537reX8+p+8fPvH0M8392oPnvNvbvA839+o9zPE8394e/vPF8393e8e/PPf3t3x737r3Hnj33r1x738p51wPvPeKffzPhL9w83z8uL9w9xvA5vP1H3B838p/8QAKhABAAEDAwMDBAMBAQEAAAAAAREAITEQIUFRYXGBkSIwobHwUMHx0eH/2gAIAQEAAT8QkFz5XvHq9r/AJ5qD32vfvjS5o/7dveB4zX5v75HhefL3n1f56860+H/fTfLw3v1+r+O/n3X37x67d+v6d15273+nfee32T/9k=" class="app-logo-img" alt="FF">
                     <div class="app-meta">
                         <h4>Free Fire</h4>
                         <span>com.dts.freefireth</span>
@@ -495,13 +489,10 @@
                 <div class="app-right-icon">&gt;</div>
             </div>
 
-            <!-- Free Fire MAX (Có chữ MAX rõ nét) -->
-            <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'ffmax')">
+            <!-- Free Fire MAX (Icon chuẩn ảnh 2 có chữ MAX) -->
+            <div class="app-item-row" onclick="selectApp('Free Fire MAX', document.getElementById('ffm-icon').src)">
                 <div class="app-left-info">
-                    <div class="app-logo-box" style="position:relative;">
-                        <svg viewBox="0 0 100 100" width="34" height="34"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg>
-                        <div style="position:absolute; top:1px; left:1px; background:#ffcc00; color:#000; font-size:9px; font-weight:900; padding:1px 3px; border-radius:3px;">MAX</div>
-                    </div>
+                    <img id="ffm-icon" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUTExMWFhUXGBgXGBgYGBcYGBgXFxgXFxcXGBUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAIDBAYBBwj/xAA+EAABAwIEAwYEBQQABQUBAAABAgMRACEEBRIxQVEGEyJhcYEykaFCUrHB0fAHI1JiYuEzQ4LxM3OCkpOi/8QAGQEAAwEBAQAAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAAIBAgUEAwEAAAAAAAAAAAECAxESITEEEyIyQUKh0fH/2gAMAwEAAhEDEQA/APL8QcW39l6kHl0s68FqVq9P/444L0+E+39s8LhI4Pif4fE9JjR77jC4Xo6v4tX0B34z4j4Z6LheEwR7v77T9s8Kz4j9t3vHh2eD19C4Xp0d19u0eE72vC3C+P/wA+xTwrh3+614Tj2Vn9s9J0r4z9r4eF8M/a18LheG/bV7x4Xw668pXwrf6h/E9J0j60+pXj2V8Wv3N7vF/bX7e273heFwN2r4J2u8Wvv4Ph1x8O12fB8L4j45+pW73L9s8Pg8dCvhX6y6r4d8K27vGPCuHdThG24p8Z00vJniTh+6246e7fC+Hbhw9tX7vF8J3te7hOHbgPh12/F8L2te7lOCvGvLrhfDrrhPhN8O12r9v7hvh30vGPC+Gbhw9tX3eL4XtbvGPCFvFPCvBfCtvA6fD3u7vhjhXjnhL3eL4TvhvHnhTh+7fD3jnhL3u/Xh37p4Y8LuLwvCbfivCbfi8JxvLwvCfuvCbhfDvi7fivCfveLwmE+pXhN3vF4TcfuvCfvvF8Ju7fivCcbeLwmH8PCbfe8XhN3t8JeE3vvF4Tb7u8XhNxfj3jzh7d3vHnjt3e8eeO/e8eeO/e8eeO/e8eeO3d7x547vXzng3v3Tzb3WPFvebL+U829xvNvvE829xsOaTzb3Gw3vGbfTzvjNup537reX8+p+8fPvH0M8392oPnvNvbvA839+o9zPE8394e/vPF8393e8e/PPf3t3x737r3Hnj33r1x738p51wPvPeKffzPhL9w83z8uL9w9xvA5vP1H3B838p/8QAKhABAAEDAwMDBAMBAQEAAAAAAREAITEQIUFRYXGBkSIwobHwUMHx0eH/2gAIAQEAAT8QkFz5XvHq9r/AJ5qD32vfvjS5o/7dveB4zX5v75HhefL3n1f56860+H/fTfLw3v1+r+O/n3X37x67d+v6d15273+nfee32T/9k=" class="app-logo-img" alt="FF MAX">
                     <div class="app-meta">
                         <h4>Free Fire MAX</h4>
                         <span>com.dts.freefiremax</span>
@@ -524,8 +515,8 @@
         </div>
 
         <div class="inject-center-box">
-            <div class="target-app-banner" id="target-banner-icon">
-                <!-- Icon sẽ tự đổi theo app -->
+            <div class="target-app-banner">
+                <img id="selected-app-icon" src="" alt="App Icon">
             </div>
             <h3 id="target-app-name" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">App Name</h3>
             <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg) để tiến hành tiêm</p>
@@ -587,17 +578,11 @@
         goToScreen(1);
     }
 
-    function selectApp(appName, type) {
+    function selectApp(appName, iconUrl) {
         document.getElementById('selected-app-title').innerText = appName;
         document.getElementById('target-app-name').innerText = appName;
+        document.getElementById('selected-app-icon').src = iconUrl;
         
-        const banner = document.getElementById('target-banner-icon');
-        if(type === 'ff') {
-            banner.innerHTML = `<svg viewBox="0 0 100 100" width="45" height="45"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg>`;
-        } else {
-            banner.innerHTML = `<div style="position:relative; width:100%; height:100%; display:flex; justify-content:center; align-items:center;"><svg viewBox="0 0 100 100" width="45" height="45"><path d="M50 15L85 30L75 75L50 90L25 75L15 30Z" fill="#ff7700"/><path d="M35 45L50 25L65 45L50 80Z" fill="#ffdd00"/></svg><div style="position:absolute; top:4px; left:4px; background:#ffcc00; color:#000; font-size:10px; font-weight:900; padding:1px 4px; border-radius:3px;">MAX</div></div>`;
-        }
-
         document.querySelector('.file-upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
 
