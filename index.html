@@ -421,7 +421,7 @@
         </div>
     </div>
 
-    <!-- TRANG 1: MỚI MỞ APP LÀ NHẬP KEY (Đã ẩn gợi ý key) -->
+    <!-- TRANG 1: MỚI MỞ APP LÀ NHẬP KEY -->
     <div id="screen-1" class="screen active">
         <div class="login-container">
             <h1 class="welcome-title">Bem-vindo!</h1>
@@ -465,7 +465,7 @@
         <div class="footer-text" style="text-align:center;">© 2026 Injetor de Xit</div>
     </div>
 
-    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG (CHỈ CÒN FF VÀ FF MAX VỚI ĐÚNG ẢNH BẠN GỬI) -->
     <div id="screen-3" class="screen">
         <div class="topbar-nav" style="margin-top: 5px;">
             <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
@@ -475,10 +475,12 @@
 
         <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Chọn ứng dụng bạn muốn tiêm file vào:</div>
 
-        <div style="display:flex; flex-direction:column; gap:6px; padding-bottom:20px;">
-            <div class="app-item-row" onclick="selectApp('Free Fire', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150')">
+        <div style="display:flex; flex-direction:column; gap:8px; padding-bottom:20px;">
+            
+            <!-- Free Fire Thường -->
+            <div class="app-item-row" onclick="selectApp('Free Fire', 'https://i.ibb.co/3yk718vQ/17480.jpg')">
                 <div class="app-left-info">
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="app-logo-img" alt="FF">
+                    <img src="https://i.ibb.co/3yk718vQ/17480.jpg" class="app-logo-img" alt="FF">
                     <div class="app-meta">
                         <h4>Free Fire</h4>
                         <span>com.dts.freefireth</span>
@@ -487,9 +489,10 @@
                 <div class="app-right-icon">&gt;</div>
             </div>
 
-            <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150')">
+            <!-- Free Fire MAX (Có chữ MAX như ảnh bạn gửi) -->
+            <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'https://i.ibb.co/6R5Z19QW/17482.jpg')">
                 <div class="app-left-info">
-                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150" class="app-logo-img" alt="FF MAX">
+                    <img src="https://i.ibb.co/6R5Z19QW/17482.jpg" class="app-logo-img" alt="FF MAX">
                     <div class="app-meta">
                         <h4>Free Fire MAX</h4>
                         <span>com.dts.freefiremax</span>
@@ -498,38 +501,6 @@
                 <div class="app-right-icon">&gt;</div>
             </div>
 
-            <div class="app-item-row" onclick="selectApp('PUBG Mobile', 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150')">
-                <div class="app-left-info">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150" class="app-logo-img" alt="PUBG">
-                    <div class="app-meta">
-                        <h4>PUBG Mobile</h4>
-                        <span>com.tencent.ig</span>
-                    </div>
-                </div>
-                <div class="app-right-icon">&gt;</div>
-            </div>
-
-            <div class="app-item-row" onclick="selectApp('Discord', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
-                <div class="app-left-info">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" class="app-logo-img" alt="Discord">
-                    <div class="app-meta">
-                        <h4>Discord</h4>
-                        <span>com.discord</span>
-                    </div>
-                </div>
-                <div class="app-right-icon">&gt;</div>
-            </div>
-
-            <div class="app-item-row" onclick="selectApp('WhatsApp', 'https://images.unsplash.com/photo-1611605698335-8b1569810432?w=150')">
-                <div class="app-left-info">
-                    <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?w=150" class="app-logo-img" alt="WhatsApp">
-                    <div class="app-meta">
-                        <h4>WhatsApp</h4>
-                        <span>com.whatsapp</span>
-                    </div>
-                </div>
-                <div class="app-right-icon">&gt;</div>
-            </div>
         </div>
 
         <div class="footer-text" style="text-align:center;">© 2026 Injetor de Xit</div>
@@ -589,15 +560,15 @@
         }
     }
 
-    // Kiểm tra Key (Không lộ số 123 ra placeholder nữa)
+    // Kiểm tra Key (Key là 123 nhưng không hiện gợi ý ra ngoài)
     function verifyKey() {
         const keyInput = document.getElementById('key-input').value.trim();
         const errorBox = document.getElementById('error-box');
 
         if (keyInput === "123") {
             errorBox.style.display = 'none';
-            setAppStatus('online'); // Chuyển góc trên thành ONLINE
-            goToScreen(2); // Sang trang có nút chọn ứng dụng
+            setAppStatus('online'); // Góc trên hiện ONLINE ngay lập tức và giữ nguyên
+            goToScreen(2); // Sang trang chủ có nút chọn ứng dụng
         } else {
             errorBox.style.display = 'block'; // Báo lỗi nếu sai key
         }
