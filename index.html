@@ -30,7 +30,7 @@
             position: fixed;
         }
 
-        /* HẠT KIM TUYẾN LẤP LÁNH */
+        /* Hiệu ứng hạt rơi */
         .sparkle {
             position: absolute;
             top: -15px;
@@ -88,7 +88,7 @@
             display: flex;
         }
 
-        /* Màn hình 1: Đăng nhập */
+        /* TRANG 1: Đăng nhập */
         .login-hero {
             text-align: center;
             margin-top: 35px;
@@ -227,7 +227,7 @@
             display: none;
         }
 
-        /* Màn hình 2: Chọn ứng dụng (Dashboard) */
+        /* TRANG 2: Quản lý / Chọn ứng dụng */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
@@ -336,7 +336,7 @@
             font-size: 10px;
         }
 
-        /* Màn hình 3: Tiêm file */
+        /* TRANG 3: Tiêm file */
         .screen-topbar {
             display: flex;
             align-items: center;
@@ -479,7 +479,6 @@
 <body>
 
 <script>
-    // Tạo hạt lấp lánh nhẹ nhàng
     for(let i=0; i<12; i++) {
         let sparkle = document.createElement('div');
         sparkle.className = 'sparkle';
@@ -525,8 +524,8 @@
     <div id="dashboard-screen" class="screen">
         <div class="dash-topbar">
             <div class="dash-title">
-                <h2>Ứng dụng trong thiết bị</h2>
-                <p>Đã quét hệ thống Android/iOS</p>
+                <h2>Chọn Ứng Dụng Tiêm</h2>
+                <p>Danh sách game/app trên thiết bị</p>
             </div>
             <button class="btn-back" onclick="handleLogout()" style="color: #00e676;">Đăng xuất</button>
         </div>
@@ -611,9 +610,9 @@
 
     <div id="injector-screen" class="screen">
         <div class="screen-topbar">
-            <button class="btn-back" onclick="goToDashboard()">‹ Trở lại</button>
+            <button class="btn-back" onclick="goToDashboard()">‹ Chọn lại app</button>
             <div class="topbar-title" id="topbar-app-name">Free Fire</div>
-            <div style="width: 45px;"></div>
+            <div style="width: 60px;"></div>
         </div>
 
         <div class="game-showcase">
@@ -621,7 +620,7 @@
                 <img id="selected-game-icon" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Game Icon">
             </div>
             <h3 id="display-game-name">Free Fire</h3>
-            <p>Chọn tệp cấu hình để áp dụng</p>
+            <p>Chọn tệp cấu hình để tiến hành tiêm</p>
         </div>
 
         <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
@@ -645,11 +644,10 @@
 </div>
 
 <script>
-    // Kiểm tra và khởi động màn hình ngay lập tức an toàn tuyệt đối chống lỗi màn hình đen
     window.addEventListener('DOMContentLoaded', () => {
         const savedKey = localStorage.getItem('pro_saved_key');
         
-        // Luôn điền sẵn key nếu có hoặc tự động vào dashboard nếu đã lưu
+        // Nếu đã có key được lưu từ trước, tự động nhảy vào trang 2 (Chọn ứng dụng) luôn
         if (savedKey && savedKey.trim() !== '') {
             document.getElementById('key-input').value = savedKey;
             switchScreen('dashboard-screen');
@@ -660,18 +658,14 @@
     });
 
     function switchScreen(targetId) {
-        // Tắt hết toàn bộ màn hình
-        const screens = document.querySelectorAll('.screen');
-        screens.forEach(s => {
+        document.querySelectorAll('.screen').forEach(s => {
             s.classList.remove('active');
             s.style.display = 'none';
         });
         
-        // Bật màn hình chỉ định
         const target = document.getElementById(targetId);
         if (target) {
             target.style.display = 'flex';
-            // Dùng setTimeout cực ngắn để ép trình duyệt render lại DOM, tránh bị lỗi màn hình đen cứng đầu trên Webview cũ
             setTimeout(() => {
                 target.classList.add('active');
             }, 10);
@@ -716,10 +710,12 @@
         document.getElementById('topbar-app-name').innerText = appName;
         document.getElementById('display-game-name').innerText = appName;
         document.getElementById('selected-game-icon').src = iconUrl;
+        // Bấm vào app sẽ chuyển sang TRANG 3 (Tiêm file)
         switchScreen('injector-screen');
     }
 
     function goToDashboard() {
+        // Nút trở lại trang 2 (Chọn ứng dụng)
         switchScreen('dashboard-screen');
     }
 
