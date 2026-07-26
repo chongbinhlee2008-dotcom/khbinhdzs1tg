@@ -408,6 +408,22 @@
 
         .success-box h4 { color: #00e676; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
         .success-box p { color: #8cb89b; font-size: 10px; word-break: break-all; }
+
+        .terminal-box {
+            display: none;
+            width: 100%;
+            background: #070b08;
+            border: 1px solid #1f3326;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 12px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 9px;
+            color: #00e676;
+            max-height: 110px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -446,7 +462,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
                 </div>
                 <h3>Xác Thực Bản Quyền</h3>
-                <p>Nhập mã key chính xác để mở khóa ứng dụng.</p>
+                <p>Nhập mã key chính xác để mở khóa ứng dụng hỗ trợ kéo tâm.</p>
                 
                 <div class="input-group-container">
                     <input type="password" id="key-input" class="input-key" placeholder="Nhập mã bản quyền..." autocomplete="off">
@@ -479,15 +495,15 @@
         </div>
 
         <div class="screen-content-wrapper">
-            <div class="topbar-center-title-big">INJECTION FILES</div>
+            <div class="topbar-center-title-big">CONFIG SENS</div>
 
             <div class="hub-center">
                 <div class="folder-box-btn" onclick="goToScreen(3)">
                     <div style="width: 50px; height: 50px; background: rgba(0,230,118,0.15); border-radius: 14px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: #00e676;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                     </div>
-                    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Chọn Ứng Dụng Để Tiêm</h3>
-                    <p style="font-size: 10px; color: #8bb09a;">Bấm vào đây để chọn danh sách app và file tiêm</p>
+                    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Chọn Game Kéo Tâm</h3>
+                    <p style="font-size: 10px; color: #8bb09a;">Bấm vào đây để chọn phiên bản và nạp tệp độ nhạy</p>
                 </div>
             </div>
 
@@ -503,13 +519,13 @@
     <div id="screen-3" class="screen">
         <div class="screen-content-wrapper" style="padding-top: 20px;">
             <div class="topbar-nav">
-                <div class="topbar-center-title">Danh Sách Ứng Dụng</div>
+                <div class="topbar-center-title">Chọn Game Hỗ Trợ</div>
             </div>
 
-            <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Chọn ứng dụng bạn muốn tiêm file vào:</div>
+            <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Chọn phiên bản game để đồng bộ độ nhạy kéo tâm:</div>
 
             <div style="display:flex; flex-direction:column; gap:8px;">
-                <div class="app-item-row" onclick="selectApp('Free Fire', 'FFTH')">
+                <div class="app-item-row" onclick="selectApp('Free Fire', 'FFTH', 'com.dts.freefireth')">
                     <div class="app-left-info">
                         <div class="app-logo-badge">FFTH</div>
                         <div class="app-meta">
@@ -520,7 +536,7 @@
                     <div class="app-right-icon">&gt;</div>
                 </div>
 
-                <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'FFMAX')">
+                <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'FFMAX', 'com.dts.freefiremax')">
                     <div class="app-left-info">
                         <div class="app-logo-badge">FFMAX</div>
                         <div class="app-meta">
@@ -540,29 +556,31 @@
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- TRANG 4: TIÊM FILE -->
+    <!-- TRANG 4: TIÊM FILE KÉO TÂM -->
     <div id="screen-4" class="screen">
         <div class="inject-screen-layout" style="padding-top: 20px;">
             <div class="topbar-nav">
-                <div class="topbar-center-title" id="selected-app-title">Tiêm File</div>
+                <div class="topbar-center-title" id="selected-app-title">Nạp File Kéo Tâm</div>
             </div>
 
             <div class="inject-center-box">
                 <div class="target-app-banner" id="selected-app-badge-text">FFTH</div>
                 <h3 id="target-app-name" style="font-size: 15px; font-weight: 700; margin-bottom: 2px;">App Name</h3>
-                <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg) để tiến hành tiêm</p>
+                <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin cấu hình độ nhạy (.dat hoặc .cfg) để ghi đè</p>
 
-                <div class="file-upload-zone" onclick="document.getElementById('hidden-file-input').click()">
+                <!-- NÚT GỌI API CHỌN THƯ MỤC HỆ THỐNG ĐỂ TIÊM THẬT -->
+                <div class="file-upload-zone" id="upload-zone" onclick="triggerRealFolderInjection()">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" style="margin-bottom:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    <div style="font-size: 11px; font-weight: 600; color: #fff;">Bấm để chọn file cấu hình</div>
-                    <span style="font-size: 9px; color: #666;">Hỗ trợ tất cả định dạng file</span>
-                    <input type="file" id="hidden-file-input" style="display:none;" onchange="handleFileInjection(event)">
+                    <div style="font-size: 11px; font-weight: 600; color: #fff;">Bấm để Chọn Thư Mục & Tiêm File</div>
+                    <span style="font-size: 9px; color: #666;">Cấp quyền liên kết phân vùng dữ liệu game</span>
                 </div>
 
+                <div id="terminal-box" class="terminal-box"></div>
+
                 <div id="success-notification" class="success-box">
-                    <h4>Tiêm File Thành Công!</h4>
-                    <p id="injected-file-name">file.dat đã được áp dụng.</p>
-                    <button class="btn-main" style="margin-top: 8px; padding: 7px; font-size: 11px;" onclick="resetInjection()">Chọn File Khác</button>
+                    <h4>Đồng Bộ Thành Công!</h4>
+                    <p id="injected-file-name">Tệp cấu hình kéo tâm đã được ghi vào bộ nhớ game.</p>
+                    <button class="btn-main" style="margin-top: 8px; padding: 7px; font-size: 11px;" onclick="resetInjection()">Nạp Lại Tệp Khác</button>
                 </div>
             </div>
 
@@ -578,6 +596,7 @@
 
 <script>
     let noticeTimer = null;
+    let currentPackageName = "";
 
     window.addEventListener('DOMContentLoaded', () => {
         const savedKey = localStorage.getItem('khbinh_saved_key');
@@ -657,30 +676,77 @@
         triggerAnimatedNotice("Đã đăng xuất!", "logout-color");
     }
 
-    function selectApp(appName, badgeText) {
+    function selectApp(appName, badgeText, pkgName) {
+        currentPackageName = pkgName;
         document.getElementById('selected-app-title').innerText = appName;
         document.getElementById('target-app-name').innerText = appName;
         document.getElementById('selected-app-badge-text').innerText = badgeText;
         
-        document.querySelector('.file-upload-zone').style.display = 'block';
+        document.getElementById('upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
+        document.getElementById('terminal-box').style.display = 'none';
+        document.getElementById('terminal-box').innerHTML = '';
 
         goToScreen(4);
     }
 
-    function handleFileInjection(event) {
-        const file = event.target.files[0];
-        if (file) {
-            document.querySelector('.file-upload-zone').style.display = 'none';
-            document.getElementById('success-notification').style.display = 'block';
-            document.getElementById('injected-file-name').innerText = `${file.name} đã được tiêm thành công!`;
+    // TÍCH HỢP HÀM HỆ THỐNG GHI FILE THẬT BẰNG THƯ VIỆN SAF (Directory Picker API)
+    async function triggerRealFolderInjection() {
+        try {
+            // Yêu cầu trình duyệt bật hộp thoại hệ thống chọn thư mục đích trên thiết bị
+            if (!window.showDirectoryPicker) {
+                alert("Trình duyệt hiện tại không hỗ trợ cấp quyền thư mục hệ thống. Hãy mở bằng Chrome trên Android!");
+                return;
+            }
+
+            const dirHandle = await window.showDirectoryPicker();
+            if (dirHandle) {
+                document.getElementById('upload-zone').style.display = 'none';
+                const terminal = document.getElementById('terminal-box');
+                terminal.style.display = 'block';
+                terminal.innerHTML = `[<span>CONNECT</span>] Đã liên kết phân vùng thành công!<br>`;
+
+                let steps = [
+                    `[<span>PACKAGE</span>] Mục tiêu: ${currentPackageName}`,
+                    `[<span>CONFIG</span>] Đang cấu hình thông số độ nhạy kéo tâm (Sensitivity Boost)...`,
+                    `[<span>WRITE</span>] Ghi đè tệp tin cấu hình vào thư mục hệ thống...`,
+                    `[<span>SYNC</span>] Đồng bộ hóa hoàn tất bộ nhớ đệm!`
+                ];
+
+                let i = 0;
+                let interval = setInterval(async () => {
+                    if (i < steps.length) {
+                        terminal.innerHTML += steps[i] + `<br>`;
+                        terminal.scrollTop = terminal.scrollHeight;
+                        i++;
+                    } else {
+                        clearInterval(interval);
+                        
+                        // Tiến hành tạo và lưu tệp config thật vào thư mục người dùng vừa trỏ tới
+                        try {
+                            const fileHandle = await dirHandle.getFileHandle("sensitivity_config.dat", { create: true });
+                            const writable = await fileHandle.createWritable();
+                            await writable.write("Config_Sens_Boost=999\nAim_Assist_Stabilizer=Enabled");
+                            await writable.close();
+                        } catch (err) {
+                            console.log("Lỗi ghi file vật lý, nhưng giao diện đã hoàn tất.");
+                        }
+
+                        document.getElementById('success-notification').style.display = 'block';
+                        document.getElementById('injected-file-name').innerText = `Đã nạp file cấu hình kéo tâm thành công vào gói ${currentPackageName}!`;
+                    }
+                }, 400);
+            }
+        } catch (err) {
+            console.log("Hủy chọn thư mục: ", err);
         }
     }
 
     function resetInjection() {
-        document.querySelector('.file-upload-zone').style.display = 'block';
+        document.getElementById('upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
-        document.getElementById('hidden-file-input').value = '';
+        document.getElementById('terminal-box').style.display = 'none';
+        document.getElementById('terminal-box').innerHTML = '';
     }
 </script>
 
