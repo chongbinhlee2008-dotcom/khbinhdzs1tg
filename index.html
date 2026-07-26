@@ -26,6 +26,32 @@
             height: 100vh;
             overflow: hidden;
             position: fixed;
+            overscroll-behavior-y: none;
+        }
+
+        /* Hiệu ứng hạt kim tuyến nền */
+        .sparkles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: #00e676;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatSparkle 4s infinite ease-in-out;
+        }
+
+        @keyframes floatSparkle {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-20px) scale(1.5); opacity: 0.7; box-shadow: 0 0 10px #00e676; }
         }
 
         .phone-frame {
@@ -33,12 +59,21 @@
             max-width: 410px;
             height: 100%;
             max-height: 840px;
-            background: #0d0f17;
+            background: radial-gradient(circle at 50% 0%, #0d2318 0%, #0d0f17 70%);
             position: relative;
             box-shadow: 0 25px 60px rgba(0,0,0,0.95);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            z-index: 10;
+        }
+
+        @media (min-width: 450px) {
+            .phone-frame {
+                border-radius: 42px;
+                height: 820px;
+                border: 10px solid #181b26;
+            }
         }
 
         .screen {
@@ -50,8 +85,9 @@
             display: none;
             flex-direction: column;
             padding: 20px 16px;
-            background: #0d0f17;
+            background: radial-gradient(circle at 50% 0%, #0d2318 0%, #0d0f17 70%);
             overflow: hidden;
+            z-index: 2;
         }
 
         .screen.active {
@@ -63,6 +99,7 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 30px;
+            overscroll-behavior-y: contain;
         }
 
         /* Màn hình Đăng nhập */
@@ -155,13 +192,17 @@
             border-color: #00e676;
         }
 
-        .checkbox-row input:checked ~ .custom-check::after {
+        .custom-check::after {
             content: '';
             width: 4px;
             height: 8px;
             border: solid #000;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
+            display: none;
+        }
+
+        .checkbox-row input:checked ~ .custom-check::after {
             display: block;
         }
 
@@ -218,6 +259,7 @@
             border: 2px solid #222d4a;
             color: #00e676;
             font-size: 28px;
+            box-shadow: 0 10px 25px rgba(0,230,118,0.15);
         }
 
         .menu-card {
@@ -511,9 +553,12 @@
 </head>
 <body>
 
+<!-- Hiệu ứng hạt kim tuyến -->
+<div class="sparkles-container" id="sparkles"></div>
+
 <div class="phone-frame">
     <!-- MÀN HÌNH 1: ĐĂNG NHẬP -->
-    <div id="login-screen" class="screen">
+    <div id="login-screen" class="screen active">
         <div class="inner-scroll">
             <div class="login-hero">
                 <div class="app-logo">
@@ -640,7 +685,22 @@
         { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://play-lh.googleusercontent.com/9lS8o3A8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff8f00" }
     ];
 
+    // Tạo hiệu ứng kim tuyến ngẫu nhiên
     window.addEventListener('DOMContentLoaded', () => {
+        const sparklesContainer = document.getElementById('sparkles');
+        for (let i = 0; i < 20; i++) {
+            let s = document.createElement('div');
+            s.className = 'sparkle';
+            s.style.top = Math.random() * 100 + '%';
+            s.style.left = Math.random() * 100 + '%';
+            let size = (Math.random() * 3 + 2) + 'px';
+            s.style.width = size;
+            s.style.height = size;
+            s.style.animationDelay = (Math.random() * 3) + 's';
+            s.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            sparklesContainer.appendChild(s);
+        }
+
         loadRealDeviceApps();
         const savedKey = localStorage.getItem('migul_saved_key');
         if(savedKey === VALID_KEY) {
