@@ -45,7 +45,6 @@
             100% { transform: translateY(105vh) translateX(20px) scale(1.2); opacity: 0; }
         }
 
-        /* HIỆU ỨNG THẬT MƯỢT: NỞ RA RỒI THU NHỎ LẠI (PULSE / ZOOM) */
         @keyframes pulseGlow {
             0% {
                 transform: scale(1);
@@ -82,7 +81,6 @@
             }
         }
 
-        /* TRẠNG THÁI GÓC TRÊN CỦA APP & HIỆU ỨNG THỤT RA THỤT VÀO */
         .status-header-bar {
             display: flex;
             flex-direction: column;
@@ -127,7 +125,6 @@
             color: #00e676;
         }
 
-        /* Hiệu ứng trượt lòi ra từ từ rồi thụt vào */
         .animated-notice {
             font-size: 9px;
             font-weight: 600;
@@ -177,6 +174,28 @@
 
         .screen.active {
             display: flex;
+        }
+
+        /* NÚT DẤU X THOÁT APP GÓC TRÊN BÊN TRÁI */
+        .exit-app-btn {
+            background: #131f18;
+            border: 1px solid #1f3326;
+            color: #ff4d4d;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .exit-app-btn:active {
+            background: rgba(255, 77, 77, 0.15);
+            border-color: #ff4d4d;
         }
 
         /* TRANG 1: NHẬP KEY */
@@ -233,7 +252,6 @@
             margin-bottom: 16px;
         }
 
-        /* KHUNG NHẬP KEY CÓ NÚT CON MẮT BÊN TRẢI/PHẢI */
         .input-group-container {
             position: relative;
             width: 100%;
@@ -245,7 +263,7 @@
             background: #0a100d;
             border: 1.5px solid #1f3326;
             border-radius: 10px;
-            padding: 12px 42px 12px 12px; /* Chừa chỗ bên phải cho nút con mắt */
+            padding: 12px 42px 12px 12px;
             color: #fff;
             font-size: 13px;
             outline: none;
@@ -305,7 +323,6 @@
             flex-shrink: 0;
         }
 
-        /* TRANG CHỦ & CÁC TRANG SAU */
         .screen-content-wrapper {
             flex: 1;
             display: flex;
@@ -363,13 +380,12 @@
             background: rgba(0, 230, 118, 0.15);
         }
 
-        /* TRANG 3: DANH SÁCH APP */
         .topbar-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 14px;
-            padding-top: 5px;
+            padding-top: 8px;
         }
 
         .btn-back-text {
@@ -387,7 +403,7 @@
             font-weight: 800;
             color: #00e676;
             text-align: center;
-            margin: 110px 0 5px 0;
+            margin: 80px 0 5px 0;
             letter-spacing: 0.8px;
             animation: pulseGlow 2.5s infinite ease-in-out;
             display: inline-block;
@@ -462,7 +478,6 @@
             font-size: 11px;
         }
 
-        /* TRANG 4: TIÊM FILE */
         .inject-screen-layout {
             flex: 1;
             display: flex;
@@ -531,7 +546,6 @@
 </head>
 <body>
 
-<!-- Hiệu ứng kim tuyến xanh rơi -->
 <script>
     for(let i=0; i<20; i++) {
         let sparkle = document.createElement('div');
@@ -548,7 +562,6 @@
 
 <div class="phone-frame">
     
-    <!-- THANH TRẠNG THÁI GÓC TRÊN -->
     <div class="status-header-bar">
         <div id="status-badge" class="status-badge offline">
             <div class="status-dot"></div>
@@ -559,6 +572,11 @@
 
     <!-- TRANG 1: NHẬP KEY -->
     <div id="screen-1" class="screen">
+        <!-- THANH ĐIỀU HƯỚNG TRANG 1 CÓ NÚT X GÓC TRÁI -->
+        <div class="topbar-nav" style="justify-content: flex-start;">
+            <button class="exit-app-btn" onclick="exitApp()">✕</button>
+        </div>
+
         <div class="login-container">
             <h1 class="welcome-title">KHBINHDZS1TG</h1>
 
@@ -569,16 +587,13 @@
                 <h3>Xác Thực Bản Quyền</h3>
                 <p>Nhập mã key chính xác để mở khóa ứng dụng.</p>
                 
-                <!-- Ô NHẬP KEY KÈM NÚT CON MẮT BÊN PHẢI -->
                 <div class="input-group-container">
                     <input type="password" id="key-input" class="input-key" placeholder="Nhập mã bản quyền..." autocomplete="off">
                     <button type="button" id="eye-btn" class="eye-toggle-btn" onclick="toggleKeyVisibility()">
-                        <!-- Icon Mắt Nhắm (Mặc định khi đang ẩn key) -->
                         <svg id="eye-icon-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
                             <line x1="1" y1="1" x2="23" y2="23"></line>
                         </svg>
-                        <!-- Icon Mắt Mở (Hiện khi bấm vào để xem key) -->
                         <svg id="eye-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
@@ -596,8 +611,9 @@
     <!-- TRANG 2: TRANG CHỦ -->
     <div id="screen-2" class="screen">
         <div class="screen-content-wrapper">
+            <!-- THANH ĐIỀU HƯỚNG TRANG 2 CÓ NÚT X GÓC TRÁI -->
             <div class="topbar-nav">
-                <div style="width: 40px;"></div>
+                <button class="exit-app-btn" onclick="exitApp()">✕</button>
                 <div style="width: 40px;"></div>
             </div>
             
@@ -624,9 +640,11 @@
     <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
     <div id="screen-3" class="screen">
         <div class="screen-content-wrapper">
-            <div class="topbar-nav">
+            <!-- THANH ĐIỀU HƯỚNG TRANG 3: NÚT X TRÁI CÙNG, TIÊU ĐỀ Ở GIỮA, NÚT QUAY LẠI KẾ BÊN -->
+            <div class="topbar-nav" style="justify-content: flex-start; gap: 8px;">
+                <button class="exit-app-btn" onclick="exitApp()">✕</button>
                 <button class="btn-back-text" onclick="goToScreen(2)">&lt; Quay lại</button>
-                <div class="topbar-center-title">Danh Sách Ứng Dụng</div>
+                <div class="topbar-center-title" style="margin-left: auto; margin-right: auto;">Danh Sách Ứng Dụng</div>
                 <div style="width: 40px;"></div>
             </div>
 
@@ -669,9 +687,11 @@
     <!-- TRANG 4: TIÊM FILE -->
     <div id="screen-4" class="screen">
         <div class="inject-screen-layout">
-            <div class="topbar-nav">
+            <!-- THANH ĐIỀU HƯỚNG TRANG 4: NÚT X TRÁI CÙNG, NÚT QUAY LẠI VÀ TIÊU ĐỀ -->
+            <div class="topbar-nav" style="justify-content: flex-start; gap: 8px;">
+                <button class="exit-app-btn" onclick="exitApp()">✕</button>
                 <button class="btn-back-text" onclick="goToScreen(3)">&lt; Quay lại</button>
-                <div class="topbar-center-title" id="selected-app-title">Tiêm File</div>
+                <div class="topbar-center-title" id="selected-app-title" style="margin-left: auto; margin-right: auto;">Tiêm File</div>
                 <div style="width: 40px;"></div>
             </div>
 
@@ -722,6 +742,16 @@
         document.getElementById('screen-' + screenNum).classList.add('active');
     }
 
+    /* HÀM THOÁT APP KHI BẤM NÚT X */
+    function exitApp() {
+        try {
+            window.close();
+        } catch (e) {}
+        
+        // Điều hướng phụ trợ ép đóng app trên Webview
+        window.location.href = "about:blank";
+    }
+
     function triggerAnimatedNotice(text, type) {
         const notice = document.getElementById('animated-notice');
         
@@ -748,7 +778,6 @@
         }
     }
 
-    /* Hàm chuyển đổi ẩn/hiện key kèm thay đổi biểu tượng con mắt */
     function toggleKeyVisibility() {
         const keyInput = document.getElementById('key-input');
         const eyeClosed = document.getElementById('eye-icon-closed');
