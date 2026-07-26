@@ -225,36 +225,56 @@
             display: none;
         }
 
-        /* Màn hình 2: Chọn ứng dụng */
+        /* Màn hình 2: Chọn ứng dụng (Dashboard) */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
         .dash-title h2 {
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 800;
         }
 
         .dash-title p {
-            font-size: 11px;
+            font-size: 10px;
             color: #8bb09a;
+        }
+
+        .scan-btn-row {
+            margin-bottom: 15px;
+        }
+
+        .btn-scan {
+            width: 100%;
+            background: #141f18;
+            border: 1px solid #1f3326;
+            color: #00e676;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .app-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             padding-bottom: 20px;
         }
 
         .app-row {
             background: #131f18;
             border: 1px solid #1f3326;
-            border-radius: 14px;
-            padding: 12px 14px;
+            border-radius: 12px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -268,13 +288,13 @@
         .app-row-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .app-icon-box {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             overflow: hidden;
             background: #1c2e22;
             display: flex;
@@ -290,27 +310,27 @@
         }
 
         .app-info h4 {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .app-info span {
-            font-size: 11px;
+            font-size: 10px;
             color: #8bb09a;
         }
 
         .app-action-icon {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             background: rgba(0, 230, 118, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #00e676;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         /* Màn hình 3: Tiêm file */
@@ -470,7 +490,6 @@
 </script>
 
 <div class="phone-frame">
-    <!-- Màn hình 1: Đăng nhập -->
     <div id="login-screen" class="screen active">
         <div class="login-hero">
             <div class="app-logo">
@@ -483,30 +502,36 @@
         <div class="input-group">
             <label>Mã Khóa (Key)</label>
             <div class="input-box">
-                <input type="text" id="key-input" placeholder="••••••••••••" autocomplete="off">
+                <input type="text" id="key-input" placeholder="Nhập Key bản quyền..." autocomplete="off">
             </div>
         </div>
 
         <label class="checkbox-row">
-            <input type="checkbox" id="remember-key">
+            <input type="checkbox" id="remember-key" checked>
             <span class="custom-check"></span>
-            <span class="checkbox-text">Ghi nhớ mật khẩu</span>
+            <span class="checkbox-text">Ghi nhớ mã bản quyền</span>
         </label>
 
-        <button class="btn btn-green" onclick="handleLogin()">Đăng Nhập</button>
+        <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
         <div id="error-toast" class="error-toast">Sai mật khẩu! Vui lòng thử lại.</div>
 
         <div class="footer-credit">© 2026 Injetor Pro. Bảo mật tuyệt đối.</div>
     </div>
 
-    <!-- Màn hình 2: Chọn ứng dụng -->
     <div id="dashboard-screen" class="screen">
         <div class="dash-topbar">
             <div class="dash-title">
-                <h2>Gerenciador de Aplicativos</h2>
-                <p>Chọn ứng dụng để tiêm file</p>
+                <h2>Ứng dụng trong thiết bị</h2>
+                <p>Đã phát hiện thiết bị Android/iOS</p>
             </div>
             <button class="btn-back" onclick="handleLogout()" style="color: #00e676;">Thoát</button>
+        </div>
+
+        <div class="scan-btn-row">
+            <button class="btn-scan">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Quét Lại Thiết Bị
+            </button>
         </div>
 
         <div class="app-list">
@@ -517,40 +542,66 @@
                     </div>
                     <div class="app-info">
                         <h4>Free Fire</h4>
-                        <span>2250 KB</span>
+                        <span>740 MB • com.dts.freefireth</span>
                     </div>
                 </div>
                 <div class="app-action-icon">›</div>
             </div>
 
-            <div class="app-row" onclick="selectApp('Discord', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
+            <div class="app-row" onclick="selectApp('Free Fire MAX', 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150')">
                 <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#5865F2; color:#fff; font-weight:bold;">Di</div>
+                    <div class="app-icon-box">
+                        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150" alt="Free Fire MAX">
+                    </div>
                     <div class="app-info">
-                        <h4>Discord</h4>
-                        <span>4120 KB</span>
+                        <h4>Free Fire MAX</h4>
+                        <span>1.2 GB • com.dts.freefiremax</span>
                     </div>
                 </div>
                 <div class="app-action-icon">›</div>
             </div>
 
-            <div class="app-row" onclick="selectApp('WhatsApp', 'https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150')">
+            <div class="app-row" onclick="selectApp('PUBG Mobile', 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150')">
                 <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#25D366; color:#fff; font-weight:bold;">Wa</div>
+                    <div class="app-icon-box">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150" alt="PUBG Mobile">
+                    </div>
                     <div class="app-info">
-                        <h4>WhatsApp</h4>
-                        <span>3100 KB</span>
+                        <h4>PUBG Mobile</h4>
+                        <span>1.8 GB • com.tencent.ig</span>
                     </div>
                 </div>
                 <div class="app-action-icon">›</div>
             </div>
 
-            <div class="app-row" onclick="selectApp('Telegram', 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150')">
+            <div class="app-row" onclick="selectApp('Roblox', 'https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150')">
                 <div class="app-row-left">
-                    <div class="app-icon-box" style="background:#229ED9; color:#fff; font-weight:bold;">Te</div>
+                    <div class="app-icon-box" style="background:#222; color:#fff; font-weight:bold;">Rb</div>
                     <div class="app-info">
-                        <h4>Telegram</h4>
-                        <span>1850 KB</span>
+                        <h4>Roblox</h4>
+                        <span>320 MB • com.roblox.client</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('TikTok', 'https://images.unsplash.com/photo-1611605698335-8b1569810432?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#111; color:#fff; font-weight:bold;">Tk</div>
+                    <div class="app-info">
+                        <h4>TikTok</h4>
+                        <span>290 MB • com.zhiliaoapp.musically</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('YouTube', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#FF0000; color:#fff; font-weight:bold;">Yt</div>
+                    <div class="app-info">
+                        <h4>YouTube</h4>
+                        <span>180 MB • com.google.android.youtube</span>
                     </div>
                 </div>
                 <div class="app-action-icon">›</div>
@@ -560,7 +611,6 @@
         <div class="footer-credit">© 2026 Injetor Pro. All rights reserved.</div>
     </div>
 
-    <!-- Màn hình 3: Tiêm file -->
     <div id="injector-screen" class="screen">
         <div class="screen-topbar">
             <button class="btn-back" onclick="goToDashboard()">‹ Trở lại</button>
@@ -601,11 +651,10 @@
         const savedKey = localStorage.getItem('pro_saved_key');
         if(savedKey) {
             document.getElementById('key-input').value = savedKey;
-            document.getElementById('remember-key').checked = true;
         }
 
         let lastVersion = localStorage.getItem('app_ver');
-        let currentVer = '2026-v3';
+        let currentVer = '2026-v4';
         if(lastVersion !== currentVer) {
             localStorage.setItem('app_ver', currentVer);
             if(window.navigator && navigator.serviceWorker) {
@@ -626,7 +675,8 @@
         const errorToast = document.getElementById('error-toast');
         const rememberMe = document.getElementById('remember-key').checked;
 
-        if(keyVal === '123') {
+        // Cho phép nhận bất kỳ key nào hoặc mặc định (ví dụ nhập gì cũng vào được hoặc '123' / 'PRO2026')
+        if(keyVal !== '') {
             errorToast.style.display = 'none';
             if(rememberMe) {
                 localStorage.setItem('pro_saved_key', keyVal);
