@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -24,12 +24,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
             overflow: hidden;
-            position: relative;
+            position: fixed;
         }
 
-        /* HẠT KIM TUYẾN LẤP LÁNH MÀU XANH LÁ RƠT TỪ TRÊN XUỐNG */
+        /* HẠT KIM TUYẾN LẤP LÁNH */
         .sparkle {
             position: absolute;
             top: -15px;
@@ -38,23 +39,21 @@
             pointer-events: none;
             animation: fallAnimation linear infinite;
             box-shadow: 0 0 8px #ffffff, 0 0 12px #00e676;
-            z-index: 99;
+            z-index: 1;
         }
 
         @keyframes fallAnimation {
             0% { transform: translateY(-10px) translateX(0) scale(0.6); opacity: 0; }
             20% { opacity: 1; }
-            100% { transform: translateY(105vh) translateX(30px) scale(1.2); opacity: 0; }
+            100% { transform: translateY(105vh) translateX(20px) scale(1.2); opacity: 0; }
         }
 
         .phone-frame {
             width: 100%;
             max-width: 410px;
             height: 100vh;
-            max-height: 840px;
             background: #0d1410;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -63,9 +62,10 @@
 
         @media (min-width: 450px) {
             .phone-frame {
-                border-radius: 42px;
+                border-radius: 36px;
                 height: 820px;
-                border: 10px solid #14221a;
+                border: 8px solid #14221a;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             }
         }
 
@@ -77,9 +77,10 @@
             height: 100%;
             display: none;
             flex-direction: column;
-            padding: 24px 20px;
+            padding: 20px 18px;
             background: #0d1410;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             z-index: 2;
         }
 
@@ -90,16 +91,16 @@
         /* Màn hình 1: Đăng nhập */
         .login-hero {
             text-align: center;
-            margin-top: 45px;
-            margin-bottom: 30px;
+            margin-top: 35px;
+            margin-bottom: 25px;
         }
 
         .app-logo {
-            width: 72px;
-            height: 72px;
+            width: 68px;
+            height: 68px;
             background: linear-gradient(135deg, #00e676 0%, #00793c 100%);
-            border-radius: 20px;
-            margin: 0 auto 16px;
+            border-radius: 18px;
+            margin: 0 auto 14px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -107,27 +108,27 @@
         }
 
         .login-hero h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #fff;
             margin-bottom: 4px;
         }
 
         .login-hero p {
-            font-size: 12px;
+            font-size: 11px;
             color: #8bb09a;
         }
 
         .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .input-group label {
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             color: #8bb09a;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
@@ -141,7 +142,7 @@
             width: 100%;
             background: transparent;
             border: none;
-            padding: 14px;
+            padding: 13px;
             color: #fff;
             font-size: 14px;
             outline: none;
@@ -150,7 +151,7 @@
         .checkbox-row {
             display: flex;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             cursor: pointer;
             user-select: none;
         }
@@ -169,6 +170,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .checkbox-row input:checked ~ .custom-check {
@@ -191,14 +193,14 @@
         }
 
         .checkbox-text {
-            font-size: 13px;
+            font-size: 12px;
             color: #b0c5b8;
             font-weight: 500;
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             border-radius: 12px;
             border: none;
             font-size: 14px;
@@ -218,10 +220,10 @@
             color: #00e676;
             padding: 10px;
             border-radius: 10px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             text-align: center;
-            margin-top: 14px;
+            margin-top: 12px;
             display: none;
         }
 
@@ -230,11 +232,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .dash-title h2 {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 800;
         }
 
@@ -244,7 +246,7 @@
         }
 
         .scan-btn-row {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .btn-scan {
@@ -252,9 +254,9 @@
             background: #141f18;
             border: 1px solid #1f3326;
             color: #00e676;
-            padding: 10px;
-            border-radius: 12px;
-            font-size: 12px;
+            padding: 9px;
+            border-radius: 10px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -266,15 +268,15 @@
         .app-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 7px;
             padding-bottom: 20px;
         }
 
         .app-row {
             background: #131f18;
             border: 1px solid #1f3326;
-            border-radius: 12px;
-            padding: 10px 12px;
+            border-radius: 10px;
+            padding: 9px 11px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -283,6 +285,7 @@
 
         .app-row:active {
             border-color: #00e676;
+            background: #182c20;
         }
 
         .app-row-left {
@@ -292,9 +295,9 @@
         }
 
         .app-icon-box {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
             overflow: hidden;
             background: #1c2e22;
             display: flex;
@@ -310,42 +313,431 @@
         }
 
         .app-info h4 {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: #fff;
             margin-bottom: 1px;
         }
 
         .app-info span {
-            font-size: 10px;
+            font-size: 9px;
             color: #8bb09a;
         }
 
         .app-action-icon {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             background: rgba(0, 230, 118, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #00e676;
-            font-size: 11px;
+            font-size: 10px;
         }
 
         /* Màn hình 3: Tiêm file */
         .screen-topbar {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .btn-back {
             background: #141f18;
             border: 1px solid #1f3326;
             color: #fff;
-            padding: 8px 14px;
-            border-radius: 10px;
+            padding: 7px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: 6
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .topbar-title {
+            flex: 1;
+            text-align: center;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .game-showcase {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .game-avatar {
+            width: 64px;
+            height: 64px;
+            background: #141f18;
+            border-radius: 16px;
+            margin: 0 auto 8px;
+            overflow: hidden;
+            border: 1px solid #1f3326;
+        }
+
+        .game-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-showcase h3 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .game-showcase p {
+            font-size: 10px;
+            color: #8bb09a;
+            margin-top: 2px;
+        }
+
+        .upload-area {
+            border: 2px dashed #1f382a;
+            background: #111a14;
+            border-radius: 14px;
+            padding: 24px 14px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 230, 118, 0.08);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00e676;
+        }
+
+        .upload-area p {
+            font-size: 11px;
+            color: #8bb09a;
+            margin-bottom: 12px;
+        }
+
+        .btn-file-select {
+            background: #1c2e22;
+            color: #fff;
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: 1px solid #2d4a36;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .success-panel {
+            display: none;
+            background: linear-gradient(145deg, #0d261a 0%, #081a11 100%);
+            border: 1px solid #17422b;
+            border-radius: 14px;
+            padding: 20px 14px;
+            text-align: center;
+        }
+
+        .success-check-icon {
+            width: 44px;
+            height: 44px;
+            background: #133824;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00e676;
+            font-size: 20px;
+        }
+
+        .success-panel h4 {
+            color: #00e676;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .success-panel p {
+            color: #7fa893;
+            font-size: 10px;
+            margin-bottom: 14px;
+            word-break: break-all;
+        }
+
+        .footer-credit {
+            margin-top: auto;
+            text-align: center;
+            font-size: 9px;
+            color: #435e4d;
+            padding-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // Tạo hạt lấp lánh nhẹ nhàng
+    for(let i=0; i<12; i++) {
+        let sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        let size = Math.random() * 4 + 2;
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        sparkle.style.animationDelay = (Math.random() * 3) + 's';
+        document.body.appendChild(sparkle);
+    }
+</script>
+
+<div class="phone-frame">
+    <div id="login-screen" class="screen">
+        <div class="login-hero">
+            <div class="app-logo">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0d1410" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+            <h1>Injetor Pro</h1>
+            <p>Nhập mã khóa truy cập của bạn</p>
+        </div>
+
+        <div class="input-group">
+            <label>Mã Khóa (Key)</label>
+            <div class="input-box">
+                <input type="text" id="key-input" placeholder="Nhập Key bản quyền..." autocomplete="off" autocapitalize="none">
+            </div>
+        </div>
+
+        <label class="checkbox-row">
+            <input type="checkbox" id="remember-key" checked>
+            <span class="custom-check"></span>
+            <span class="checkbox-text">Ghi nhớ mã bản quyền</span>
+        </label>
+
+        <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
+        <div id="error-toast" class="error-toast">Vui lòng nhập mã khóa!</div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. Bảo mật tuyệt đối.</div>
+    </div>
+
+    <div id="dashboard-screen" class="screen">
+        <div class="dash-topbar">
+            <div class="dash-title">
+                <h2>Ứng dụng trong thiết bị</h2>
+                <p>Đã quét hệ thống Android/iOS</p>
+            </div>
+            <button class="btn-back" onclick="handleLogout()" style="color: #00e676;">Đăng xuất</button>
+        </div>
+
+        <div class="scan-btn-row">
+            <button class="btn-scan" onclick="triggerScan()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Quét Lại Thiết Bị
+            </button>
+        </div>
+
+        <div class="app-list">
+            <div class="app-row" onclick="selectApp('Free Fire', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Free Fire"></div>
+                    <div class="app-info">
+                        <h4>Free Fire</h4>
+                        <span>740 MB • com.dts.freefireth</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('Free Fire MAX', 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box"><img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150" alt="Free Fire MAX"></div>
+                    <div class="app-info">
+                        <h4>Free Fire MAX</h4>
+                        <span>1.2 GB • com.dts.freefiremax</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('PUBG Mobile', 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150" alt="PUBG Mobile"></div>
+                    <div class="app-info">
+                        <h4>PUBG Mobile</h4>
+                        <span>1.8 GB • com.tencent.ig</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('Roblox', 'https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#222; color:#fff; font-weight:bold; font-size:11px;">Rb</div>
+                    <div class="app-info">
+                        <h4>Roblox</h4>
+                        <span>320 MB • com.roblox.client</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('TikTok', 'https://images.unsplash.com/photo-1611605698335-8b1569810432?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#111; color:#fff; font-weight:bold; font-size:11px;">Tk</div>
+                    <div class="app-info">
+                        <h4>TikTok</h4>
+                        <span>290 MB • com.zhiliaoapp.musically</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('YouTube', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#FF0000; color:#fff; font-weight:bold; font-size:11px;">Yt</div>
+                    <div class="app-info">
+                        <h4>YouTube</h4>
+                        <span>180 MB • com.google.android.youtube</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+        </div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. All rights reserved.</div>
+    </div>
+
+    <div id="injector-screen" class="screen">
+        <div class="screen-topbar">
+            <button class="btn-back" onclick="goToDashboard()">‹ Trở lại</button>
+            <div class="topbar-title" id="topbar-app-name">Free Fire</div>
+            <div style="width: 45px;"></div>
+        </div>
+
+        <div class="game-showcase">
+            <div class="game-avatar">
+                <img id="selected-game-icon" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Game Icon">
+            </div>
+            <h3 id="display-game-name">Free Fire</h3>
+            <p>Chọn tệp cấu hình để áp dụng</p>
+        </div>
+
+        <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
+            <div class="upload-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            </div>
+            <p>Bấm vào đây để chọn tệp tin<br><span style="font-size: 9px; color: #4e6b57;">Hỗ trợ: .dat, .cfg, .img</span></p>
+            <span class="btn-file-select">Chọn Tệp Tin</span>
+            <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
+        </div>
+
+        <div class="success-panel" id="success-panel">
+            <div class="success-check-icon">✓</div>
+            <h4>Tiêm File Thành Công</h4>
+            <p id="target-file-name">config.dat đã áp dụng!</p>
+            <button class="btn btn-green" style="padding: 11px; font-size: 11px;" onclick="resetUploadState()">Chọn Tệp Khác</button>
+        </div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. Chế độ an toàn.</div>
+    </div>
+</div>
+
+<script>
+    // Kiểm tra và khởi động màn hình ngay lập tức an toàn tuyệt đối chống lỗi màn hình đen
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedKey = localStorage.getItem('pro_saved_key');
+        
+        // Luôn điền sẵn key nếu có hoặc tự động vào dashboard nếu đã lưu
+        if (savedKey && savedKey.trim() !== '') {
+            document.getElementById('key-input').value = savedKey;
+            switchScreen('dashboard-screen');
+        } else {
+            switchScreen('login-screen');
+            document.getElementById('remember-key').checked = true;
+        }
+    });
+
+    function switchScreen(targetId) {
+        // Tắt hết toàn bộ màn hình
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(s => {
+            s.classList.remove('active');
+            s.style.display = 'none';
+        });
+        
+        // Bật màn hình chỉ định
+        const target = document.getElementById(targetId);
+        if (target) {
+            target.style.display = 'flex';
+            // Dùng setTimeout cực ngắn để ép trình duyệt render lại DOM, tránh bị lỗi màn hình đen cứng đầu trên Webview cũ
+            setTimeout(() => {
+                target.classList.add('active');
+            }, 10);
+        }
+    }
+
+    function handleLogin() {
+        const keyInput = document.getElementById('key-input');
+        const keyVal = keyInput.value.trim();
+        const errorToast = document.getElementById('error-toast');
+        const rememberMe = document.getElementById('remember-key').checked;
+
+        if (keyVal !== '') {
+            errorToast.style.display = 'none';
+            if (rememberMe) {
+                localStorage.setItem('pro_saved_key', keyVal);
+            } else {
+                localStorage.removeItem('pro_saved_key');
+            }
+            switchScreen('dashboard-screen');
+        } else {
+            errorToast.style.display = 'block';
+        }
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('pro_saved_key');
+        document.getElementById('key-input').value = '';
+        switchScreen('login-screen');
+    }
+
+    function triggerScan() {
+        const btn = document.querySelector('.btn-scan');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = 'Đang quét thiết bị...';
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+        }, 600);
+    }
+
+    function selectApp(appName, iconUrl) {
+        document.getElementById('topbar-app-name').innerText = appName;
+        document.getElementById('display-game-name').innerText = appName;
+        document.getElementById('selected-game-icon').src = iconUrl;
+        switchScreen('injector-screen');
+    }
+
+    function goToDashboard() {
+        switchScreen('dashboard-screen');
+    }
+
+    function onFileChosen(event) {
+        const file = event.target.files[0];
+        if (file) {
+            document.getElementById('upload-dropzone').style.display = 'none';
+            document.getElementById('success-panel').style.display = 'block';
+            document.getElementById('target-file-name').innerText = `${file.name} đã được tiêm thành công!`;
+        }
+    }
+
+    function resetUploadState() {
+        document.getElementById('upload-dropzone').style.display = 'block';
+        document.getElementById('success-panel').style.display = 'none';
+        document.getElementById('real-file-input').value = '';
+    }
+</script>
+
+</body>
+</html>
