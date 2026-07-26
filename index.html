@@ -29,7 +29,7 @@
             position: relative;
         }
 
-        /* HẠT KIM TUYẾN LẤP LÁNH RƠT LIÊN TỤC */
+        /* HẠT KIM TUYẾN LẤP LÁNH XANH LÁ */
         .sparkle {
             position: absolute;
             top: -15px;
@@ -80,6 +80,7 @@
             padding: 24px 20px;
             background: #0d0f17;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* Giúp vuốt mượt trên iOS/Android */
             z-index: 2;
         }
 
@@ -225,12 +226,13 @@
             display: none;
         }
 
-        /* Màn hình 2: Quét & Danh sách ứng dụng thiết bị */
+        /* Màn hình 2: Quét & Danh sách ứng dụng */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            flex-shrink: 0;
         }
 
         .dash-title h2 {
@@ -247,6 +249,7 @@
             display: flex;
             gap: 8px;
             margin-bottom: 16px;
+            flex-shrink: 0;
         }
 
         .btn-scan {
@@ -265,24 +268,24 @@
             gap: 6px;
         }
 
-        /* Hiệu ứng quét Radar */
         .scanning-overlay {
             display: none;
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background: #121622;
             border-radius: 16px;
             margin-bottom: 15px;
             border: 1px dashed #00e676;
+            flex-shrink: 0;
         }
 
         .radar-spinner {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border: 3px solid rgba(0,230,118,0.2);
             border-top-color: #00e676;
             border-radius: 50%;
-            margin: 0 auto 12px;
+            margin: 0 auto 10px;
             animation: spin 0.8s linear infinite;
         }
 
@@ -294,9 +297,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            padding-bottom: 20px;
-            max-height: 520px;
-            overflow-y: auto;
+            padding-bottom: 30px;
+            width: 100%;
         }
 
         .app-row {
@@ -509,6 +511,8 @@
             font-size: 10px;
             color: #43495e;
             padding-top: 10px;
+            padding-bottom: 5px;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -541,7 +545,7 @@
         <div class="input-group">
             <label>Mã Khóa Bản Quyền</label>
             <div class="input-box">
-                <input type="text" id="key-input" placeholder="Nhập Key của bạn..." autocomplete="off">
+                <input type="text" id="key-input" placeholder="Nhập Key bản quyền..." autocomplete="off">
             </div>
         </div>
 
@@ -552,7 +556,7 @@
         </label>
 
         <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
-        <div id="error-toast" class="error-toast">Sai mã bản quyền! Vui lòng kiểm tra lại.</div>
+        <div id="error-toast" class="error-toast">Mã bản quyền không hợp lệ!</div>
 
         <div class="footer-credit">© 2026 Injetor Pro Ultimate. Licensed Edition.</div>
     </div>
@@ -582,7 +586,7 @@
         <div class="app-list" id="dynamic-app-list">
             </div>
 
-        <div class="footer-credit">© 2026 Injetor Pro. Tự động cập nhật v2.4</div>
+        <div class="footer-credit">© 2026 Injetor Pro. Tự động cập nhật v2.5</div>
     </div>
 
     <div id="injector-screen" class="screen">
@@ -619,26 +623,25 @@
 </div>
 
 <script>
-    // CƠ CHẾ TỰ ĐỘNG CẬP NHẬT MỚI TỪ GITHUB (TRÁNH CACHE CỨNG ĐẦU)
+    // CƠ CHẾ BẢO MẬT & KIỂM TRA KEY CHUẨN
+    const VALID_KEY = "PRO2026"; // <-- ÔNG CÓ THỂ ĐỔI MÃ KEY BÁN CHO KHÁCH TẠI ĐÂY
+
     window.addEventListener('DOMContentLoaded', () => {
         const savedKey = localStorage.getItem('pro_saved_key');
-        if(savedKey) {
+        if(savedKey === VALID_KEY) {
             document.getElementById('key-input').value = savedKey;
             document.getElementById('remember-key').checked = true;
         }
 
-        // Tự động vô hiệu hóa service worker cũ để load bản mới ngay lập tức
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for(let registration of registrations) { registration.unregister(); }
             });
         }
 
-        // Tải danh sách app mẫu thực tế
         loadRealDeviceApps();
     });
 
-    // Danh sách ứng dụng thực tế trên điện thoại để người dùng chọn (cực kỳ chân thật)
     const deviceApps = [
         { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150", color: "#e53935" },
         { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=150", color: "#ff8f00" },
@@ -709,8 +712,8 @@
         const errorToast = document.getElementById('error-toast');
         const rememberMe = document.getElementById('remember-key').checked;
 
-        // Cho phép nhận mọi key dài hơn 2 ký tự hoặc key mặc định "123"
-        if(keyVal.length >= 2) {
+        // KIỂM TRA ĐÚNG KEY BẢN QUYỀN THÌ MỚI CHO VÀO
+        if(keyVal === VALID_KEY) {
             errorToast.style.display = 'none';
             if(rememberMe) {
                 localStorage.setItem('pro_saved_key', keyVal);
