@@ -29,21 +29,22 @@
             position: relative;
         }
 
-        /* 10 hạt kim tuyến rớt từ trên xuống */
-        .snowflake {
+        /* HIỆU ỨNG HẠT KIM TUYẾN RỚT TỪ TRÊN XUỐNG */
+        .sparkle {
             position: absolute;
-            top: -10px;
-            background: rgba(255, 255, 255, 0.8);
+            top: -15px;
+            background: radial-gradient(circle, #fff 0%, #ffdf00 60%, rgba(255,255,255,0) 100%);
             border-radius: 50%;
             pointer-events: none;
-            animation: fall linear infinite;
-            z-index: 1;
+            animation: sparkleFall linear infinite;
+            box-shadow: 0 0 6px #fff, 0 0 10px #ffcc00;
+            z-index: 5;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(-10px) translateX(0); opacity: 0; }
-            50% { opacity: 0.9; }
-            100% { transform: translateY(102vh) translateX(15px); opacity: 0; }
+        @keyframes sparkleFall {
+            0% { transform: translateY(-10px) translateX(0) scale(0.8); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(25px) scale(1.2); opacity: 0; }
         }
 
         .phone-frame {
@@ -232,7 +233,7 @@
             display: none;
         }
 
-        /* Màn hình 2: Danh sách ứng dụng giống video */
+        /* Màn hình 2: Danh sách ứng dụng */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
@@ -241,7 +242,7 @@
         }
 
         .dash-title h2 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 800;
         }
 
@@ -467,15 +468,15 @@
 
 <script>
     for(let i=0; i<10; i++) {
-        let flake = document.createElement('div');
-        flake.className = 'snowflake';
-        let size = Math.random() * 3 + 2;
-        flake.style.width = size + 'px';
-        flake.style.height = size + 'px';
-        flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.animationDuration = (Math.random() * 5 + 4) + 's';
-        flake.style.animationDelay = (Math.random() * 5) + 's';
-        document.body.appendChild(flake);
+        let sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        let size = Math.random() * 4 + 3;
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.animationDuration = (Math.random() * 4 + 3) + 's';
+        sparkle.style.animationDelay = (Math.random() * 4) + 's';
+        document.body.appendChild(sparkle);
     }
 </script>
 
@@ -607,75 +608,3 @@
             <div class="success-check-icon">✓</div>
             <h4>Tiêm File Thành Công</h4>
             <p id="target-file-name">config.dat đã áp dụng!</p>
-            <button class="btn btn-red" style="background: #113822; color: #00e676; border: 1px solid #175231; padding: 12px; font-size: 12px;" onclick="resetUploadState()">Chọn Tệp Khác</button>
-        </div>
-
-        <div class="footer-credit">© 2026 Injetor Pro. Chế độ an toàn.</div>
-    </div>
-</div>
-
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const savedKey = localStorage.getItem('pro_saved_key');
-        if(savedKey) {
-            document.getElementById('key-input').value = savedKey;
-            document.getElementById('remember-key').checked = true;
-        }
-    });
-
-    function switchScreen(targetId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(targetId).classList.add('active');
-    }
-
-    function handleLogin() {
-        const keyVal = document.getElementById('key-input').value.trim();
-        const errorToast = document.getElementById('error-toast');
-        const rememberMe = document.getElementById('remember-key').checked;
-
-        if(keyVal === '123') {
-            errorToast.style.display = 'none';
-            if(rememberMe) {
-                localStorage.setItem('pro_saved_key', keyVal);
-            } else {
-                localStorage.removeItem('pro_saved_key');
-            }
-            switchScreen('dashboard-screen');
-        } else {
-            errorToast.style.display = 'block';
-        }
-    }
-
-    function handleLogout() {
-        switchScreen('login-screen');
-    }
-
-    function selectApp(appName, iconUrl) {
-        document.getElementById('topbar-app-name').innerText = appName;
-        document.getElementById('display-game-name').innerText = appName;
-        document.getElementById('selected-game-icon').src = iconUrl;
-        switchScreen('injector-screen');
-    }
-
-    function goToDashboard() {
-        switchScreen('dashboard-screen');
-    }
-
-    function onFileChosen(event) {
-        const file = event.target.files[0];
-        if(file) {
-            document.getElementById('upload-dropzone').style.display = 'none';
-            document.getElementById('success-panel').style.display = 'block';
-            document.getElementById('target-file-name').innerText = `${file.name} đã được tiêm vào ứng dụng thành công!`;
-        }
-    }
-
-    function resetUploadState() {
-        document.getElementById('upload-dropzone').style.display = 'block';
-        document.getElementById('success-panel').style.display = 'none';
-        document.getElementById('real-file-input').value = '';
-    }
-</script>
-
-</body>
-</html>
