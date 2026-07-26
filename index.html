@@ -2,8 +2,11 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Migul Pro V2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Injetor Pro</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -13,55 +16,45 @@
             padding: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
         }
 
         body {
-            background-color: #050608;
+            background-color: #07080b;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100vw;
-            height: 100vh;
+            min-height: 100vh;
             overflow: hidden;
-            position: fixed;
-            overscroll-behavior-y: none;
+            position: relative;
         }
 
-        /* Hiệu ứng hạt kim tuyến nền */
-        .sparkles-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 1;
-        }
-
+        /* HẠT KIM TUYẾN LẤP LÁNH RƠT TỪ TRÊN XUỐNG */
         .sparkle {
             position: absolute;
-            background: #00e676;
+            top: -15px;
+            background: radial-gradient(circle, #ffffff 0%, #ffd700 70%, rgba(255,255,255,0) 100%);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: floatSparkle 4s infinite ease-in-out;
+            pointer-events: none;
+            animation: fallAnimation linear infinite;
+            box-shadow: 0 0 8px #ffffff, 0 0 12px #ffcc00;
+            z-index: 99;
         }
 
-        @keyframes floatSparkle {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
-            50% { transform: translateY(-20px) scale(1.5); opacity: 0.7; box-shadow: 0 0 10px #00e676; }
+        @keyframes fallAnimation {
+            0% { transform: translateY(-10px) translateX(0) scale(0.6); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(30px) scale(1.2); opacity: 0; }
         }
 
         .phone-frame {
             width: 100%;
             max-width: 410px;
-            height: 100%;
+            height: 100vh;
             max-height: 840px;
-            background: radial-gradient(circle at 50% 0%, #0d2318 0%, #0d0f17 70%);
+            background: #0d0f17;
             position: relative;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.95);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -84,9 +77,9 @@
             height: 100%;
             display: none;
             flex-direction: column;
-            padding: 20px 16px;
-            background: radial-gradient(circle at 50% 0%, #0d2318 0%, #0d0f17 70%);
-            overflow: hidden;
+            padding: 24px 20px;
+            background: #0d0f17;
+            overflow-y: auto;
             z-index: 2;
         }
 
@@ -94,31 +87,23 @@
             display: flex;
         }
 
-        .inner-scroll {
-            flex: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 30px;
-            overscroll-behavior-y: contain;
-        }
-
-        /* Màn hình Đăng nhập */
+        /* Màn hình 1: Đăng nhập */
         .login-hero {
             text-align: center;
             margin-top: 45px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .app-logo {
-            width: 76px;
-            height: 76px;
-            background: linear-gradient(135deg, #00e676 0%, #00873e 100%);
-            border-radius: 22px;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+            border-radius: 20px;
             margin: 0 auto 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.35);
+            box-shadow: 0 10px 25px rgba(229, 57, 53, 0.4);
         }
 
         .login-hero h1 {
@@ -160,7 +145,6 @@
             color: #fff;
             font-size: 14px;
             outline: none;
-            user-select: text;
         }
 
         .checkbox-row {
@@ -168,6 +152,7 @@
             align-items: center;
             margin-bottom: 24px;
             cursor: pointer;
+            user-select: none;
         }
 
         .checkbox-row input {
@@ -184,19 +169,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-shrink: 0;
         }
 
         .checkbox-row input:checked ~ .custom-check {
-            background: #00e676;
-            border-color: #00e676;
+            background: #e53935;
+            border-color: #e53935;
         }
 
         .custom-check::after {
             content: '';
             width: 4px;
             height: 8px;
-            border: solid #000;
+            border: solid white;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
             display: none;
@@ -222,10 +206,10 @@
             cursor: pointer;
         }
 
-        .btn-green {
-            background: linear-gradient(135deg, #00e676 0%, #00b050 100%);
-            color: #000;
-            box-shadow: 0 6px 16px rgba(0, 230, 118, 0.3);
+        .btn-red {
+            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+            color: white;
+            box-shadow: 0 6px 16px rgba(229, 57, 53, 0.35);
         }
 
         .error-toast {
@@ -241,108 +225,29 @@
             display: none;
         }
 
-        /* Màn hình Menu chính */
-        .menu-hero {
-            text-align: center;
-            margin: 40px 0 30px;
-        }
-
-        .menu-avatar-box {
-            width: 80px;
-            height: 80px;
-            background: #141a29;
-            border-radius: 24px;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #222d4a;
-            color: #00e676;
-            font-size: 28px;
-            box-shadow: 0 10px 25px rgba(0,230,118,0.15);
-        }
-
-        .menu-card {
-            background: #131722;
-            border: 1px solid #1f2638;
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-
-        .menu-card:active {
-            border-color: #00e676;
-            background: #1a2235;
-        }
-
-        .menu-card-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .menu-card-icon {
-            width: 44px;
-            height: 44px;
-            background: rgba(0, 230, 118, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00e676;
-        }
-
-        .menu-card-info h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 2px;
-        }
-
-        .menu-card-info span {
-            font-size: 11px;
-            color: #8b90a0;
-        }
-
-        /* Danh sách ứng dụng */
+        /* Màn hình 2: Chọn ứng dụng */
         .dash-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            flex-shrink: 0;
+            margin-bottom: 18px;
         }
 
         .dash-title h2 {
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 800;
         }
 
         .dash-title p {
-            font-size: 10px;
+            font-size: 11px;
             color: #8b90a0;
-        }
-
-        .btn-back {
-            background: #141824;
-            border: 1px solid #202638;
-            color: #fff;
-            padding: 8px 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
         }
 
         .app-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            width: 100%;
+            padding-bottom: 20px;
         }
 
         .app-row {
@@ -357,8 +262,7 @@
         }
 
         .app-row:active {
-            border-color: #00e676;
-            background: #182030;
+            border-color: #e53935;
         }
 
         .app-row-left {
@@ -377,8 +281,6 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-weight: bold;
-            color: #fff;
         }
 
         .app-icon-box img {
@@ -402,21 +304,31 @@
         .app-action-icon {
             width: 28px;
             height: 28px;
-            background: rgba(0, 230, 118, 0.15);
+            background: rgba(229, 57, 53, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #00e676;
+            color: #e53935;
             font-size: 12px;
         }
 
-        /* Màn hình Tiêm file */
+        /* Màn hình 3: Tiêm file */
         .screen-topbar {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
-            flex-shrink: 0;
+        }
+
+        .btn-back {
+            background: #141824;
+            border: 1px solid #202638;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .topbar-title {
@@ -429,7 +341,6 @@
         .game-showcase {
             text-align: center;
             margin-bottom: 20px;
-            flex-shrink: 0;
         }
 
         .game-avatar {
@@ -440,12 +351,6 @@
             margin: 0 auto 10px;
             overflow: hidden;
             border: 1px solid #202638;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
         }
 
         .game-avatar img {
@@ -472,19 +377,18 @@
             padding: 28px 16px;
             text-align: center;
             cursor: pointer;
-            flex-shrink: 0;
         }
 
         .upload-icon {
             width: 48px;
             height: 48px;
-            background: rgba(0, 230, 118, 0.08);
+            background: rgba(229, 57, 53, 0.08);
             border-radius: 50%;
             margin: 0 auto 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #00e676;
+            color: #e53935;
         }
 
         .upload-area p {
@@ -511,7 +415,6 @@
             border-radius: 16px;
             padding: 24px 16px;
             text-align: center;
-            flex-shrink: 0;
         }
 
         .success-check-icon {
@@ -542,196 +445,175 @@
         }
 
         .footer-credit {
+            margin-top: auto;
             text-align: center;
             font-size: 10px;
             color: #43495e;
-            padding: 15px 0;
-            margin-top: auto;
-            flex-shrink: 0;
+            padding-top: 10px;
         }
     </style>
 </head>
 <body>
 
-<!-- Hiệu ứng hạt kim tuyến -->
-<div class="sparkles-container" id="sparkles"></div>
+<script>
+    for(let i=0; i<15; i++) {
+        let sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        let size = Math.random() * 5 + 3;
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
+        sparkle.style.animationDelay = (Math.random() * 3) + 's';
+        document.body.appendChild(sparkle);
+    }
+</script>
 
 <div class="phone-frame">
-    <!-- MÀN HÌNH 1: ĐĂNG NHẬP -->
     <div id="login-screen" class="screen active">
-        <div class="inner-scroll">
-            <div class="login-hero">
-                <div class="app-logo">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                </div>
-                <h1>Migul Pro V2</h1>
-                <p>Hệ thống tiêm tệp độc quyền</p>
+        <div class="login-hero">
+            <div class="app-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
             </div>
-
-            <div class="input-group">
-                <label>Mã Khóa Bản Quyền</label>
-                <div class="input-box">
-                    <input type="text" id="key-input" placeholder="Nhập Key bản quyền..." autocomplete="off">
-                </div>
-            </div>
-
-            <label class="checkbox-row">
-                <input type="checkbox" id="remember-key" checked>
-                <span class="custom-check"></span>
-                <span class="checkbox-text">Ghi nhớ mã bản quyền</span>
-            </label>
-
-            <button class="btn btn-green" onclick="handleLogin()">Xác Thực Bản Quyền</button>
-            <div id="error-toast" class="error-toast">Mã bản quyền không chính xác! Vui lòng thử lại.</div>
-
-            <div class="footer-credit">© 2026 Migul Pro V2. Licensed Edition.</div>
+            <h1>Injetor Pro</h1>
+            <p>Nhập mã khóa truy cập của bạn</p>
         </div>
+
+        <div class="input-group">
+            <label>Mã Khóa (Key)</label>
+            <div class="input-box">
+                <input type="text" id="key-input" placeholder="••••••••••••" autocomplete="off">
+            </div>
+        </div>
+
+        <label class="checkbox-row">
+            <input type="checkbox" id="remember-key">
+            <span class="custom-check"></span>
+            <span class="checkbox-text">Ghi nhớ mật khẩu</span>
+        </label>
+
+        <button class="btn btn-red" onclick="handleLogin()">Đăng Nhập</button>
+        <div id="error-toast" class="error-toast">Sai mật khẩu!</div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. Bảo mật tuyệt đối.</div>
     </div>
 
-    <!-- MÀN HÌNH 2: MENU CHÍNH -->
-    <div id="main-menu-screen" class="screen">
-        <div class="inner-scroll">
-            <div style="display: flex; justify-content: flex-end; padding-top: 5px;">
-                <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
-            </div>
-
-            <div class="menu-hero">
-                <div class="menu-avatar-box">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                </div>
-                <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">Migul Pro Active</h2>
-                <p style="font-size: 11px; color: #00e676;">Trạng thái: Đã kích hoạt bản quyền</p>
-            </div>
-
-            <div class="menu-card" onclick="goToDashboard()">
-                <div class="menu-card-left">
-                    <div class="menu-card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                    </div>
-                    <div class="menu-card-info">
-                        <h4>Chọn Ứng Dụng</h4>
-                        <span>Quét và quản lý ứng dụng tiêm file</span>
-                    </div>
-                </div>
-                <div style="color: #00e676; font-size: 16px;">›</div>
-            </div>
-
-            <div class="footer-credit">© 2026 Migul Pro V2. Secured Core.</div>
-        </div>
-    </div>
-
-    <!-- MÀN HÌNH 3: DANH SÁCH ỨNG DỤNG -->
     <div id="dashboard-screen" class="screen">
-        <div style="display: flex; flex-direction: column; height: 100%;">
-            <div class="dash-topbar">
-                <button class="btn-back" onclick="goToMainMenu()">‹ Menu</button>
-                <div class="dash-title" style="text-align: center;">
-                    <h2>Ứng dụng trong thiết bị</h2>
-                    <p>Đã phát hiện thiết bị tương thích</p>
-                </div>
-                <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
+        <div class="dash-topbar">
+            <div class="dash-title">
+                <h2>Gerenciador de Aplicativos</h2>
+                <p>Chọn ứng dụng để tiêm file</p>
             </div>
-
-            <div class="inner-scroll">
-                <div class="app-list" id="dynamic-app-list"></div>
-            </div>
-
-            <div class="footer-credit">© 2026 Migul Pro. Stable v2.8</div>
+            <button class="btn-back" onclick="handleLogout()" style="color: #ff5252;">Thoát</button>
         </div>
+
+        <div class="app-list">
+            <div class="app-row" onclick="selectApp('Free Fire', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Free Fire">
+                    </div>
+                    <div class="app-info">
+                        <h4>Free Fire</h4>
+                        <span>2250 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('Discord', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#5865F2; color:#fff; font-weight:bold;">Di</div>
+                    <div class="app-info">
+                        <h4>Discord</h4>
+                        <span>4120 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('WhatsApp', 'https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#25D366; color:#fff; font-weight:bold;">Wa</div>
+                    <div class="app-info">
+                        <h4>WhatsApp</h4>
+                        <span>3100 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+
+            <div class="app-row" onclick="selectApp('Telegram', 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=150')">
+                <div class="app-row-left">
+                    <div class="app-icon-box" style="background:#229ED9; color:#fff; font-weight:bold;">Te</div>
+                    <div class="app-info">
+                        <h4>Telegram</h4>
+                        <span>1850 KB</span>
+                    </div>
+                </div>
+                <div class="app-action-icon">›</div>
+            </div>
+        </div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. All rights reserved.</div>
     </div>
 
-    <!-- MÀN HÌNH 4: TIÊM FILE -->
     <div id="injector-screen" class="screen">
-        <div style="display: flex; flex-direction: column; height: 100%;">
-            <div class="screen-topbar">
-                <button class="btn-back" onclick="goToDashboard()">‹ Quay lại</button>
-                <div class="topbar-title" id="topbar-app-name">Free Fire</div>
-                <div style="width: 50px;"></div>
-            </div>
-
-            <div class="inner-scroll">
-                <div class="game-showcase">
-                    <div class="game-avatar" id="selected-game-avatar">FF</div>
-                    <h3 id="display-game-name">Free Fire</h3>
-                    <p id="display-pkg-name">com.dts.freefireth</p>
-                </div>
-
-                <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
-                    <div class="upload-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    </div>
-                    <p>Chọn tệp cấu hình cần tiêm<br><span style="font-size: 10px; color: #5a627a;">Hỗ trợ định dạng: .dat, .cfg, .zip, .img</span></p>
-                    <span class="btn-file-select">Duyệt Tệp Tin</span>
-                    <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
-                </div>
-
-                <div class="success-panel" id="success-panel">
-                    <div class="success-check-icon">✓</div>
-                    <h4>Tiêm File Thành Công</h4>
-                    <p id="target-file-name">Đã ghi đè cấu hình vào mục tiêu!</p>
-                    <button class="btn btn-green" style="padding: 12px; font-size: 12px;" onclick="resetUploadState()">Tiêm Tệp Khác</button>
-                </div>
-
-                <div class="footer-credit">© 2026 Migul Pro. Hệ thống an toàn cao cấp.</div>
-            </div>
+        <div class="screen-topbar">
+            <button class="btn-back" onclick="goToDashboard()">‹ Trở lại</button>
+            <div class="topbar-title" id="topbar-app-name">Free Fire</div>
+            <div style="width: 50px;"></div>
         </div>
+
+        <div class="game-showcase">
+            <div class="game-avatar">
+                <img id="selected-game-icon" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="Game Icon">
+            </div>
+            <h3 id="display-game-name">Free Fire</h3>
+            <p>Chọn tệp cấu hình để áp dụng</p>
+        </div>
+
+        <div class="upload-area" id="upload-dropzone" onclick="document.getElementById('real-file-input').click()">
+            <div class="upload-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            </div>
+            <p>Bấm vào đây để chọn tệp tin<br><span style="font-size: 10px; color: #4e556b;">Hỗ trợ: .dat, .cfg, .img</span></p>
+            <span class="btn-file-select">Chọn Tệp Tin</span>
+            <input type="file" id="real-file-input" style="display:none;" onchange="onFileChosen(event)">
+        </div>
+
+        <div class="success-panel" id="success-panel">
+            <div class="success-check-icon">✓</div>
+            <h4>Tiêm File Thành Công</h4>
+            <p id="target-file-name">config.dat đã áp dụng!</p>
+            <button class="btn btn-red" style="background: #113822; color: #00e676; border: 1px solid #175231; padding: 12px; font-size: 12px;" onclick="resetUploadState()">Chọn Tệp Khác</button>
+        </div>
+
+        <div class="footer-credit">© 2026 Injetor Pro. Chế độ an toàn.</div>
     </div>
 </div>
 
 <script>
-    const VALID_KEY = "PRO2026";
-    const deviceApps = [
-        { name: "Free Fire", pkg: "com.dts.freefireth", size: "740 MB", icon: "https://play-lh.googleusercontent.com/CH38cT5w88_6jQ6q6bW1w5c1e1_3Z6zQv9m1x2y3z4_5A=w240-h480-rw", color: "#e53935" },
-        { name: "Free Fire MAX", pkg: "com.dts.freefiremax", size: "1.2 GB", icon: "https://play-lh.googleusercontent.com/9lS8o3A8m9l3l5w6l7m8n9p0q1r2s3t4u5v6w7x8y9z0=w240-h480-rw", color: "#ff8f00" }
-    ];
-
-    // Tạo hiệu ứng kim tuyến ngẫu nhiên
+    // Ép làm mới cache tự động bằng cách kiểm tra phiên bản thời gian thực
     window.addEventListener('DOMContentLoaded', () => {
-        const sparklesContainer = document.getElementById('sparkles');
-        for (let i = 0; i < 20; i++) {
-            let s = document.createElement('div');
-            s.className = 'sparkle';
-            s.style.top = Math.random() * 100 + '%';
-            s.style.left = Math.random() * 100 + '%';
-            let size = (Math.random() * 3 + 2) + 'px';
-            s.style.width = size;
-            s.style.height = size;
-            s.style.animationDelay = (Math.random() * 3) + 's';
-            s.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            sparklesContainer.appendChild(s);
+        const savedKey = localStorage.getItem('pro_saved_key');
+        if(savedKey) {
+            document.getElementById('key-input').value = savedKey;
+            document.getElementById('remember-key').checked = true;
         }
 
-        loadRealDeviceApps();
-        const savedKey = localStorage.getItem('migul_saved_key');
-        if(savedKey === VALID_KEY) {
-            switchScreen('main-menu-screen');
-        } else {
-            switchScreen('login-screen');
+        // Tự động reload cache ngầm nếu phát hiện bản cập nhật mới từ GitHub
+        let lastVersion = localStorage.getItem('app_ver');
+        let currentVer = '2026-v3'; // Mỗi lần ông muốn chắc chắn app nhận bản mới, chỉ cần đổi chữ này thành v4, v5... ở đây
+        if(lastVersion !== currentVer) {
+            localStorage.setItem('app_ver', currentVer);
+            if(window.navigator && navigator.serviceWorker) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for(let registration of registrations) { registration.unregister(); }
+                });
+            }
         }
     });
-
-    function loadRealDeviceApps() {
-        const container = document.getElementById('dynamic-app-list');
-        container.innerHTML = '';
-        deviceApps.forEach(app => {
-            let row = document.createElement('div');
-            row.className = 'app-row';
-            row.onclick = () => selectApp(app.name, app.pkg, app.icon);
-            row.innerHTML = `
-                <div class="app-row-left">
-                    <div class="app-icon-box" style="background: ${app.color};">
-                        <img src="${app.icon}" alt="${app.name}" onerror="this.style.display='none'; this.parentElement.innerText='${app.name.substring(0,2)}'">
-                    </div>
-                    <div class="app-info">
-                        <h4>${app.name}</h4>
-                        <span>${app.size} • ${app.pkg}</span>
-                    </div>
-                </div>
-                <div class="app-action-icon">›</div>
-            `;
-            container.appendChild(row);
-        });
-    }
 
     function switchScreen(targetId) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -743,40 +625,32 @@
         const errorToast = document.getElementById('error-toast');
         const rememberMe = document.getElementById('remember-key').checked;
 
-        if(keyVal === VALID_KEY) {
+        if(keyVal === '123') {
             errorToast.style.display = 'none';
             if(rememberMe) {
-                localStorage.setItem('migul_saved_key', keyVal);
+                localStorage.setItem('pro_saved_key', keyVal);
+            } else {
+                localStorage.removeItem('pro_saved_key');
             }
-            switchScreen('main-menu-screen');
+            switchScreen('dashboard-screen');
         } else {
             errorToast.style.display = 'block';
         }
     }
 
     function handleLogout() {
-        localStorage.removeItem('migul_saved_key');
-        document.getElementById('key-input').value = '';
         switchScreen('login-screen');
     }
 
-    function goToMainMenu() {
-        switchScreen('main-menu-screen');
+    function selectApp(appName, iconUrl) {
+        document.getElementById('topbar-app-name').innerText = appName;
+        document.getElementById('display-game-name').innerText = appName;
+        document.getElementById('selected-game-icon').src = iconUrl;
+        switchScreen('injector-screen');
     }
 
     function goToDashboard() {
         switchScreen('dashboard-screen');
-    }
-
-    function selectApp(appName, pkgName, iconUrl) {
-        document.getElementById('topbar-app-name').innerText = appName;
-        document.getElementById('display-game-name').innerText = appName;
-        document.getElementById('display-pkg-name').innerText = pkgName;
-        
-        const avatarBox = document.getElementById('selected-game-avatar');
-        avatarBox.innerHTML = `<img src="${iconUrl}" onerror="this.style.display='none'; this.parentElement.innerText='${appName.substring(0,2)}'" style="width:100%; height:100%; object-fit:cover;">`;
-        
-        switchScreen('injector-screen');
     }
 
     function onFileChosen(event) {
@@ -784,7 +658,7 @@
         if(file) {
             document.getElementById('upload-dropzone').style.display = 'none';
             document.getElementById('success-panel').style.display = 'block';
-            document.getElementById('target-file-name').innerText = `Tệp "${file.name}" đã được tiêm thành công vào ứng dụng!`;
+            document.getElementById('target-file-name').innerText = `${file.name} đã được tiêm thành công!`;
         }
     }
 
