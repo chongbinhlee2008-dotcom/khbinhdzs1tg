@@ -119,6 +119,7 @@
         .animated-notice.show { max-height: 30px; opacity: 1; transform: translateY(0); }
         .animated-notice.logout-color { color: #ff4d4d; background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.2); }
         .animated-notice.login-color { color: #00e676; background: rgba(0, 230, 118, 0.1); border: 1px solid rgba(0, 230, 118, 0.2); }
+        .animated-notice.error-color { color: #ffaa00; background: rgba(255, 170, 0, 0.1); border: 1px solid rgba(255, 170, 0, 0.2); }
 
         .screen {
             position: absolute;
@@ -386,6 +387,30 @@
             margin-bottom: 8px;
         }
 
+        /* Shizuku status */
+        .shizuku-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #131f18;
+            border: 1px solid #1f3326;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            margin: 8px 0 12px 0;
+        }
+        .shizuku-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .shizuku-status .dot.on { background: #00e676; box-shadow: 0 0 8px #00e676; }
+        .shizuku-status .dot.off { background: #ff4d4d; box-shadow: 0 0 8px #ff4d4d; }
+        .shizuku-status .label { color: #8bb09a; }
+        .shizuku-status .value { color: #fff; font-weight: 700; }
+
         .file-upload-zone {
             width: 100%;
             border: 2px dashed #1f382a;
@@ -395,6 +420,11 @@
             margin-top: 12px;
             cursor: pointer;
             position: relative;
+        }
+        .file-upload-zone.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+            border-color: #ff4d4d;
         }
 
         .success-box {
@@ -425,8 +455,9 @@
             max-height: 110px;
             overflow-y: auto;
         }
+        .terminal-box .error { color: #ff4d4d; }
+        .terminal-box .success { color: #00e676; }
 
-        /* Thêm style cho ô tìm kiếm */
         .search-box {
             width: 100%;
             padding: 10px 14px;
@@ -531,7 +562,7 @@
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG (HIỆN APP THẬT) -->
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
     <div id="screen-3" class="screen">
         <div class="screen-content-wrapper" style="padding-top: 20px;">
             <div class="topbar-nav">
@@ -540,13 +571,9 @@
 
             <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Danh sách ứng dụng đã cài trên điện thoại:</div>
 
-            <!-- Ô tìm kiếm -->
             <input type="text" id="search-app" class="search-box" placeholder="🔍 Tìm ứng dụng..." oninput="filterAppList()">
 
-            <!-- Danh sách app -->
-            <div class="app-list-container" id="app-list-container">
-                <!-- JavaScript sẽ render danh sách vào đây -->
-            </div>
+            <div class="app-list-container" id="app-list-container"></div>
 
             <button class="logout-big-btn" onclick="handleLogout()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -556,7 +583,7 @@
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- TRANG 4: INJECTION CHÍNH THỨC -->
+    <!-- TRANG 4: INJECTION -->
     <div id="screen-4" class="screen">
         <div class="inject-screen-layout" style="padding-top: 20px;">
             <div class="topbar-nav">
@@ -568,7 +595,14 @@
                 <h3 id="target-app-name" style="font-size: 15px; font-weight: 700; margin-bottom: 2px;">App Name</h3>
                 <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg, .zip) từ thiết bị để tiêm vào game</p>
 
-                <div class="file-upload-zone" id="upload-zone" onclick="document.getElementById('real-file-input').click()">
+                <!-- SHIZUKU STATUS -->
+                <div class="shizuku-status" id="shizuku-status">
+                    <span class="dot off" id="shizuku-dot"></span>
+                    <span class="label">Shizuku:</span>
+                    <span class="value" id="shizuku-text">Đang kiểm tra...</span>
+                </div>
+
+                <div class="file-upload-zone disabled" id="upload-zone" onclick="document.getElementById('real-file-input').click()">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" style="margin-bottom:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                     <div style="font-size: 11px; font-weight: 600; color: #fff;">Bấm Vào Đây Để Chọn Tệp Tiêm</div>
                     <span style="font-size: 9px; color: #666;" id="file-chosen-label">Hỗ trợ mọi định dạng tệp cấu hình</span>
@@ -578,7 +612,7 @@
                 <div id="terminal-box" class="terminal-box"></div>
 
                 <div id="success-notification" class="success-box">
-                    <h4>Tiêm File Thành Công!</h4>
+                    <h4>✅ Tiêm File Thành Công!</h4>
                     <p id="injected-file-name">Tệp tin đã được nạp vào thư mục hệ thống game.</p>
                     <button class="btn-main" style="margin-top: 8px; padding: 7px; font-size: 11px;" onclick="resetInjection()">Tiêm Tệp Khác</button>
                 </div>
@@ -599,11 +633,12 @@
     let noticeTimer = null;
     let currentPackageName = "";
     let currentAppName = "";
-    let allApps = []; // Lưu danh sách app thật
+    let allApps = [];
+    let shizukuReady = false;
+    let selectedFile = null;
 
-    // ===== LẤY DANH SÁCH APP TỪ NATIVE (NẾU CÓ BRIDGE) HOẶC FALLBACK =====
+    // ===== LẤY DANH SÁCH APP =====
     function loadAppList() {
-        // Nếu có bridge native (Android Java)
         if (typeof Android !== 'undefined' && Android.getInstalledApps) {
             try {
                 const json = Android.getInstalledApps();
@@ -611,40 +646,26 @@
                 renderAppList(allApps);
                 return;
             } catch (e) {
-                console.error('Lỗi đọc app từ bridge:', e);
+                console.error('Lỗi:', e);
             }
         }
-
-        // FALLBACK: danh sách mẫu (dùng khi chạy trên trình duyệt desktop)
+        // Fallback mẫu
         allApps = [
             { name: "Free Fire", package: "com.dts.freefireth", icon: "🔥" },
             { name: "Free Fire MAX", package: "com.dts.freefiremax", icon: "🔥" },
             { name: "Discord", package: "com.discord", icon: "💬" },
             { name: "WhatsApp", package: "com.whatsapp", icon: "📱" },
-            { name: "Telegram", package: "org.telegram.messenger", icon: "✈️" },
-            { name: "YouTube", package: "com.google.android.youtube", icon: "▶️" },
-            { name: "Facebook", package: "com.facebook.katana", icon: "📘" },
-            { name: "Instagram", package: "com.instagram.android", icon: "📷" },
-            { name: "TikTok", package: "com.zhiliaoapp.musically", icon: "🎵" },
-            { name: "Spotify", package: "com.spotify.music", icon: "🎧" }
+            { name: "Telegram", package: "org.telegram.messenger", icon: "✈️" }
         ];
         renderAppList(allApps);
-        // Hiển thị thông báo fallback
-        const notice = document.getElementById('animated-notice');
-        if (notice) {
-            notice.innerText = "⚠️ Đang chạy mô phỏng (không có bridge native)";
-            notice.className = "animated-notice show";
-            setTimeout(() => notice.classList.remove('show'), 5000);
-        }
     }
 
-    // ===== HIỂN THỊ DANH SÁCH APP =====
     function renderAppList(apps) {
         const container = document.getElementById('app-list-container');
         if (!container) return;
         container.innerHTML = '';
         if (!apps || apps.length === 0) {
-            container.innerHTML = '<p style="color:#8bb09a; text-align:center; padding:20px;">Không tìm thấy ứng dụng nào.</p>';
+            container.innerHTML = '<p style="color:#8bb09a;text-align:center;padding:20px;">Không tìm thấy ứng dụng.</p>';
             return;
         }
         apps.forEach(app => {
@@ -666,13 +687,9 @@
         });
     }
 
-    // ===== LỌC APP THEO TỪ KHÓA =====
     function filterAppList() {
         const keyword = document.getElementById('search-app').value.toLowerCase().trim();
-        if (!keyword) {
-            renderAppList(allApps);
-            return;
-        }
+        if (!keyword) { renderAppList(allApps); return; }
         const filtered = allApps.filter(app => 
             app.name.toLowerCase().includes(keyword) || 
             app.package.toLowerCase().includes(keyword)
@@ -680,30 +697,76 @@
         renderAppList(filtered);
     }
 
-    // ===== CHỌN APP TỪ DANH SÁCH =====
     function selectAppFromList(name, pkg) {
         currentPackageName = pkg;
         currentAppName = name;
-        
-        // Chuyển sang trang injection
         document.getElementById('selected-app-title').innerText = name;
         document.getElementById('target-app-name').innerText = name;
         document.getElementById('selected-app-badge-text').innerText = name.substring(0, 4).toUpperCase();
-        
         document.getElementById('upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
         document.getElementById('terminal-box').style.display = 'none';
         document.getElementById('terminal-box').innerHTML = '';
-        document.getElementById('file-chosen-label').innerText = "Hỗ trợ mọi định dạng tệp cấu hình";
+        document.getElementById('file-chosen-label').innerText = "Hỗ trợ mọi định dạng";
         document.getElementById('real-file-input').value = "";
-
         goToScreen(4);
-        
-        // Thông báo
         triggerAnimatedNotice(`✅ Đã chọn: ${name}`, "login-color");
     }
 
-    // ===== XỬ LÝ KHI NGƯỜI DÙNG CHỌN TỆP =====
+    // ===== KIỂM TRA SHIZUKU =====
+    function checkShizukuStatus() {
+        const dot = document.getElementById('shizuku-dot');
+        const text = document.getElementById('shizuku-text');
+        const zone = document.getElementById('upload-zone');
+        if (!dot || !text) return;
+
+        if (typeof Android !== 'undefined' && Android.isShizukuRunning) {
+            try {
+                const running = Android.isShizukuRunning();
+                if (running) {
+                    dot.className = 'dot on';
+                    text.innerText = 'Đã bật ✅';
+                    text.style.color = '#00e676';
+                    shizukuReady = true;
+                    if (zone) zone.classList.remove('disabled');
+                } else {
+                    dot.className = 'dot off';
+                    text.innerText = 'Chưa bật ❌';
+                    text.style.color = '#ff4d4d';
+                    shizukuReady = false;
+                    if (zone) zone.classList.add('disabled');
+                }
+            } catch (e) {
+                dot.className = 'dot off';
+                text.innerText = 'Lỗi';
+                shizukuReady = false;
+                if (zone) zone.classList.add('disabled');
+            }
+        } else {
+            // Fallback mô phỏng (cho test giao diện)
+            dot.className = 'dot on';
+            text.innerText = 'Đã bật (mô phỏng)';
+            text.style.color = '#00e676';
+            shizukuReady = true;
+            if (zone) zone.classList.remove('disabled');
+        }
+    }
+
+    // ===== HÀM TIÊM FILE THẬT =====
+    window.onInjectResult = function(success, message) {
+        const terminal = document.getElementById('terminal-box');
+        terminal.style.display = 'block';
+        if (success) {
+            terminal.innerHTML += `<span class="success">✅ ${message}</span><br>`;
+            document.getElementById('success-notification').style.display = 'block';
+            document.getElementById('injected-file-name').innerText = `✅ File đã tiêm thành công vào ${currentAppName}!`;
+        } else {
+            terminal.innerHTML += `<span class="error">❌ ${message}</span><br>`;
+            document.getElementById('success-notification').style.display = 'none';
+        }
+        terminal.scrollTop = terminal.scrollHeight;
+    };
+
     function handleFileSelected(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -714,41 +777,31 @@
             return;
         }
 
+        if (!shizukuReady) {
+            alert('❌ Shizuku chưa bật! Hãy bật Shizuku trước khi tiêm.');
+            resetInjection();
+            return;
+        }
+
+        selectedFile = file;
         document.getElementById('file-chosen-label').innerText = "Đã chọn: " + file.name;
         document.getElementById('upload-zone').style.display = 'none';
         const terminal = document.getElementById('terminal-box');
         terminal.style.display = 'block';
-        terminal.innerHTML = `[<span>INIT</span>] Đọc tệp: <b>${file.name}</b> (${Math.round(file.size / 1024)} KB)...<br>`;
-        terminal.innerHTML += `[<span>TARGET</span>] Gói: ${currentPackageName}<br>`;
+        terminal.innerHTML = `<span class="success">[INIT] Đang tiêm ${file.name} vào ${currentAppName}...</span><br>`;
 
-        // Lưu file vào Downloads (vì trình duyệt có quyền ở đây)
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const blob = new Blob([e.target.result]);
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = file.name;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        // Lấy URI và gọi native bridge
+        const uri = URL.createObjectURL(file);
+        const destPath = `/storage/emulated/0/Android/data/${currentPackageName}/files/${file.name}`;
 
-            terminal.innerHTML += `[<span>OK</span>] Đã tạo file trong Downloads.<br>`;
-            terminal.innerHTML += `[<span>DEST</span>] /Android/data/${currentPackageName}/files/${file.name}<br>`;
-            terminal.innerHTML += `[<span>INFO</span>] Dùng MT Manager copy từ Downloads vào đích.<br>`;
-            
-            document.getElementById('success-notification').style.display = 'block';
-            document.getElementById('injected-file-name').innerHTML = `
-                ✅ <b>${file.name}</b><br>
-                Đã tạo trong Downloads.<br>
-                <b>Copy sang:</b><br>
-                /Android/data/${currentPackageName}/files/${file.name}
-            `;
-        };
-        reader.readAsArrayBuffer(file);
+        if (typeof Android !== 'undefined' && Android.injectFile) {
+            Android.injectFile(uri, destPath);
+        } else {
+            terminal.innerHTML += `<span class="error">❌ Không tìm thấy bridge Android. APK của bạn chưa có injectFile.</span><br>`;
+        }
     }
 
-    // ===== CÁC HÀM ĐIỀU KHIỂN GIAO DIỆN =====
+    // ===== CÁC HÀM ĐIỀU KHIỂN =====
     window.addEventListener('DOMContentLoaded', () => {
         const savedKey = localStorage.getItem('khbinh_saved_key');
         if (savedKey === "123") {
@@ -757,18 +810,22 @@
         } else {
             goToScreen(1);
         }
-        // Load danh sách app khi vào trang 3
         loadAppList();
+        // Tự động kiểm tra Shizuku mỗi 3 giây
+        setInterval(() => {
+            const screen4 = document.getElementById('screen-4');
+            if (screen4 && screen4.classList.contains('active')) {
+                checkShizukuStatus();
+            }
+        }, 3000);
     });
 
     function goToScreen(screenNum) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         const el = document.getElementById('screen-' + screenNum);
         if (el) el.classList.add('active');
-        // Nếu vào trang 3 thì load lại danh sách app
-        if (screenNum === 3) {
-            loadAppList();
-        }
+        if (screenNum === 3) loadAppList();
+        if (screenNum === 4) setTimeout(checkShizukuStatus, 500);
     }
 
     function triggerAnimatedNotice(text, type) {
@@ -839,6 +896,7 @@
         document.getElementById('terminal-box').innerHTML = '';
         document.getElementById('file-chosen-label').innerText = "Hỗ trợ mọi định dạng tệp cấu hình";
         document.getElementById('real-file-input').value = "";
+        selectedFile = null;
     }
 </script>
 
