@@ -1,1 +1,824 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KHBINHDZS1TG</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #070b08;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            position: fixed;
+        }
+
+        .sparkle {
+            position: absolute;
+            top: -15px;
+            background: radial-gradient(circle, #ffffff 0%, #00e676 70%, rgba(0,230,118,0) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fallAnimation linear infinite;
+            box-shadow: 0 0 6px #ffffff, 0 0 10px #00e676;
+            z-index: 100;
+        }
+
+        @keyframes fallAnimation {
+            0% { transform: translateY(-10px) translateX(0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(20px) scale(1.2); opacity: 0; }
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); }
+            50% { transform: scale(1.08); text-shadow: 0 0 22px rgba(0, 230, 118, 0.9), 0 0 35px rgba(0, 230, 118, 0.5); }
+            100% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); }
+        }
+
+        .phone-frame {
+            width: 100%;
+            max-width: 410px;
+            height: 100vh;
+            background: #0d1410;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        @media (min-width: 450px) {
+            .phone-frame {
+                border-radius: 36px;
+                height: 820px;
+                border: 8px solid #14221a;
+                box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+            }
+        }
+
+        .status-header-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 12px 16px 0 16px;
+            z-index: 50;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #131f18;
+            border: 1px solid #1f3326;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .status-badge.offline .status-dot { background: #ff4d4d; box-shadow: 0 0 6px #ff4d4d; }
+        .status-badge.offline { color: #ff4d4d; }
+        .status-badge.online .status-dot { background: #00e676; box-shadow: 0 0 6px #00e676; }
+        .status-badge.online { color: #00e676; }
+
+        .animated-notice {
+            font-size: 9px;
+            font-weight: 600;
+            margin-top: 4px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-8px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .animated-notice.show { max-height: 30px; opacity: 1; transform: translateY(0); }
+        .animated-notice.logout-color { color: #ff4d4d; background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.2); }
+        .animated-notice.login-color { color: #00e676; background: rgba(0, 230, 118, 0.1); border: 1px solid rgba(0, 230, 118, 0.2); }
+        .animated-notice.error-color { color: #ffaa00; background: rgba(255, 170, 0, 0.1); border: 1px solid rgba(255, 170, 0, 0.2); }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            padding: 0 16px 12px 16px;
+            background: #0d1410;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            z-index: 2;
+        }
+
+        .screen.active { display: flex; }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .welcome-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #00e676;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+            display: inline-block;
+        }
+
+        .card-box {
+            width: 100%;
+            background: #131f18;
+            border: 1px solid #1f3326;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(0, 230, 118, 0.1);
+            border-radius: 14px;
+            margin: 0 auto 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00e676;
+        }
+
+        .card-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+        .card-box p { font-size: 10px; color: #8bb09a; margin-bottom: 16px; }
+
+        .input-group-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .input-key {
+            width: 100%;
+            background: #0a100d;
+            border: 1.5px solid #1f3326;
+            border-radius: 10px;
+            padding: 12px 42px 12px 12px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            text-align: center;
+        }
+
+        .input-key:focus { border-color: #00e676; }
+
+        .eye-toggle-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #8bb09a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+        }
+
+        .btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #00e676 0%, #00a854 100%);
+            color: #070b08;
+            border: none;
+            padding: 13px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.3);
+        }
+
+        .error-msg { color: #ff4d4d; font-size: 11px; margin-top: 10px; font-weight: 600; display: none; }
+
+        .footer-text {
+            font-size: 9px;
+            color: #435e4d;
+            margin-top: auto;
+            padding-top: 10px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .screen-content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding-bottom: 10px;
+        }
+
+        .hub-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 50px;
+        }
+
+        .folder-box-btn {
+            width: 100%;
+            background: #131f18;
+            border: 1px solid #1f3326;
+            border-radius: 16px;
+            padding: 22px 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .folder-box-btn:active { border-color: #00e676; background: #192c22; }
+
+        .logout-big-btn {
+            width: 100%;
+            background: #131f18;
+            border: 1.5px solid #00e676;
+            border-radius: 14px;
+            padding: 14px;
+            color: #00e676;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
+            transition: 0.2s;
+            margin-top: auto;
+        }
+
+        .logout-big-btn:active { background: rgba(0, 230, 118, 0.15); }
+
+        .topbar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-top: 8px;
+        }
+
+        .topbar-center-title-big {
+            font-size: 23px;
+            font-weight: 800;
+            color: #00e676;
+            text-align: center;
+            margin: 80px 0 5px 0;
+            letter-spacing: 0.8px;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .topbar-center-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            flex: 1;
+        }
+
+        .app-item-row {
+            background: #131f18;
+            border: 1px solid #1f3326;
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .app-item-row:active { background: #1b2f24; border-color: #00e676; }
+
+        .app-left-info { display: flex; align-items: center; gap: 12px; }
+
+        .app-logo-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid #22382c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00e676;
+            font-weight: 800;
+            font-size: 11px;
+        }
+
+        .app-meta h4 { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .app-meta span { font-size: 9px; color: #8bb09a; }
+        .app-right-icon { width: 24px; height: 24px; background: rgba(0, 230, 118, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #00e676; font-size: 11px; }
+
+        .inject-screen-layout {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .inject-center-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        .target-app-banner {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 2px solid #00e676;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00e676;
+            font-weight: 800;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .file-upload-zone {
+            width: 100%;
+            border: 2px dashed #1f382a;
+            background: #111a14;
+            border-radius: 14px;
+            padding: 18px 16px;
+            margin-top: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .success-box {
+            display: none;
+            background: #0d261a;
+            border: 1px solid #17422b;
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .success-box h4 { color: #00e676; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .success-box p { color: #8cb89b; font-size: 10px; word-break: break-all; }
+
+        .terminal-box {
+            display: none;
+            width: 100%;
+            background: #070b08;
+            border: 1px solid #1f3326;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 12px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 9px;
+            color: #00e676;
+            max-height: 110px;
+            overflow-y: auto;
+        }
+        .terminal-box .error-line { color: #ff4d4d; }
+        .terminal-box .success-line { color: #00e676; }
+        .terminal-box .info-line { color: #8bb09a; }
+    </style>
+</head>
+<body>
+
+<script>
+    for(let i=0; i<20; i++) {
+        let sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        let size = Math.random() * 4 + 2;
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        sparkle.style.animationDelay = (Math.random() * 3) + 's';
+        document.body.appendChild(sparkle);
+    }
+</script>
+
+<div class="phone-frame">
+    
+    <!-- TRANG 1: NHẬP KEY -->
+    <div id="screen-1" class="screen">
+        <div class="status-header-bar">
+            <div id="status-badge" class="status-badge offline">
+                <div class="status-dot"></div>
+                <span id="status-text">OFFLINE</span>
+            </div>
+            <div id="animated-notice" class="animated-notice"></div>
+        </div>
+
+        <div class="login-container">
+            <h1 class="welcome-title">KHBINHDZS1TG</h1>
+
+            <div class="card-box">
+                <div class="card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                </div>
+                <h3>Xác Thực Bản Quyền</h3>
+                <p>Nhập mã key chính xác để mở khóa ứng dụng.</p>
+                
+                <div class="input-group-container">
+                    <input type="password" id="key-input" class="input-key" placeholder="Nhập mã bản quyền..." autocomplete="off">
+                    <button type="button" id="eye-btn" class="eye-toggle-btn" onclick="toggleKeyVisibility()">
+                        <svg id="eye-icon-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                        <svg id="eye-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+                
+                <button class="btn-main" onclick="verifyKey()">Xác Thực Key</button>
+                <div id="error-box" class="error-msg">Sai Key! Vui lòng kiểm tra lại.</div>
+            </div>
+        </div>
+        <div class="footer-text">KHBINHDZS1TG © 2026</div>
+    </div>
+
+    <!-- TRANG 2: TRANG CHỦ -->
+    <div id="screen-2" class="screen">
+        <div class="status-header-bar">
+            <div id="status-badge-2" class="status-badge online">
+                <div class="status-dot"></div>
+                <span>ONLINE</span>
+            </div>
+        </div>
+
+        <div class="screen-content-wrapper">
+            <div class="topbar-center-title-big">INJECTION FILES</div>
+
+            <div class="hub-center">
+                <div class="folder-box-btn" onclick="goToScreen(3)">
+                    <div style="width: 50px; height: 50px; background: rgba(0,230,118,0.15); border-radius: 14px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: #00e676;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Chọn Game Để Tiêm</h3>
+                    <p style="font-size: 10px; color: #8bb09a;">Bấm vào đây để chọn phiên bản game cần nạp tệp</p>
+                </div>
+            </div>
+
+            <button class="logout-big-btn" onclick="handleLogout()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                ĐĂNG XUẤT TÀI KHOẢN
+            </button>
+        </div>
+        <div class="footer-text">KHBINHDZS1TG © 2026</div>
+    </div>
+
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
+    <div id="screen-3" class="screen">
+        <div class="screen-content-wrapper" style="padding-top: 20px;">
+            <div class="topbar-nav">
+                <div class="topbar-center-title">Chọn Ứng Dụng Mục Tiêu</div>
+            </div>
+
+            <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Chọn phân vùng game để tiến hành nạp tệp:</div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="app-item-row" onclick="selectApp('Free Fire', 'FFTH', 'com.dts.freefireth')">
+                    <div class="app-left-info">
+                        <div class="app-logo-badge">FFTH</div>
+                        <div class="app-meta">
+                            <h4>Free Fire</h4>
+                            <span>com.dts.freefireth</span>
+                        </div>
+                    </div>
+                    <div class="app-right-icon">&gt;</div>
+                </div>
+
+                <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'FFMAX', 'com.dts.freefiremax')">
+                    <div class="app-left-info">
+                        <div class="app-logo-badge">FFMAX</div>
+                        <div class="app-meta">
+                            <h4>Free Fire MAX</h4>
+                            <span>com.dts.freefiremax</span>
+                        </div>
+                    </div>
+                    <div class="app-right-icon">&gt;</div>
+                </div>
+            </div>
+
+            <button class="logout-big-btn" onclick="handleLogout()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                ĐĂNG XUẤT TÀI KHOẢN
+            </button>
+        </div>
+        <div class="footer-text">KHBINHDZS1TG © 2026</div>
+    </div>
+
+    <!-- TRANG 4: INJECTION CHÍNH THỨC -->
+    <div id="screen-4" class="screen">
+        <div class="inject-screen-layout" style="padding-top: 20px;">
+            <div class="topbar-nav">
+                <div class="topbar-center-title" id="selected-app-title">Injection Files</div>
+            </div>
+
+            <div class="inject-center-box">
+                <div class="target-app-banner" id="selected-app-badge-text">FFTH</div>
+                <h3 id="target-app-name" style="font-size: 15px; font-weight: 700; margin-bottom: 2px;">App Name</h3>
+                <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg, .zip) từ thiết bị để tiêm vào game</p>
+
+                <div class="file-upload-zone" id="upload-zone" onclick="document.getElementById('real-file-input').click()">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" style="margin-bottom:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <div style="font-size: 11px; font-weight: 600; color: #fff;">Bấm Vào Đây Để Chọn Tệp Tiêm</div>
+                    <span style="font-size: 9px; color: #666;" id="file-chosen-label">Hỗ trợ mọi định dạng tệp cấu hình</span>
+                    <input type="file" id="real-file-input" style="display: none;" onchange="handleFileSelected(event)">
+                </div>
+
+                <div id="terminal-box" class="terminal-box"></div>
+
+                <div id="success-notification" class="success-box">
+                    <h4>✅ Tiêm File Thành Công!</h4>
+                    <p id="injected-file-name">Tệp tin đã được nạp vào thư mục hệ thống game.</p>
+                    <button class="btn-main" style="margin-top: 8px; padding: 7px; font-size: 11px;" onclick="resetInjection()">Tiêm Tệp Khác</button>
+                </div>
+            </div>
+
+            <button class="logout-big-btn" onclick="handleLogout()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                ĐĂNG XUẤT TÀI KHOẢN
+            </button>
+        </div>
+        <div class="footer-text">KHBINHDZS1TG © 2026</div>
+    </div>
+
+</div>
+
+<script>
+    // ===== BIẾN TOÀN CỤC =====
+    let noticeTimer = null;
+    let currentPackageName = "";
+    let currentFileName = "";
+    let currentFileObject = null;
+
+    // ===== SHIZUKU / NATIVE BRIDGE =====
+    // Hàm nhận kết quả từ native (Android Shizuku hoặc iOS)
+    window.onInjectResult = function(success, message) {
+        const terminal = document.getElementById('terminal-box');
+        terminal.style.display = 'block';
+        if (success) {
+            terminal.innerHTML += `<span class="success-line">[OK] ${message}</span><br>`;
+            document.getElementById('success-notification').style.display = 'block';
+            document.getElementById('injected-file-name').innerText = `✅ File "${currentFileName}" đã xuất hiện trong:\n${getDestFolder()}`;
+        } else {
+            terminal.innerHTML += `<span class="error-line">[LỖI] ${message}</span><br>`;
+            document.getElementById('success-notification').style.display = 'none';
+            document.getElementById('upload-zone').style.display = 'block';
+            document.getElementById('file-chosen-label').innerText = "Thử lại với tệp khác";
+        }
+        terminal.scrollTop = terminal.scrollHeight;
+    };
+
+    // Lấy thư mục đích để hiển thị
+    function getDestFolder() {
+        if (currentPackageName === "com.dts.freefireth") {
+            return "/storage/emulated/0/Android/data/com.dts.freefireth/files/";
+        } else if (currentPackageName === "com.dts.freefiremax") {
+            return "/storage/emulated/0/Android/data/com.dts.freefiremax/files/";
+        }
+        return "";
+    }
+
+    // HÀM TIÊM THẬT - GỌI NATIVE BRIDGE
+    function performInjection(srcPath, destPath) {
+        const terminal = document.getElementById('terminal-box');
+        terminal.style.display = 'block';
+        terminal.innerHTML = `<span class="info-line">[INIT] Bắt đầu tiêm (không root)...</span><br>`;
+        terminal.innerHTML += `<span class="info-line">[SRC] ${srcPath}</span><br>`;
+        terminal.innerHTML += `<span class="info-line">[DEST] ${destPath}</span><br>`;
+
+        // Android - Shizuku bridge (do native app cung cấp)
+        if (typeof window.ShizukuBridge !== 'undefined' && window.ShizukuBridge.copyFile) {
+            terminal.innerHTML += `<span class="info-line">[BRIDGE] Shizuku - đang copy...</span><br>`;
+            window.ShizukuBridge.copyFile(srcPath, destPath, function(success, msg) {
+                window.onInjectResult(success, msg);
+            });
+            return;
+        }
+
+        // Android - WebView bridge (từ native app)
+        if (typeof window.Android !== 'undefined' && window.Android.injectFile) {
+            terminal.innerHTML += `<span class="info-line">[BRIDGE] Android - đang copy...</span><br>`;
+            window.Android.injectFile(srcPath, destPath);
+            return;
+        }
+
+        // iOS - WKScriptMessage
+        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.iOSInject) {
+            terminal.innerHTML += `<span class="info-line">[BRIDGE] iOS - đang copy...</span><br>`;
+            window.webkit.messageHandlers.iOSInject.postMessage({ src: srcPath, dest: destPath });
+            return;
+        }
+
+        // FALLBACK: không có bridge - hướng dẫn thủ công
+        terminal.innerHTML += `<span class="error-line">[LỖI] Không tìm thấy native bridge.</span><br>`;
+        terminal.innerHTML += `<span class="info-line">[HƯỚNG DẪN] Dùng ZArchiver + Shizuku để copy thủ công:</span><br>`;
+        terminal.innerHTML += `<span class="info-line">Từ: ${srcPath}</span><br>`;
+        terminal.innerHTML += `<span class="info-line">Đến: ${destPath}</span><br>`;
+        terminal.innerHTML += `<span class="info-line">Sau đó mở file manager kiểm tra file đã xuất hiện.</span><br>`;
+        // Tự động bật nút thử lại
+        document.getElementById('upload-zone').style.display = 'block';
+        document.getElementById('file-chosen-label').innerText = "Không có bridge - thử thủ công";
+    }
+
+    // ===== XỬ LÝ CHỌN FILE =====
+    function handleFileSelected(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        currentFileName = file.name;
+        currentFileObject = file;
+        document.getElementById('file-chosen-label').innerText = "Đã chọn: " + file.name;
+        document.getElementById('upload-zone').style.display = 'none';
+
+        // Lấy đường dẫn nguồn (ưu tiên path thực)
+        let srcPath = file.path || file.webkitRelativePath || file.name;
+        if (!file.path && !file.webkitRelativePath) {
+            // Nếu không có path, dùng tên file (sẽ cần native xử lý URI)
+            srcPath = file.name;
+        }
+
+        // Xác định thư mục đích trong /Android/data/
+        let destFolder = "";
+        if (currentPackageName === "com.dts.freefireth") {
+            destFolder = "/storage/emulated/0/Android/data/com.dts.freefireth/files/";
+        } else if (currentPackageName === "com.dts.freefiremax") {
+            destFolder = "/storage/emulated/0/Android/data/com.dts.freefiremax/files/";
+        } else {
+            alert("Không xác định được game. Vui lòng chọn lại.");
+            resetInjection();
+            return;
+        }
+        const destPath = destFolder + file.name;
+
+        // Gọi tiêm
+        performInjection(srcPath, destPath);
+    }
+
+    // ===== CÁC HÀM ĐIỀU KHIỂN MÀN HÌNH =====
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedKey = localStorage.getItem('khbinh_saved_key');
+        if (savedKey === "123") {
+            setAppStatus('online');
+            goToScreen(2);
+        } else {
+            goToScreen(1);
+        }
+    });
+
+    function goToScreen(screenNum) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        const screen = document.getElementById('screen-' + screenNum);
+        if (screen) screen.classList.add('active');
+    }
+
+    function triggerAnimatedNotice(text, type) {
+        const notice = document.getElementById('animated-notice');
+        if (noticeTimer) clearTimeout(noticeTimer);
+        notice.innerText = text;
+        notice.className = `animated-notice ${type} show`;
+        noticeTimer = setTimeout(() => {
+            notice.classList.remove('show');
+        }, 3000);
+    }
+
+    function setAppStatus(status) {
+        const badge = document.getElementById('status-badge');
+        const text = document.getElementById('status-text');
+        if (badge && text) {
+            if (status === 'online') {
+                badge.className = 'status-badge online';
+                text.innerText = 'ONLINE';
+            } else {
+                badge.className = 'status-badge offline';
+                text.innerText = 'OFFLINE';
+            }
+        }
+    }
+
+    function toggleKeyVisibility() {
+        const keyInput = document.getElementById('key-input');
+        const eyeClosed = document.getElementById('eye-icon-closed');
+        const eyeOpen = document.getElementById('eye-icon-open');
+
+        if (keyInput.type === "password") {
+            keyInput.type = "text";
+            eyeClosed.style.display = "none";
+            eyeOpen.style.display = "block";
+        } else {
+            keyInput.type = "password";
+            eyeClosed.style.display = "block";
+            eyeOpen.style.display = "none";
+        }
+    }
+
+    function verifyKey() {
+        const keyInput = document.getElementById('key-input').value.trim();
+        const errorBox = document.getElementById('error-box');
+
+        if (keyInput === "123") {
+            errorBox.style.display = 'none';
+            localStorage.setItem('khbinh_saved_key', keyInput);
+            setAppStatus('online');
+            goToScreen(2);
+            triggerAnimatedNotice("Đăng nhập thành công!", "login-color");
+        } else {
+            errorBox.style.display = 'block';
+        }
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('khbinh_saved_key');
+        document.getElementById('key-input').value = '';
+        setAppStatus('offline');
+        goToScreen(1);
+        triggerAnimatedNotice("Đã đăng xuất!", "logout-color");
+    }
+
+    function selectApp(appName, badgeText, pkgName) {
+        currentPackageName = pkgName;
+        document.getElementById('selected-app-title').innerText = appName;
+        document.getElementById('target-app-name').innerText = appName;
+        document.getElementById('selected-app-badge-text').innerText = badgeText;
+        
+        document.getElementById('upload-zone').style.display = 'block';
+        document.getElementById('success-notification').style.display = 'none';
+        document.getElementById('terminal-box').style.display = 'none';
+        document.getElementById('terminal-box').innerHTML = '';
+        document.getElementById('file-chosen-label').innerText = "Hỗ trợ mọi định dạng tệp cấu hình";
+        document.getElementById('real-file-input').value = "";
+        currentFileName = "";
+        currentFileObject = null;
+
+        goToScreen(4);
+    }
+
+    function resetInjection() {
+        document.getElementById('upload-zone').style.display = 'block';
+        document.getElementById('success-notification').style.display = 'none';
+        document.getElementById('terminal-box').style.display = 'none';
+        document.getElementById('terminal-box').innerHTML = '';
+        document.getElementById('file-chosen-label').innerText = "Hỗ trợ mọi định dạng tệp cấu hình";
+        document.getElementById('real-file-input').value = "";
+        currentFileName = "";
+        currentFileObject = null;
+    }
+</script>
+
+</body>
+  </html>
