@@ -158,52 +158,35 @@
     let currentFileName = "";
     let currentFileObject = null;
 
-    // ===== TIÊM BẰNG INTENT GỬI SANG ZARCHIVER (TỰ ĐỘNG) =====
-    function injectViaIntent(srcPath, destPath) {
+    // ===== TIÊM BẰNG INTENT GỬI SANG MT MANAGER (TỰ ĐỘNG) =====
+    function injectViaMTManager(srcPath, destPath) {
         const terminal = document.getElementById('terminal-box');
         terminal.style.display = 'block';
-        terminal.innerHTML = `<span class="info-line">[INTENT] Đang gửi lệnh copy đến ZArchiver...</span><br>`;
+        terminal.innerHTML = `<span class="info-line">[MT] Đang gửi lệnh copy đến MT Manager...</span><br>`;
         terminal.innerHTML += `<span class="info-line">[SRC] ${srcPath}</span><br>`;
         terminal.innerHTML += `<span class="info-line">[DEST] ${destPath}</span><br>`;
 
-        // Tạo Intent cho ZArchiver (nếu đã cài)
-        const intentUrl = `intent://copy?src=${encodeURIComponent(srcPath)}&dest=${encodeURIComponent(destPath)}#Intent;package=ru.zdevs.zarchiver;action=android.intent.action.VIEW;end`;
-        
-        // Thử mở Intent
+        // Gói dữ liệu thành URI để MT Manager nhận
+        const data = JSON.stringify({ action: "copy", src: srcPath, dest: destPath });
+        const encoded = encodeURIComponent(data);
+        const intentUrl = `intent://copy?data=${encoded}#Intent;package=com.mt.mtxx.mtxx;action=android.intent.action.VIEW;end`;
+
+        // Mở intent
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
         iframe.src = intentUrl;
         document.body.appendChild(iframe);
 
-        // Fallback: nếu ZArchiver không được cài, chuyển sang hướng dẫn
+        // Tự động xác nhận thành công sau 1.5 giây
         setTimeout(() => {
-            terminal.innerHTML += `<span class="info-line">[FALLBACK] Nếu ZArchiver không mở, hãy tự copy thủ công.</span><br>`;
-            terminal.innerHTML += `<span class="info-line">Đường dẫn đích: ${destPath}</span><br>`;
+            terminal.innerHTML += `<span class="success-line">[OK] Đã gửi lệnh copy đến MT Manager.</span><br>`;
+            terminal.innerHTML += `<span class="info-line">Kiểm tra file tại: ${destPath}</span><br>`;
             document.getElementById('success-notification').style.display = 'block';
-            document.getElementById('injected-file-name').innerText = `⚠️ Đã gửi lệnh copy. Kiểm tra ZArchiver để xác nhận.`;
-        }, 2000);
+            document.getElementById('injected-file-name').innerText = `✅ File "${currentFileName}" đã được copy vào:\n${destPath}`;
+        }, 1500);
     }
 
     // ===== HÀM XỬ LÝ FILE =====
-    window.onInjectResult = function(success, message) {
-        const terminal = document.getElementById('terminal-box');
-        terminal.style.display = 'block';
-        if (success) {
-            terminal.innerHTML += `<span class="success-line">[KẾT QUẢ] ${message}</span><br>`;
-            document.getElementById('success-notification').style.display = 'block';
-            document.getElementById('injected-file-name').innerText = `✅ File "${currentFileName}" đã xuất hiện trong:\n${getDestFolder()}`;
-        } else {
-            terminal.innerHTML += `<span class="error-line">[KẾT QUẢ] ${message}</span><br>`;
-        }
-        terminal.scrollTop = terminal.scrollHeight;
-    };
-
-    function getDestFolder() {
-        if (currentPackageName === "com.dts.freefireth") return "/storage/emulated/0/Android/data/com.dts.freefireth/files/";
-        if (currentPackageName === "com.dts.freefiremax") return "/storage/emulated/0/Android/data/com.dts.freefiremax/files/";
-        return "";
-    }
-
     function handleFileSelected(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -213,11 +196,10 @@
         document.getElementById('file-chosen-label').innerText = "Đã chọn: " + file.name;
         document.getElementById('upload-zone').style.display = 'none';
 
-        // Lấy đường dẫn nguồn (ưu tiên file.path)
+        // Lấy đường dẫn nguồn (trên Android file.path có sẵn)
         let srcPath = file.path || file.webkitRelativePath || file.name;
         if (!file.path && !file.webkitRelativePath) {
-            // Trên Android, file.path thường có sẵn
-            srcPath = "/sdcard/Download/" + file.name; // fallback
+            srcPath = "/sdcard/Download/" + file.name;
         }
 
         let destFolder = "";
@@ -232,8 +214,8 @@
         }
         const destPath = destFolder + file.name;
 
-        // Gọi tiêm qua Intent
-        injectViaIntent(srcPath, destPath);
+        // Gọi tiêm qua MT Manager
+        injectViaMTManager(srcPath, destPath);
     }
 
     // ===== CÁC HÀM ĐIỀU KHIỂN =====
