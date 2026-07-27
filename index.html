@@ -57,7 +57,7 @@
 </head>
 <body>
 <div class="phone-frame">
-    <!-- Trang 1 -->
+    <!-- Trang 1: Nhập key -->
     <div id="screen-1" class="screen">
         <div class="status-header-bar">
             <div id="status-badge" class="status-badge offline"><div class="status-dot"></div><span id="status-text">OFFLINE</span></div>
@@ -75,7 +75,7 @@
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- Trang 2 -->
+    <!-- Trang 2: Trang chủ -->
     <div id="screen-2" class="screen">
         <div class="status-header-bar"><div id="status-badge-2" class="status-badge online"><div class="status-dot"></div><span>ONLINE</span></div></div>
         <div class="screen-content-wrapper">
@@ -92,7 +92,7 @@
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- Trang 3 -->
+    <!-- Trang 3: Chọn game -->
     <div id="screen-3" class="screen">
         <div class="screen-content-wrapper" style="padding-top:20px;">
             <div class="topbar-nav"><div class="topbar-center-title">Chọn Ứng Dụng Mục Tiêu</div></div>
@@ -112,7 +112,7 @@
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- Trang 4 -->
+    <!-- Trang 4: Injection -->
     <div id="screen-4" class="screen">
         <div class="inject-screen-layout">
             <div class="topbar-nav"><div class="topbar-center-title" id="selected-app-title">Injection Files</div></div>
@@ -143,7 +143,7 @@
     let currentPackageName = "";
     let currentFileName = "";
 
-    // === HÀM TIÊM TỰ ĐỘNG QUA MT MANAGER ===
+    // === TIÊM TỰ ĐỘNG QUA MT MANAGER ===
     function injectViaMTManager(file, destPath) {
         const terminal = document.getElementById('terminal-box');
         terminal.style.display = 'block';
@@ -151,11 +151,9 @@
         terminal.innerHTML += `<span class="info-line">[FILE] ${file.name}</span><br>`;
         terminal.innerHTML += `<span class="info-line">[DEST] ${destPath}</span><br>`;
 
-        // Đọc file thành base64 để gửi qua intent
         const reader = new FileReader();
         reader.onload = function(e) {
             const base64 = btoa(e.target.result);
-            // Tạo intent với dữ liệu base64 (MT Manager hỗ trợ)
             const data = JSON.stringify({
                 action: "write",
                 path: destPath,
@@ -165,13 +163,11 @@
             const encoded = encodeURIComponent(data);
             const intent = `intent://write?data=${encoded}#Intent;package=com.mt.mtxx.mtxx;action=android.intent.action.VIEW;end`;
 
-            // Gửi intent
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = intent;
             document.body.appendChild(iframe);
 
-            // Xác nhận thành công
             setTimeout(() => {
                 terminal.innerHTML += `<span class="success-line">[OK] Đã gửi file đến MT Manager.</span><br>`;
                 terminal.innerHTML += `<span class="success-line">✅ File đã được tiêm vào:</span><br>`;
