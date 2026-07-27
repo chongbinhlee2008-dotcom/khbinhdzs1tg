@@ -425,6 +425,21 @@
             max-height: 110px;
             overflow-y: auto;
         }
+
+        /* Thêm style cho ô tìm kiếm */
+        .search-box {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #1f3326;
+            background: #0a100d;
+            color: #fff;
+            font-size: 13px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        .search-box:focus { border-color: #00e676; }
+        .app-list-container { flex: 1; overflow-y: auto; }
     </style>
 </head>
 <body>
@@ -516,37 +531,21 @@
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG -->
+    <!-- TRANG 3: DANH SÁCH ỨNG DỤNG (HIỆN APP THẬT) -->
     <div id="screen-3" class="screen">
         <div class="screen-content-wrapper" style="padding-top: 20px;">
             <div class="topbar-nav">
                 <div class="topbar-center-title">Chọn Ứng Dụng Mục Tiêu</div>
             </div>
 
-            <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Chọn phân vùng game để tiến hành nạp tệp:</div>
+            <div style="font-size:10px; color:#8bb09a; margin-bottom: 10px;">Danh sách ứng dụng đã cài trên điện thoại:</div>
 
-            <div style="display:flex; flex-direction:column; gap:8px;">
-                <div class="app-item-row" onclick="selectApp('Free Fire', 'FFTH', 'com.dts.freefireth')">
-                    <div class="app-left-info">
-                        <div class="app-logo-badge">FFTH</div>
-                        <div class="app-meta">
-                            <h4>Free Fire</h4>
-                            <span>com.dts.freefireth</span>
-                        </div>
-                    </div>
-                    <div class="app-right-icon">&gt;</div>
-                </div>
+            <!-- Ô tìm kiếm -->
+            <input type="text" id="search-app" class="search-box" placeholder="🔍 Tìm ứng dụng..." oninput="filterAppList()">
 
-                <div class="app-item-row" onclick="selectApp('Free Fire MAX', 'FFMAX', 'com.dts.freefiremax')">
-                    <div class="app-left-info">
-                        <div class="app-logo-badge">FFMAX</div>
-                        <div class="app-meta">
-                            <h4>Free Fire MAX</h4>
-                            <span>com.dts.freefiremax</span>
-                        </div>
-                    </div>
-                    <div class="app-right-icon">&gt;</div>
-                </div>
+            <!-- Danh sách app -->
+            <div class="app-list-container" id="app-list-container">
+                <!-- JavaScript sẽ render danh sách vào đây -->
             </div>
 
             <button class="logout-big-btn" onclick="handleLogout()">
@@ -565,25 +564,23 @@
             </div>
 
             <div class="inject-center-box">
-                <div class="target-app-banner" id="selected-app-badge-text">FFTH</div>
+                <div class="target-app-banner" id="selected-app-badge-text">APP</div>
                 <h3 id="target-app-name" style="font-size: 15px; font-weight: 700; margin-bottom: 2px;">App Name</h3>
-                <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.js, .txt, .dat, .cfg) từ thiết bị để thực thi</p>
+                <p style="font-size: 10px; color: #8bb09a;">Chọn tệp tin (.dat, .cfg, .zip) từ thiết bị để tiêm vào game</p>
 
-                <!-- KHUNG CHỌN FILE ĐÃ ĐƯỢC CẬP NHẬT ĐỂ ĐỌC VÀ THỰC THI MÃ -->
                 <div class="file-upload-zone" id="upload-zone" onclick="document.getElementById('real-file-input').click()">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" style="margin-bottom:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    <div style="font-size: 11px; font-weight: 600; color: #fff;">Bấm Vào Đây Để Chọn Tệp Code</div>
-                    <span style="font-size: 9px; color: #666;" id="file-chosen-label">Hỗ trợ tệp định dạng mã nguồn / văn bản</span>
-                    <!-- Input file ẩn bên trong để kích hoạt trình duyệt mở bộ nhớ máy -->
+                    <div style="font-size: 11px; font-weight: 600; color: #fff;">Bấm Vào Đây Để Chọn Tệp Tiêm</div>
+                    <span style="font-size: 9px; color: #666;" id="file-chosen-label">Hỗ trợ mọi định dạng tệp cấu hình</span>
                     <input type="file" id="real-file-input" style="display: none;" onchange="handleFileSelected(event)">
                 </div>
 
                 <div id="terminal-box" class="terminal-box"></div>
 
                 <div id="success-notification" class="success-box">
-                    <h4 id="success-title">Thực Thi Code Thành Công!</h4>
-                    <p id="injected-file-name">Đã chạy mã lệnh từ tệp thành công.</p>
-                    <button class="btn-main" style="margin-top: 8px; padding: 7px; font-size: 11px;" onclick="resetInjection()">Chạy Tệp Khác</button>
+                    <h4>Tiêm File Thành Công!</h4>
+                    <p id="injected-file-name">Tệp tin đã được nạp vào thư mục hệ thống game.</p>
+                    <button class="btn-main" style="margin-top: 8px; padding: 7px; font-size: 11px;" onclick="resetInjection()">Tiêm Tệp Khác</button>
                 </div>
             </div>
 
@@ -598,9 +595,160 @@
 </div>
 
 <script>
+    // ===== BIẾN TOÀN CỤC =====
     let noticeTimer = null;
     let currentPackageName = "";
+    let currentAppName = "";
+    let allApps = []; // Lưu danh sách app thật
 
+    // ===== LẤY DANH SÁCH APP TỪ NATIVE (NẾU CÓ BRIDGE) HOẶC FALLBACK =====
+    function loadAppList() {
+        // Nếu có bridge native (Android Java)
+        if (typeof Android !== 'undefined' && Android.getInstalledApps) {
+            try {
+                const json = Android.getInstalledApps();
+                allApps = JSON.parse(json);
+                renderAppList(allApps);
+                return;
+            } catch (e) {
+                console.error('Lỗi đọc app từ bridge:', e);
+            }
+        }
+
+        // FALLBACK: danh sách mẫu (dùng khi chạy trên trình duyệt desktop)
+        allApps = [
+            { name: "Free Fire", package: "com.dts.freefireth", icon: "🔥" },
+            { name: "Free Fire MAX", package: "com.dts.freefiremax", icon: "🔥" },
+            { name: "Discord", package: "com.discord", icon: "💬" },
+            { name: "WhatsApp", package: "com.whatsapp", icon: "📱" },
+            { name: "Telegram", package: "org.telegram.messenger", icon: "✈️" },
+            { name: "YouTube", package: "com.google.android.youtube", icon: "▶️" },
+            { name: "Facebook", package: "com.facebook.katana", icon: "📘" },
+            { name: "Instagram", package: "com.instagram.android", icon: "📷" },
+            { name: "TikTok", package: "com.zhiliaoapp.musically", icon: "🎵" },
+            { name: "Spotify", package: "com.spotify.music", icon: "🎧" }
+        ];
+        renderAppList(allApps);
+        // Hiển thị thông báo fallback
+        const notice = document.getElementById('animated-notice');
+        if (notice) {
+            notice.innerText = "⚠️ Đang chạy mô phỏng (không có bridge native)";
+            notice.className = "animated-notice show";
+            setTimeout(() => notice.classList.remove('show'), 5000);
+        }
+    }
+
+    // ===== HIỂN THỊ DANH SÁCH APP =====
+    function renderAppList(apps) {
+        const container = document.getElementById('app-list-container');
+        if (!container) return;
+        container.innerHTML = '';
+        if (!apps || apps.length === 0) {
+            container.innerHTML = '<p style="color:#8bb09a; text-align:center; padding:20px;">Không tìm thấy ứng dụng nào.</p>';
+            return;
+        }
+        apps.forEach(app => {
+            const div = document.createElement('div');
+            div.className = 'app-item-row';
+            div.setAttribute('data-package', app.package);
+            div.innerHTML = `
+                <div class="app-left-info">
+                    <div class="app-logo-badge">${app.icon || '📦'}</div>
+                    <div class="app-meta">
+                        <h4>${app.name}</h4>
+                        <span>${app.package}</span>
+                    </div>
+                </div>
+                <div class="app-right-icon">&gt;</div>
+            `;
+            div.onclick = () => selectAppFromList(app.name, app.package);
+            container.appendChild(div);
+        });
+    }
+
+    // ===== LỌC APP THEO TỪ KHÓA =====
+    function filterAppList() {
+        const keyword = document.getElementById('search-app').value.toLowerCase().trim();
+        if (!keyword) {
+            renderAppList(allApps);
+            return;
+        }
+        const filtered = allApps.filter(app => 
+            app.name.toLowerCase().includes(keyword) || 
+            app.package.toLowerCase().includes(keyword)
+        );
+        renderAppList(filtered);
+    }
+
+    // ===== CHỌN APP TỪ DANH SÁCH =====
+    function selectAppFromList(name, pkg) {
+        currentPackageName = pkg;
+        currentAppName = name;
+        
+        // Chuyển sang trang injection
+        document.getElementById('selected-app-title').innerText = name;
+        document.getElementById('target-app-name').innerText = name;
+        document.getElementById('selected-app-badge-text').innerText = name.substring(0, 4).toUpperCase();
+        
+        document.getElementById('upload-zone').style.display = 'block';
+        document.getElementById('success-notification').style.display = 'none';
+        document.getElementById('terminal-box').style.display = 'none';
+        document.getElementById('terminal-box').innerHTML = '';
+        document.getElementById('file-chosen-label').innerText = "Hỗ trợ mọi định dạng tệp cấu hình";
+        document.getElementById('real-file-input').value = "";
+
+        goToScreen(4);
+        
+        // Thông báo
+        triggerAnimatedNotice(`✅ Đã chọn: ${name}`, "login-color");
+    }
+
+    // ===== XỬ LÝ KHI NGƯỜI DÙNG CHỌN TỆP =====
+    function handleFileSelected(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!currentPackageName) {
+            alert('Vui lòng chọn ứng dụng trước!');
+            resetInjection();
+            return;
+        }
+
+        document.getElementById('file-chosen-label').innerText = "Đã chọn: " + file.name;
+        document.getElementById('upload-zone').style.display = 'none';
+        const terminal = document.getElementById('terminal-box');
+        terminal.style.display = 'block';
+        terminal.innerHTML = `[<span>INIT</span>] Đọc tệp: <b>${file.name}</b> (${Math.round(file.size / 1024)} KB)...<br>`;
+        terminal.innerHTML += `[<span>TARGET</span>] Gói: ${currentPackageName}<br>`;
+
+        // Lưu file vào Downloads (vì trình duyệt có quyền ở đây)
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const blob = new Blob([e.target.result]);
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = file.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+
+            terminal.innerHTML += `[<span>OK</span>] Đã tạo file trong Downloads.<br>`;
+            terminal.innerHTML += `[<span>DEST</span>] /Android/data/${currentPackageName}/files/${file.name}<br>`;
+            terminal.innerHTML += `[<span>INFO</span>] Dùng MT Manager copy từ Downloads vào đích.<br>`;
+            
+            document.getElementById('success-notification').style.display = 'block';
+            document.getElementById('injected-file-name').innerHTML = `
+                ✅ <b>${file.name}</b><br>
+                Đã tạo trong Downloads.<br>
+                <b>Copy sang:</b><br>
+                /Android/data/${currentPackageName}/files/${file.name}
+            `;
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    // ===== CÁC HÀM ĐIỀU KHIỂN GIAO DIỆN =====
     window.addEventListener('DOMContentLoaded', () => {
         const savedKey = localStorage.getItem('khbinh_saved_key');
         if (savedKey === "123") {
@@ -609,11 +757,18 @@
         } else {
             goToScreen(1);
         }
+        // Load danh sách app khi vào trang 3
+        loadAppList();
     });
 
     function goToScreen(screenNum) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('screen-' + screenNum).classList.add('active');
+        const el = document.getElementById('screen-' + screenNum);
+        if (el) el.classList.add('active');
+        // Nếu vào trang 3 thì load lại danh sách app
+        if (screenNum === 3) {
+            loadAppList();
+        }
     }
 
     function triggerAnimatedNotice(text, type) {
@@ -644,7 +799,6 @@
         const keyInput = document.getElementById('key-input');
         const eyeClosed = document.getElementById('eye-icon-closed');
         const eyeOpen = document.getElementById('eye-icon-open');
-
         if (keyInput.type === "password") {
             keyInput.type = "text";
             eyeClosed.style.display = "none";
@@ -659,7 +813,6 @@
     function verifyKey() {
         const keyInput = document.getElementById('key-input').value.trim();
         const errorBox = document.getElementById('error-box');
-
         if (keyInput === "123") {
             errorBox.style.display = 'none';
             localStorage.setItem('khbinh_saved_key', keyInput);
@@ -679,106 +832,12 @@
         triggerAnimatedNotice("Đã đăng xuất!", "logout-color");
     }
 
-    function selectApp(appName, badgeText, pkgName) {
-        currentPackageName = pkgName;
-        document.getElementById('selected-app-title').innerText = appName;
-        document.getElementById('target-app-name').innerText = appName;
-        document.getElementById('selected-app-badge-text').innerText = badgeText;
-        
-        document.getElementById('upload-zone').style.display = 'block';
-        document.getElementById('success-notification').style.display = 'none';
-        document.getElementById('terminal-box').style.display = 'none';
-        document.getElementById('terminal-box').innerHTML = '';
-        document.getElementById('file-chosen-label').innerText = "Hỗ trợ tệp định dạng mã nguồn / văn bản";
-        document.getElementById('real-file-input').value = "";
-
-        goToScreen(4);
-    }
-
-    // XỬ LÝ ĐỌC VÀ CHẠY MÃ CODE TỪ TỆP ĐƯỢC CHỌN
-    function handleFileSelected(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        document.getElementById('file-chosen-label').innerText = "Đã chọn: " + file.name;
-        
-        document.getElementById('upload-zone').style.display = 'none';
-        const terminal = document.getElementById('terminal-box');
-        terminal.style.display = 'block';
-        terminal.innerHTML = `[<span>INIT</span>] Đang đọc nội dung tệp: <b>${file.name}</b>...<br>`;
-
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-            const fileContent = e.target.result;
-
-            let steps = [
-                `[<span>TARGET</span>] Mục tiêu: ${currentPackageName}`,
-                `[<span>COMPILE</span>] Phân tích cú pháp mã nguồn thành công...`,
-                `[<span>EXECUTE</span>] Đang chạy code trong môi trường cô lập...`
-            ];
-
-            let i = 0;
-            let interval = setInterval(() => {
-                if (i < steps.length) {
-                    terminal.innerHTML += steps[i] + `<br>`;
-                    terminal.scrollTop = terminal.scrollHeight;
-                    i++;
-                } else {
-                    clearInterval(interval);
-
-                    // THỰC THI CODE TRONG FILE
-                    let executionSuccess = true;
-                    let executionResultMsg = "";
-                    try {
-                        // Nếu file là JavaScript (.js), thực thi trực tiếp mã bên trong
-                        if (file.name.endsWith('.js')) {
-                            // Tạo hàm bọc an toàn để chạy mã JS từ file
-                            const runUserCode = new Function(fileContent);
-                            runUserCode();
-                            executionResultMsg = "Đã thực thi tập lệnh JavaScript thành công!";
-                        } else {
-                            // Với các định dạng khác (như .txt, .cfg, .dat), mô phỏng nạp lệnh cấu hình vào bộ nhớ
-                            executionResultMsg = `Đã nạp nội dung cấu hình (${fileContent.length} ký tự) vào hệ thống!`;
-                        }
-                    } catch (err) {
-                        executionSuccess = false;
-                        executionResultMsg = "Lỗi khi chạy code: " + err.message;
-                    }
-
-                    if (executionSuccess) {
-                        terminal.innerHTML += `[<span>SUCCESS</span>] Hoàn tất quá trình.<br>`;
-                        document.getElementById('success-title').innerText = "Chạy Code Thành Công!";
-                        document.getElementById('injected-file-name').innerText = executionResultMsg;
-                    } else {
-                        terminal.innerHTML += `[<span>ERROR</span>] ${executionResultMsg}<br>`;
-                        document.getElementById('success-title').innerText = "Lỗi Thực Thi!";
-                        document.getElementById('injected-file-name').innerText = executionResultMsg;
-                    }
-
-                    terminal.scrollTop = terminal.scrollHeight;
-                    document.getElementById('success-notification').style.display = 'block';
-                }
-            }, 350);
-        };
-
-        reader.onerror = function() {
-            terminal.innerHTML += `[<span>ERROR</span>] Không thể đọc được tệp tin này!<br>`;
-            document.getElementById('success-title').innerText = "Lỗi Đọc File!";
-            document.getElementById('injected-file-name').innerText = "Đã xảy ra lỗi khi đọc tệp từ thiết bị.";
-            document.getElementById('success-notification').style.display = 'block';
-        };
-
-        // Đọc nội dung file dưới dạng văn bản text
-        reader.readAsText(file);
-    }
-
     function resetInjection() {
         document.getElementById('upload-zone').style.display = 'block';
         document.getElementById('success-notification').style.display = 'none';
         document.getElementById('terminal-box').style.display = 'none';
         document.getElementById('terminal-box').innerHTML = '';
-        document.getElementById('file-chosen-label').innerText = "Hỗ trợ tệp định dạng mã nguồn / văn bản";
+        document.getElementById('file-chosen-label').innerText = "Hỗ trợ mọi định dạng tệp cấu hình";
         document.getElementById('real-file-input').value = "";
     }
 </script>
