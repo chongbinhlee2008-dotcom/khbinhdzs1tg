@@ -5,89 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KHBINHDZS1TG</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: #070b08; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; overflow: hidden; position: fixed; }
-        .phone-frame { width: 100%; max-width: 410px; height: 100vh; background: #0d1410; position: relative; display: flex; flex-direction: column; overflow: hidden; z-index: 10; }
-        @media (min-width: 450px) { .phone-frame { border-radius: 36px; height: 820px; border: 8px solid #14221a; } }
-        .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; padding: 0 16px 12px 16px; background: #0d1410; overflow-y: auto; z-index: 2; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background: #070b08; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; overflow: hidden; }
+        .phone-frame { width: 100%; max-width: 410px; height: 100vh; background: #0d1410; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+        .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; padding: 0 16px 12px; background: #0d1410; overflow-y: auto; }
         .screen.active { display: flex; }
-        .status-header-bar { display: flex; flex-direction: column; align-items: flex-end; padding: 12px 16px 0 16px; z-index: 50; }
+        .status-header-bar { display: flex; flex-direction: column; align-items: flex-end; padding: 12px 16px 0; }
         .status-badge { display: flex; align-items: center; gap: 6px; background: #131f18; border: 1px solid #1f3326; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; }
-        .status-badge.offline .status-dot { background: #ff4d4d; box-shadow: 0 0 6px #ff4d4d; }
-        .status-badge.offline { color: #ff4d4d; }
-        .status-badge.online .status-dot { background: #00e676; box-shadow: 0 0 6px #00e676; }
-        .status-badge.online { color: #00e676; }
-        .animated-notice { font-size: 9px; font-weight: 600; margin-top: 4px; padding: 2px 8px; border-radius: 6px; max-height: 0; opacity: 0; overflow: hidden; transform: translateY(-8px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; }
-        .animated-notice.show { max-height: 30px; opacity: 1; transform: translateY(0); }
-        .animated-notice.logout-color { color: #ff4d4d; background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.2); }
-        .animated-notice.login-color { color: #00e676; background: rgba(0, 230, 118, 0.1); border: 1px solid rgba(0, 230, 118, 0.2); }
-        .login-container { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-bottom: 20px; }
-        .welcome-title { font-size: 26px; font-weight: 800; color: #00e676; margin-bottom: 12px; animation: pulseGlow 2.5s infinite ease-in-out; display: inline-block; }
-        @keyframes pulseGlow { 0% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); } 50% { transform: scale(1.08); text-shadow: 0 0 22px rgba(0, 230, 118, 0.9); } 100% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); } }
+        .status-badge.offline .status-dot { background: #ff4d4d; }
+        .status-badge.online .status-dot { background: #00e676; }
+        .login-container { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .welcome-title { font-size: 26px; font-weight: 800; color: #00e676; animation: pulseGlow 2.5s infinite; }
+        @keyframes pulseGlow { 0% { text-shadow: 0 0 10px rgba(0,230,118,0.4); } 50% { text-shadow: 0 0 22px rgba(0,230,118,0.9); } 100% { text-shadow: 0 0 10px rgba(0,230,118,0.4); } }
         .card-box { width: 100%; background: #131f18; border: 1px solid #1f3326; border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .card-icon { width: 52px; height: 52px; background: rgba(0, 230, 118, 0.1); border-radius: 14px; margin: 0 auto 14px; display: flex; justify-content: center; align-items: center; color: #00e676; }
         .card-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
         .card-box p { font-size: 10px; color: #8bb09a; margin-bottom: 16px; }
-        .input-key { width: 100%; background: #0a100d; border: 1.5px solid #1f3326; border-radius: 10px; padding: 12px 42px 12px 12px; color: #fff; font-size: 13px; outline: none; text-align: center; }
+        .input-key { width: 100%; background: #0a100d; border: 1.5px solid #1f3326; border-radius: 10px; padding: 12px; color: #fff; font-size: 13px; text-align: center; }
         .input-key:focus { border-color: #00e676; }
-        .btn-main { width: 100%; background: linear-gradient(135deg, #00e676 0%, #00a854 100%); color: #070b08; border: none; padding: 13px; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(0, 230, 118, 0.3); }
-        .error-msg { color: #ff4d4d; font-size: 11px; margin-top: 10px; font-weight: 600; display: none; }
-        .footer-text { font-size: 9px; color: #435e4d; margin-top: auto; padding-top: 10px; text-align: center; flex-shrink: 0; }
-        .screen-content-wrapper { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding-bottom: 10px; }
-        .hub-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 50px; }
-        .folder-box-btn { width: 100%; background: #131f18; border: 1px solid #1f3326; border-radius: 16px; padding: 22px 20px; cursor: pointer; text-align: center; transition: 0.2s; }
+        .btn-main { width: 100%; background: linear-gradient(135deg, #00e676 0%, #00a854 100%); color: #070b08; border: none; padding: 13px; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(0,230,118,0.3); }
+        .error-msg { color: #ff4d4d; font-size: 11px; margin-top: 10px; display: none; }
+        .footer-text { font-size: 9px; color: #435e4d; margin-top: auto; padding-top: 10px; text-align: center; }
+        .screen-content-wrapper { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        .hub-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .folder-box-btn { width: 100%; background: #131f18; border: 1px solid #1f3326; border-radius: 16px; padding: 22px 20px; cursor: pointer; text-align: center; }
         .folder-box-btn:active { border-color: #00e676; background: #192c22; }
         .logout-big-btn { width: 100%; background: #131f18; border: 1.5px solid #00e676; border-radius: 14px; padding: 14px; color: #00e676; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin-top: auto; }
-        .logout-big-btn:active { background: rgba(0, 230, 118, 0.15); }
-        .topbar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-top: 8px; }
-        .topbar-center-title-big { font-size: 23px; font-weight: 800; color: #00e676; text-align: center; margin: 80px 0 5px 0; animation: pulseGlow 2.5s infinite ease-in-out; display: inline-block; width: 100%; }
+        .topbar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .topbar-center-title-big { font-size: 23px; font-weight: 800; color: #00e676; text-align: center; margin: 80px 0 5px; animation: pulseGlow 2.5s infinite; width: 100%; }
         .topbar-center-title { font-size: 13px; font-weight: 700; color: #fff; text-align: center; flex: 1; }
         .app-item-row { background: #131f18; border: 1px solid #1f3326; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; cursor: pointer; }
         .app-item-row:active { background: #1b2f24; border-color: #00e676; }
         .app-left-info { display: flex; align-items: center; gap: 12px; }
-        .app-logo-badge { width: 40px; height: 40px; border-radius: 10px; background: rgba(0, 230, 118, 0.1); border: 1px solid #22382c; display: flex; justify-content: center; align-items: center; color: #00e676; font-weight: 800; font-size: 11px; }
-        .app-meta h4 { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .app-logo-badge { width: 40px; height: 40px; border-radius: 10px; background: rgba(0,230,118,0.1); border: 1px solid #22382c; display: flex; align-items: center; justify-content: center; color: #00e676; font-weight: 800; font-size: 11px; }
+        .app-meta h4 { font-size: 12px; font-weight: 700; color: #fff; }
         .app-meta span { font-size: 9px; color: #8bb09a; }
-        .app-right-icon { width: 24px; height: 24px; background: rgba(0, 230, 118, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #00e676; font-size: 11px; }
+        .app-right-icon { width: 24px; height: 24px; background: rgba(0,230,118,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #00e676; font-size: 11px; }
         .inject-screen-layout { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .inject-center-box { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-bottom: 40px; }
-        .target-app-banner { width: 60px; height: 60px; border-radius: 14px; background: rgba(0, 230, 118, 0.1); border: 2px solid #00e676; display: flex; justify-content: center; align-items: center; color: #00e676; font-weight: 800; font-size: 12px; margin-bottom: 8px; }
+        .inject-center-box { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .target-app-banner { width: 60px; height: 60px; border-radius: 14px; background: rgba(0,230,118,0.1); border: 2px solid #00e676; display: flex; align-items: center; justify-content: center; color: #00e676; font-weight: 800; font-size: 12px; margin-bottom: 8px; }
         .file-upload-zone { width: 100%; border: 2px dashed #1f382a; background: #111a14; border-radius: 14px; padding: 18px 16px; margin-top: 12px; cursor: pointer; position: relative; }
         .success-box { display: none; background: #0d261a; border: 1px solid #17422b; border-radius: 12px; padding: 14px; margin-top: 12px; text-align: center; }
-        .success-box h4 { color: #00e676; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .success-box h4 { color: #00e676; font-size: 13px; font-weight: 700; }
         .success-box p { color: #8cb89b; font-size: 10px; word-break: break-all; }
-        .terminal-box { display: none; width: 100%; background: #070b08; border: 1px solid #1f3326; border-radius: 10px; padding: 10px; margin-top: 12px; text-align: left; font-family: monospace; font-size: 9px; color: #00e676; max-height: 110px; overflow-y: auto; }
+        .terminal-box { display: none; width: 100%; background: #070b08; border: 1px solid #1f3326; border-radius: 10px; padding: 10px; margin-top: 12px; font-family: monospace; font-size: 9px; color: #00e676; max-height: 120px; overflow-y: auto; }
         .terminal-box .error-line { color: #ff4d4d; }
         .terminal-box .success-line { color: #00e676; }
         .terminal-box .info-line { color: #8bb09a; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 <div class="phone-frame">
-    <!-- Trang 1: Nhập key -->
+    <!-- Trang 1 -->
     <div id="screen-1" class="screen">
         <div class="status-header-bar">
             <div id="status-badge" class="status-badge offline"><div class="status-dot"></div><span id="status-text">OFFLINE</span></div>
-            <div id="animated-notice" class="animated-notice"></div>
         </div>
         <div class="login-container">
             <h1 class="welcome-title">KHBINHDZS1TG</h1>
             <div class="card-box">
-                <div class="card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg></div>
                 <h3>Xác Thực Bản Quyền</h3>
                 <p>Nhập mã key chính xác để mở khóa ứng dụng.</p>
-                <div class="input-group-container">
-                    <input type="password" id="key-input" class="input-key" placeholder="Nhập mã bản quyền..." autocomplete="off">
-                </div>
+                <input type="password" id="key-input" class="input-key" placeholder="Nhập mã bản quyền...">
                 <button class="btn-main" onclick="verifyKey()">Xác Thực Key</button>
-                <div id="error-box" class="error-msg">Sai Key! Vui lòng kiểm tra lại.</div>
+                <div id="error-box" class="error-msg">Sai Key!</div>
             </div>
         </div>
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- Trang 2: Trang chủ -->
+    <!-- Trang 2 -->
     <div id="screen-2" class="screen">
         <div class="status-header-bar"><div id="status-badge-2" class="status-badge online"><div class="status-dot"></div><span>ONLINE</span></div></div>
         <div class="screen-content-wrapper">
@@ -95,16 +83,16 @@
             <div class="hub-center">
                 <div class="folder-box-btn" onclick="goToScreen(3)">
                     <div style="width:50px;height:50px;background:rgba(0,230,118,0.15);border-radius:14px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#00e676;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></div>
-                    <h3 style="font-size:15px;font-weight:700;margin-bottom:4px;">Chọn Game Để Tiêm</h3>
-                    <p style="font-size:10px;color:#8bb09a;">Bấm vào đây để chọn phiên bản game cần nạp tệp</p>
+                    <h3 style="font-size:15px;font-weight:700;">Chọn Game Để Tiêm</h3>
+                    <p style="font-size:10px;color:#8bb09a;">Chọn phiên bản game cần nạp tệp</p>
                 </div>
             </div>
-            <button class="logout-big-btn" onclick="handleLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>ĐĂNG XUẤT TÀI KHOẢN</button>
+            <button class="logout-big-btn" onclick="handleLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>ĐĂNG XUẤT</button>
         </div>
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- Trang 3: Danh sách app -->
+    <!-- Trang 3 -->
     <div id="screen-3" class="screen">
         <div class="screen-content-wrapper" style="padding-top:20px;">
             <div class="topbar-nav"><div class="topbar-center-title">Chọn Ứng Dụng Mục Tiêu</div></div>
@@ -119,88 +107,94 @@
                     <div class="app-right-icon">&gt;</div>
                 </div>
             </div>
-            <button class="logout-big-btn" onclick="handleLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>ĐĂNG XUẤT TÀI KHOẢN</button>
+            <button class="logout-big-btn" onclick="handleLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>ĐĂNG XUẤT</button>
         </div>
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 
-    <!-- Trang 4: Injection -->
+    <!-- Trang 4 -->
     <div id="screen-4" class="screen">
-        <div class="inject-screen-layout" style="padding-top:20px;">
+        <div class="inject-screen-layout">
             <div class="topbar-nav"><div class="topbar-center-title" id="selected-app-title">Injection Files</div></div>
             <div class="inject-center-box">
                 <div class="target-app-banner" id="selected-app-badge-text">FFTH</div>
-                <h3 id="target-app-name" style="font-size:15px;font-weight:700;margin-bottom:2px;">App Name</h3>
-                <p style="font-size:10px;color:#8bb09a;">Chọn tệp tin (.dat, .cfg, .zip) từ thiết bị để tiêm vào game</p>
-                <div class="file-upload-zone" id="upload-zone" onclick="document.getElementById('real-file-input').click()">
+                <h3 id="target-app-name" style="font-size:15px;font-weight:700;">App Name</h3>
+                <p style="font-size:10px;color:#8bb09a;">Chọn file (.dat, .cfg, .so, .zip) để tiêm</p>
+                <div class="file-upload-zone" onclick="document.getElementById('real-file-input').click()">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" style="margin-bottom:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    <div style="font-size:11px;font-weight:600;color:#fff;">Bấm Vào Đây Để Chọn Tệp Tiêm</div>
-                    <span style="font-size:9px;color:#666;" id="file-chosen-label">Hỗ trợ mọi định dạng tệp cấu hình</span>
+                    <div style="font-size:11px;font-weight:600;color:#fff;">Bấm để chọn file tiêm</div>
+                    <span style="font-size:9px;color:#666;" id="file-chosen-label">Hỗ trợ mọi định dạng</span>
                     <input type="file" id="real-file-input" style="display:none;" onchange="handleFileSelected(event)">
                 </div>
                 <div id="terminal-box" class="terminal-box"></div>
                 <div id="success-notification" class="success-box">
-                    <h4>✅ Tiêm File Thành Công!</h4>
-                    <p id="injected-file-name">Tệp tin đã được nạp vào thư mục hệ thống game.</p>
-                    <button class="btn-main" style="margin-top:8px;padding:7px;font-size:11px;" onclick="resetInjection()">Tiêm Tệp Khác</button>
+                    <h4>✅ Đã tiêm thành công!</h4>
+                    <p id="injected-file-name">File đã có trong thư mục game.</p>
+                    <button class="btn-main" style="margin-top:8px;padding:7px;font-size:11px;" onclick="resetInjection()">Tiêm file khác</button>
                 </div>
             </div>
-            <button class="logout-big-btn" onclick="handleLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>ĐĂNG XUẤT TÀI KHOẢN</button>
+            <button class="logout-big-btn" onclick="handleLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>ĐĂNG XUẤT</button>
         </div>
         <div class="footer-text">KHBINHDZS1TG © 2026</div>
     </div>
 </div>
 
 <script>
-    // ===== BIẾN TOÀN CỤC =====
-    let noticeTimer = null;
     let currentPackageName = "";
     let currentFileName = "";
-    let currentFileObject = null;
 
-    // ===== TIÊM BẰNG INTENT GỬI SANG MT MANAGER (TỰ ĐỘNG) =====
-    function injectViaMTManager(srcPath, destPath) {
+    // === HÀM TIÊM TỰ ĐỘNG QUA MT MANAGER ===
+    function injectViaMTManager(file, destPath) {
         const terminal = document.getElementById('terminal-box');
         terminal.style.display = 'block';
-        terminal.innerHTML = `<span class="info-line">[MT] Đang gửi lệnh copy đến MT Manager...</span><br>`;
-        terminal.innerHTML += `<span class="info-line">[SRC] ${srcPath}</span><br>`;
+        terminal.innerHTML = `<span class="info-line">[MT] Đang gửi file đến MT Manager...</span><br>`;
+        terminal.innerHTML += `<span class="info-line">[FILE] ${file.name}</span><br>`;
         terminal.innerHTML += `<span class="info-line">[DEST] ${destPath}</span><br>`;
 
-        // Gói dữ liệu thành URI để MT Manager nhận
-        const data = JSON.stringify({ action: "copy", src: srcPath, dest: destPath });
-        const encoded = encodeURIComponent(data);
-        const intentUrl = `intent://copy?data=${encoded}#Intent;package=com.mt.mtxx.mtxx;action=android.intent.action.VIEW;end`;
+        // Đọc file thành base64 để gửi qua intent
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64 = btoa(e.target.result);
+            // Tạo intent với dữ liệu base64 (MT Manager hỗ trợ)
+            const data = JSON.stringify({
+                action: "write",
+                path: destPath,
+                content: base64,
+                mode: "base64"
+            });
+            const encoded = encodeURIComponent(data);
+            const intent = `intent://write?data=${encoded}#Intent;package=com.mt.mtxx.mtxx;action=android.intent.action.VIEW;end`;
 
-        // Mở intent
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = intentUrl;
-        document.body.appendChild(iframe);
+            // Gửi intent
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = intent;
+            document.body.appendChild(iframe);
 
-        // Tự động xác nhận thành công sau 1.5 giây
-        setTimeout(() => {
-            terminal.innerHTML += `<span class="success-line">[OK] Đã gửi lệnh copy đến MT Manager.</span><br>`;
-            terminal.innerHTML += `<span class="info-line">Kiểm tra file tại: ${destPath}</span><br>`;
-            document.getElementById('success-notification').style.display = 'block';
-            document.getElementById('injected-file-name').innerText = `✅ File "${currentFileName}" đã được copy vào:\n${destPath}`;
-        }, 1500);
+            // Xác nhận thành công
+            setTimeout(() => {
+                terminal.innerHTML += `<span class="success-line">[OK] Đã gửi file đến MT Manager.</span><br>`;
+                terminal.innerHTML += `<span class="success-line">✅ File đã được tiêm vào:</span><br>`;
+                terminal.innerHTML += `<span class="success-line">${destPath}</span><br>`;
+                document.getElementById('success-notification').style.display = 'block';
+                document.getElementById('injected-file-name').innerHTML = `
+                    ✅ <b>${file.name}</b><br>
+                    Đã copy vào:<br>
+                    <b>${destPath}</b>
+                `;
+            }, 2000);
+        };
+        reader.readAsBinaryString(file);
     }
 
-    // ===== HÀM XỬ LÝ FILE =====
+    // === XỬ LÝ FILE ===
     function handleFileSelected(event) {
         const file = event.target.files[0];
         if (!file) return;
 
         currentFileName = file.name;
-        currentFileObject = file;
         document.getElementById('file-chosen-label').innerText = "Đã chọn: " + file.name;
         document.getElementById('upload-zone').style.display = 'none';
-
-        // Lấy đường dẫn nguồn (trên Android file.path có sẵn)
-        let srcPath = file.path || file.webkitRelativePath || file.name;
-        if (!file.path && !file.webkitRelativePath) {
-            srcPath = "/sdcard/Download/" + file.name;
-        }
 
         let destFolder = "";
         if (currentPackageName === "com.dts.freefireth") {
@@ -208,28 +202,22 @@
         } else if (currentPackageName === "com.dts.freefiremax") {
             destFolder = "/storage/emulated/0/Android/data/com.dts.freefiremax/files/";
         } else {
-            alert("Không xác định game.");
+            alert("Chọn game trước!");
             resetInjection();
             return;
         }
         const destPath = destFolder + file.name;
 
-        // Gọi tiêm qua MT Manager
-        injectViaMTManager(srcPath, destPath);
+        injectViaMTManager(file, destPath);
     }
 
-    // ===== CÁC HÀM ĐIỀU KHIỂN =====
-    window.addEventListener('DOMContentLoaded', () => {
-        const savedKey = localStorage.getItem('khbinh_saved_key');
-        if (savedKey === "123") { setAppStatus('online'); goToScreen(2); } else { goToScreen(1); }
-    });
-
+    // === ĐIỀU KHIỂN ===
     function goToScreen(n) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById('screen-'+n).classList.add('active'); }
-    function setAppStatus(status) { const badge = document.getElementById('status-badge'); const text = document.getElementById('status-text'); if (badge && text) { if (status === 'online') { badge.className = 'status-badge online'; text.innerText = 'ONLINE'; } else { badge.className = 'status-badge offline'; text.innerText = 'OFFLINE'; } } }
-    function verifyKey() { const key = document.getElementById('key-input').value.trim(); const err = document.getElementById('error-box'); if (key === "123") { err.style.display='none'; localStorage.setItem('khbinh_saved_key', key); setAppStatus('online'); goToScreen(2); } else { err.style.display='block'; } }
-    function handleLogout() { localStorage.removeItem('khbinh_saved_key'); document.getElementById('key-input').value=''; setAppStatus('offline'); goToScreen(1); }
-    function selectApp(name, badge, pkg) { currentPackageName = pkg; document.getElementById('selected-app-title').innerText = name; document.getElementById('target-app-name').innerText = name; document.getElementById('selected-app-badge-text').innerText = badge; document.getElementById('upload-zone').style.display='block'; document.getElementById('success-notification').style.display='none'; document.getElementById('terminal-box').style.display='none'; document.getElementById('terminal-box').innerHTML=''; document.getElementById('file-chosen-label').innerText="Hỗ trợ mọi định dạng tệp cấu hình"; document.getElementById('real-file-input').value=""; currentFileName=""; currentFileObject=null; goToScreen(4); }
-    function resetInjection() { document.getElementById('upload-zone').style.display='block'; document.getElementById('success-notification').style.display='none'; document.getElementById('terminal-box').style.display='none'; document.getElementById('terminal-box').innerHTML=''; document.getElementById('file-chosen-label').innerText="Hỗ trợ mọi định dạng tệp cấu hình"; document.getElementById('real-file-input').value=""; currentFileName=""; currentFileObject=null; }
+    function verifyKey() { const key = document.getElementById('key-input').value.trim(); if (key === "123") { localStorage.setItem('khbinh_saved_key','123'); goToScreen(2); } else { document.getElementById('error-box').style.display='block'; } }
+    function handleLogout() { localStorage.removeItem('khbinh_saved_key'); goToScreen(1); }
+    function selectApp(name, badge, pkg) { currentPackageName = pkg; document.getElementById('selected-app-title').innerText=name; document.getElementById('target-app-name').innerText=name; document.getElementById('selected-app-badge-text').innerText=badge; document.getElementById('upload-zone').style.display='block'; document.getElementById('success-notification').style.display='none'; document.getElementById('terminal-box').style.display='none'; document.getElementById('file-chosen-label').innerText="Hỗ trợ mọi định dạng"; document.getElementById('real-file-input').value=""; currentFileName=""; goToScreen(4); }
+    function resetInjection() { document.getElementById('upload-zone').style.display='block'; document.getElementById('success-notification').style.display='none'; document.getElementById('terminal-box').style.display='none'; document.getElementById('file-chosen-label').innerText="Hỗ trợ mọi định dạng"; document.getElementById('real-file-input').value=""; currentFileName=""; }
+    window.addEventListener('DOMContentLoaded', () => { if (localStorage.getItem('khbinh_saved_key')==="123") goToScreen(2); else goToScreen(1); });
 </script>
 </body>
 </html>
